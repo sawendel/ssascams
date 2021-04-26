@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800&display=swap');
+
+      :root{
+        --blue1 :#002a5c;
+        --grey1 :#263238;
+        
+
+    }
+      .screen *,
+      .component-wrapper * {
+        box-sizing: border-box;
+        width: 100%;
+      }
+      .center-horizontalf {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          width: 100%;
+      }
+      
+      .letter{
+          width: 612px;
+          height: 793px;
+          padding: 40px 30px;
+          margin: auto;
+          box-sizing: border-box;
+          box-shadow: 0px 0px 6px rgb(144 164 174 / 50%);
+          position: relative;
+          
+      }
+      .letter *{
+        font-family: 'Roboto Slab', sans-serif;
+      }
+
+      .letter-header{
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+      }
+      .SSA-Title{
+        color: var(--blue1);
+        margin: 0 0 0 15px;
+        border-bottom: 1px solid var(--blue1);
+        width: 100%;
+        font-size: 14px;
+        
+      }
+      
+      
+
+      .header-info{
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .recipient{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        position: relative;
+      }
+      .sender{
+        position: relative;
+      }
+
+      .recipient-content *, .sender *{
+        margin: 0;
+        font-family: 'Roboto';
+        font-size: 11px;
+        color: var(--grey1);
+        line-height: 13px;
+      }
+
+      .recipient-content p:last-child{
+        margin-top: 10px;
+      }
+
+
+      .letter-footer{
+        position: absolute;
+        bottom: 40px;
+        left: 0;
+        width: 100%;
+      }
+
+      .letter-body{
+        margin-top: 30px ;
+      }
+      
+      .letter-footer *{
+        text-align: center;
+        width: 100%;
+        margin: 0;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--grey1);
+
+      }
+
+      .body-title{
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--grey);
+        width: 100%;
+      }
+      .body-subtitle{
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--grey);
+        width: 100%;
+      }
+      .body-paragraph{
+        font-size: 11px;
+        font-weight: 400;
+        color: var(--grey);
+        width: 100%;
+        line-height: 16px;
+      }
+
+      .center-text{
+        text-align: center;
+      }
+      .right-text{
+        text-align: right;
+      }
+
+      .request-sender{
+        margin-left: 30%;
+      }
+      .request-sender *{
+        margin: 0;
+      }
+
+      
+
+      /*FOR THE TOOLTIPS*/
+      .message-overlay{
+            border-radius: 8px;
+            background-color:  #455a64;
+            height: fit-content;
+            position: absolute;
+            width: max-content;
+            max-width: 150px;
+            left: 0;
+            right: 0;
+            bottom: 60%;
+            margin: auto;
+            z-index: 99999;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 11px 8px;
+        }
+        .message-overlay::after{
+            content: " ";
+            position: absolute;
+            border-style: solid;
+            top: 100%;
+            left: 50%; /* To the left of the tooltip */
+            margin-left: -5px;
+            border-width: 5px;
+           
+            border-color: #455a64 transparent  transparent transparent;
+        }
+        .overlay-text{
+            padding: 0px;
+            overflow: hidden;
+            max-width: 250px;
+            max-height: 300px;
+            width: max-content;
+            font-size: 12px;
+            font-family: 'Roboto';
+            color: white;
+        }
+
+        .overlay-image{
+            height: 20px;
+            width: 20px;
+            z-index: 2;
+            margin-right: 10px;
+        }
+
+        .overlay-recipient{
+            left: unset;
+            right: 250px;
+        }
+        .overlay-date{
+          left: unset;
+          right: 250px;
+          bottom: unset;
+          top: 50px;
+        }
+
+        .overlay-recipient::after{
+            top: 50%;
+            left: 100%;
+            margin-left: unset;
+            margin-top: -5px;
+            border-width: 5px;
+            border-color:  transparent  transparent transparent #455a64;
+        }
+        .overlay-date::after{
+            top: 50%;
+            left:  100%;
+            margin-left: unset;
+            margin-top: -5px;
+            border-width: 5px;
+            border-color:  transparent transparent transparent #455a64;
+        }
+        .overlay-sender
+        {
+          left: -30px;
+          right: unset;
+          bottom: 110%;
+        }
+
+
+        /*For the body overlays*/
+        .overlay-inline{
+            z-index: 1;
+            position: absolute;
+            width: fit-content;
+            bottom: 20px;
+            left: -50px;
+            border-radius: 8px;
+            box-shadow: 0px 1px 7px 2px rgb(38 50 56 / 17%);
+            background-color: #455a64;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            max-width: 200px;
+            height: auto;
+            padding: 11px 8px;
+        }
+        .body-overlay-text{
+            width: max-content;
+            text-align: center;
+            margin: auto;
+            font-family: 'Roboto';
+            font-size: 12px;
+            display: inline-block;
+            color: white;
+            font-family: 'Roboto';
+            
+
+        }
+        .overlay-inline::after{
+            content: " ";
+            position: absolute;
+            top: 100%; /* At the bottom of the tooltip */
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #455a64 transparent transparent transparent;
+        }
+        .body-overlay-image{
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+    .body-overlay-wrapper{
+        position: relative;
+        display: inline-block;
+    }
+      
+    </style>
+  </head>
+  <body>
+    <div class="center-horizontal">
+      <div class="letter">
+          <div class="letter-header">
+              <img class="SSA-img" src="./images/SSA.svg">
+              <p class="SSA-Title">SOCIAL SECURITY ADMINISTRATION</p>
+          </div>
+            <div class="recipient">
+                <div class="message-overlay overlay-recipient overlay">
+                    <img class="overlay-image" src="./images/alert-triangle.svg">
+                    <div id="overlay-recipient" class="overlay-text">
+                        Body with just explanation user name
+                    </div>
+                </div>
+                <div class="message-overlay overlay-date overlay">
+                  <img class="overlay-image" src="./images/alert-triangle.svg">
+                  <div id="overlay-date" class="overlay-text">
+                      Body with just explanation user name
+                  </div>
+              </div>
+                <div class="recipient-content">
+                  <p id="office-name">Office of Disability Adjudication and Review</p>
+                  <p id="office-specific-name">SSA ODAR Hearing Ofc</p>
+                  <p id="office-in-building-address"> Suit 1000, 10th Floor</p>
+                  <p id="office-street-address">500 East Broward Blvd</p>
+                  <p id="office-city-state-zip">Ft Lauderdale, FL 33394-3026</p>  
+                  <p id="letter-date">Date: April 13, 2018</p>
+                </div>
+            </div>
+            <div class="sender">
+                <div class="message-overlay overlay-sender overlay">
+                    <img class="overlay-image" src="./images/alert-triangle.svg">
+                    <div id="overlay-sender" class="overlay-text">
+                        Body with just explanation user name
+                    </div>
+                </div>
+              <p id="recipient-name">Recipient Name Here</p>
+              <p id="recipient-street-address">Street Address</p>
+              <p id="recipient-city-state-zip">City State ZIP code</p>
+            </div>
+          <div class="letter-body">
+            <p class="body-title center-text">Notice of Decision - Fully Favorable</p>
+            <p class="body-paragraph">I carefully reviewed the facts of your case and made the enclosed fully favorable decision. Please read this notice and my decision.</p>
+            <p class="body-paragraph">Another office will process my decision. That office may ask you for more information. If you do not hear anything within 60 days of the date of this notice, please contact your local office. The contac information for your local office is at the end of this notice.</p>
+            <p class="body-subtitle">If You Disagree With My Decision</p>
+            <p class="body-paragraph">If you disagree with my decision, you may file an appeal with the Appeals Council.</p>
+            <p class="body-subtitle">How To File An Appeal </p>
+            <p class="body-paragraph">To file an appeal you or your representative must ask in writing that the Appeals Council review my decision. You may user our request for Review form (HA-520) or write a letter. Ther form is available at www.socialsecurity.gov. Please put the Social Security number shown above on any appeal you file. If you need help, you may file in person at any Social Security or hearing office.</p>
+            <p class="body-paragraph">Please send your request to:</p>
+            <div class="request-sender">
+              <p class="body-paragraph">Appeals Council</p>
+              <p class="body-paragraph">Office of Disability Adjudication and Review</p>
+              <p class="body-paragraph">5107 Lessburg Pike</p>
+              <p class="body-paragraph">Falls Clurch, VA 22041-315</p>
+            </div>
+            <p class="body-subtitle">Time Limit To File An Appeal</p>
+            <p class="body-paragraph">You must file your written appeal <span class="body-subtitle">within 60 days</span> of the date this notice. The Appeals Council assumes you got this notice 5 days after the date of the notice unless you show you did</p>
+            <p id="form-id" class="body-paragraph right-text">Form HA-L76 (03-2010)</p>
+          </div>
+          <div class="letter-footer">
+              <p>Suspect Social Security Fraud?</p>
+              <p>Please visit http://oig.ssa.gov/r or call the Inspector General’s Fraud</p>
+              <p>IIofline at 1-800-269-0271 (TTY 1-866-501-2101).</p>
+          </div>
+
+          
+              
+      </div>
+    </div>
+  </body>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+        
+        
+  <script src = "./data/letter.js"></script>
+    <script type='text/javascript'>
+        $(document).ready(function(){
+                var data = JSON.parse(jsonData);
+                
+
+                document.getElementById("recipient-name").innerText = data.Recipient_Name;
+                document.getElementById("recipient-street-address").innerHTML = data.Recipient_Street_Address;
+                document.getElementById("recipient-city-state-zip").innerHTML = data.Recipient_City.concat(", ", data.Recipient_State, " ", data.Recipient_Zip_Code);
+
+                document.getElementById("office-name").innerHTML = data.Office_Name;
+                document.getElementById("office-specific-name").innerHTML = data.Specific_Office_Name;
+                document.getElementById("office-in-building-address").innerHTML = data.Office_Address_In_Building;
+                document.getElementById("office-street-address").innerHTML = data.Office_Street_Address;
+                document.getElementById("office-city-state-zip").innerHTML = data.Office_City.concat(", ", data.Office_State, " ", data.Office_Zip_Code);
+
+                document.getElementById("letter-date").innerHTML = "Date: ".concat(data.Month," ", data.Day, ", ", data.Year);
+
+                document.getElementById("form-id").innerHTML = data.Form_ID;
+                document.querySelector(".letter-body").innerHTML = addOverlaysToBody(data.Letter_Body);
+
+
+
+
+                /*FOR THE OVERLAYS*/
+                var overlay_Messages = JSON.parse(overlayMessages);
+                if(overlay_Messages.Sender == "" || overlay_Messages.Sender == null){
+                    document.querySelector(".overlay-sender").style.display = "none";
+                }
+                else{
+                    document.getElementById("overlay-sender").innerHTML = overlay_Messages.Sender;
+                }
+                if(overlay_Messages.Recipient_Direction == "" || overlay_Messages.Recipient_Direction == null){
+                    document.querySelector(".overlay-recipient").style.display = "none";
+                }
+                else{
+                    document.getElementById("overlay-recipient").innerHTML = overlay_Messages.Recipient_Direction;
+                }
+                if(overlay_Messages.Date == "" || overlay_Messages.Date == null){
+                    document.querySelector(".overlay-date").style.display = "none";
+                }
+                else{
+                    document.getElementById("overlay-date").innerHTML = overlay_Messages.Date;
+                }
+
+                var params = window.location.search.substring(1);
+                var displayTheOverlays = (params.split('=')[1] == 'true');
+                console.log(displayTheOverlays);
+                if(!displayTheOverlays){
+                    var overlays = document.querySelectorAll(".overlay");
+                    overlays.forEach((overlay)=>{
+                        overlay.style.display = "none";
+                    });
+                }
+
+
+            
+
+        });
+
+
+        function addOverlaysToBody(bodyWithTags){
+            var result = bodyWithTags;
+            var overlayComponent;
+            const OverlayTexts = getAllTheOverlayTexts(bodyWithTags);
+            OverlayTexts.forEach((element)=>{
+                    overlayComponent = getOverlayComponent(getTagText(element[0]))
+                    result = result.replace(element[0], overlayComponent);
+                })
+
+            return result;
+
+        }
+
+        function getAllTheOverlayTexts(bodyToOverlay){
+            var regularExpression =  new RegExp("@@(.| \n)+@@", "g");
+            return [...bodyToOverlay.matchAll(regularExpression)]; 
+
+        }
+        function getTagText(tag){
+            return tag.replaceAll('@@', '');
+        }
+        function getOverlayComponent(desiredText){
+            return `<span class="body-overlay-wrapper"> <span class="overlay-inline overlay"><img class="body-overlay-image" src="./images/alert-triangle.svg"><span class="body-overlay-text">${desiredText}</span></span></span>`;
+        }
+            </script>
+</html>

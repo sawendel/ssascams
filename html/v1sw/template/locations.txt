@@ -1,0 +1,154 @@
+Saul: 
+https://uwmadison.co1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_e8qqJE3aiHtBtAi
+
+Cleardot
+cleardot.gif
+https://uwmadison.co1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_1Soi4lsnyPxfI4C
+
+Profile Mask
+profile_mask2.png
+https://uwmadison.co1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_72H471akfMaCgvk
+
+
+SSA Side by Side
+SSALogo_SidebySide.jpg
+https://uwmadison.co1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_9Nzm83xoi7KMYNU
+
+
+
+NOT USED Help Outline SVG
+https://uwmadison.co1.qualtrics.com/WRQualtricsControlPanel/File.php?F=F_afviPOHQhd9smKW
+
+NOT USED Settings
+https://uwmadison.co1.qualtrics.com/WRQualtricsControlPanel/File.php?F=F_7Pu8KuhB0lUYbGK
+
+
+NOT USED Style 1 
+https://uwmadison.co1.qualtrics.com/WRQualtricsControlPanel/File.php?F=F_4HjK5J6MfyzJcTY
+
+NOT USED Style 2
+https://uwmadison.co1.qualtrics.com/WRQualtricsControlPanel/File.php?F=F_efYfVH9Gs5ybU46
+
+
+
+
+1a
+<p><span>Is the following message real or fraudulent (+1 point for a correct answer)?</span></p><p> </p>
+<iframe src="https://behavioralsurvey.com/wp-content/uploads/2021/02/cyberattack.html" style="height:500px;width:100%;">
+</iframe>
+
+1b
+<p><span style="font-size:19px;">This message is <strong>FAKE</strong>. See below for tips on what to look for in the message.&nbsp;&nbsp;</span>&nbsp; &nbsp;&nbsp;</p>
+
+<iframe src="https://behavioralsurvey.com/wp-content/uploads/2021/02/cyberattack.html?tooltips=true" style="height:500px;width:100%;">
+</iframe>
+
+
+2a
+<p><span>Is the following message real or fraudulent (+1 point for a correct answer)?</span></p><p> </p>
+<iframe src="https://behavioralsurvey.com/wp-content/uploads/2021/02/protectyourself.html" style="height:500px;width:100%;">
+</iframe>
+
+2b
+<p><span style="font-size:19px;">This message is <strong>REAL</strong>. See below for tips on what to look for in the message.&nbsp;&nbsp;</span>&nbsp; &nbsp;&nbsp;</p>
+
+<iframe src="https://behavioralsurvey.com/wp-content/uploads/2021/02/protectyourself.html?tooltips=true" style="height:500px;width:100%;">
+</iframe>
+
+
+3a: 
+<p><span>Is the following message real or fraudulent (+1 point for a correct answer)?</span></p><p> </p>
+<iframe src="https://behavioralsurvey.com/wp-content/uploads/2021/02/annualreminder.html" style="height:500px;width:100%;">
+</iframe>
+
+3b, With Tips:
+<span style="font-size:19px;">This message is <strong>real</strong>. See below for tips on what to look for in the message.&nbsp;&nbsp;</span>&nbsp; &nbsp;&nbsp;
+
+<iframe id="annualreminder_real_popup" src="https://behavioralsurvey.com/wp-content/uploads/2021/02/annualreminder.html?tooltips=true" style="height:500px;width:100%;">
+</iframe>
+
+4a
+<div><p>Is the following message real or fraudulent?</p><p> </p></div>
+<iframe src="https://behavioralsurvey.com/wp-content/uploads/2021/02/covidbenefits.html" style="height:500px;width:100%;">
+</iframe>
+
+4b
+<p><span style="font-size:19px;">This message is <strong>fake</strong>. See below for tips on what to look for in the message.&nbsp;&nbsp;</span>&nbsp; &nbsp;&nbsp;</p>
+
+<iframe src="https://behavioralsurvey.com/wp-content/uploads/2021/02/covidbenefits.html?tooltips=true" style="height:500px;width:100%;">
+</iframe>
+
+
+
+5a
+<div><p>Is the following message real or fraudulent?</p><p> </p></div>
+<iframe src="https://behavioralsurvey.com/wp-content/uploads/2021/02/getprotected.html" style="height:500px;width:100%;">
+</iframe>
+
+5b
+<p><span style="font-size:19px;">This message is <strong>FAKE</strong>. See below for tips on what to look for in the message.&nbsp;&nbsp;</span>&nbsp; &nbsp;&nbsp;</p>
+
+<iframe src="https://behavioralsurvey.com/wp-content/uploads/2021/02/getprotected.html?tooltips=true" style="height:500px;width:100%;">
+</iframe>
+
+
+
+
+TEST
+
+
+<div><p>Is the following message real or fraudulent?</p><p> </p></div>
+<iframe src="https://behavioralsurvey.com/wp-content/uploads/2021/02/importantinfo.html" style="height:500px;width:100%;">
+</iframe>
+<div><p>Is the following message real or fraudulent?</p><p> </p></div>
+<iframe src="https://behavioralsurvey.com/wp-content/uploads/2021/02/amazonresolve.html" style="height:500px;width:100%;">
+</iframe>
+<div><p>Is the following message real or fraudulent?</p><p> </p></div>
+<iframe src="https://behavioralsurvey.com/wp-content/uploads/2021/02/amazonmask.html" style="height:500px;width:100%;">
+</iframe>
+<div><p>Is the following message real or fraudulent?</p><p> </p></div>
+<iframe src="https://behavioralsurvey.com/wp-content/uploads/2021/02/covidrelief.html" style="height:500px;width:100%;">
+</iframe>
+<div><p>Is the following message real or fraudulent?</p><p> </p></div>
+<iframe src="https://behavioralsurvey.com/wp-content/uploads/2021/02/disabilitybenefits.html" style="height:500px;width:100%;">
+</iframe>
+
+
+
+
+<iframe src="https://behavioralsurvey.com/wp-content/uploads/2021/02/protectyourself_simple.html" style="height:500px;width:100%;">
+</iframe>
+
+
+
+
+
+
+
+
+
+
+
+
+
+Example with Script to Show Tips 
+
+<p><span style="font-size:19px;">This message is <strong>real</strong>. See below for tips on what to look for in the message.&nbsp;&nbsp;</span></p>
+
+<iframe src="https://behavioralsurvey.com/wp-content/uploads/2021/02/annualreminder.html" style="height:500px;width:100%;">
+</iframe>
+
+<iframe id="annualreminder_real_popup" src="https://behavioralsurvey.com/wp-content/uploads/2021/02/annualreminder.html" style="height:500px;width:100%;">
+</iframe>
+<script>
+document.getElementById('annualreminder_real_popup').contentWindow. postMessage("tooltips", "https://behavioralsurvey.com");
+</script>
+
+.Su .nH.aBz{width:100%;overflow-x:auto}
+
+
+https://codepen.io/2kool2/pen/aGOmxZ
+
+
+
+https://uwmadison.co1.qualtrics.com/jfe/form/SV_0AstI8vGPCtEMUC

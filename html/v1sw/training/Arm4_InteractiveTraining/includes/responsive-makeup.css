@@ -1,0 +1,282 @@
+
+/*Para el get protected*/
+@media only screen and (max-device-width: 600px) {
+
+    /*for the content*/
+      .a3s.aiL p{
+        font-size: 24px;
+        text-align: left;
+      }
+      .a3s.aiL a{
+        font-size: 37px;
+      }
+
+      img[alt = "SSA"] {
+          width: 60%;
+          height: auto;
+      }
+      /*Para el h2*/
+      .ha>.hP{
+          font-size: 50px; 
+          line-height: 50px; 
+      }
+      div.ha{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    span.J-H5-Ji{
+        display: flex;
+      }
+
+      .a3s ul
+      {
+        font-size: 20px;
+      }
+
+      h2.hP
+      {
+          margin-top: 30px ;
+      }
+      /*Para el h3*/
+
+     h3.iw span.gD{
+        font-size: 30px;
+     } 
+     .hx .hb, .iv .g3 , .ahR{
+         font-size: 30px;
+         margin-top: 15px;
+     }
+
+     /*Los tamaños de los íconos en el header*/
+     
+
+     .T-I .T-I-J3{
+         height: 45px;
+         width: 45px;
+     }
+     div.T-I-J3.J-J5-Ji {
+         background-size: 45px;
+     }
+     .aDd {
+        display: inline-block !important;
+        position: absolute;
+     }
+
+    
+
+     .SI .bjy::after{
+         background-size: 40px;
+     } 
+
+     .SI .aDd {
+         margin-top: 10px;
+     }
+
+     
+     
+     /* star icon*/
+    .T-KT, .bi4>.T-KT:not(.T-KT-Jp):not(.byM)::before {
+         height: 40px;
+         width: 40px;
+         background-size: 40px;
+     }
+
+     /*reply image and more image*/
+     .hB, .hA{
+        background-size: 40px;
+     }
+      /*Print icon size*/
+      .g1{ 
+          background-size: 40px;
+
+      }
+
+      /*to me arrow*/
+      .ajy > .ajz{
+        background-size: 40px;
+        
+      }
+      .ajz{
+        height: 40px;
+        width: 40px;
+
+      }
+     /*Fix on reply and date wrapping*/
+     .gE.iv.gt{
+        flex-direction: row;
+        flex-wrap: wrap;
+     }
+
+     .gJ>tbody>tr{
+         display: block;
+     }
+
+     /*Inbox image*/
+     .ha .pH-A7{
+        background-size: 40px;
+     }
+     .ha .pH-A7{
+         height: 40px;
+         width: 40px;
+     }
+
+     /*Inbox text*/
+     .ahR{
+         margin-left: 20px;
+         margin-top: 20px;
+     }
+     .hO{
+         font-size: 30px;
+     }
+
+     /*user image*/
+     .ajn{
+         width: 60px;
+         height: 60px;
+     }
+     /*reply table fix*/
+
+     .ajc.headersPanel
+     {
+         margin-top: auto;
+         margin-bottom: auto;
+     }
+     .xD .adz .ady {
+         display: block;        
+         
+     }
+     
+
+     .ady{
+         margin-top: 15px;
+     }
+
+     /*to me table*/
+     .toggled[aria-hidden]{
+         overflow: visible;
+         margin-left: 10px;
+         line-height: 30px;
+        font-size: 30px;
+        max-width: 750px;
+        margin-top: 20px;
+        
+
+     }
+
+     .a3s.aiL p img{
+         height: auto;
+         width: 250px;
+     }
+     
+     .hx .gD{
+        font-size: 30px;
+     }
+
+     .adz .ady{
+         white-space: normal;
+     }
+
+     /*Pop up fix*/
+     .popup .popuptext{
+         width: max-content;
+
+     }
+     span.popup{
+        font-size: 30px;
+
+    }
+
+
+    /*Pop up fixings*/
+
+    .C-A-popup{
+        left: 100px;
+    }
+
+    /*Lesson overlay fix*/
+    #overlaytext{
+        font-size: 35px;
+        z-index: 999;
+    }
+
+    
+
+    /*protect yourself table fixing*/
+
+  
+    #m_6243712275847755750flexible-abe-main-table {
+        margin-left: 10px;
+        margin-right: 10px;
+        
+    }
+    #m_6243712275847755750flexible-abe-main-table table{
+        width: 90%;
+    }
+
+    #m_6243712275847755750flexible-abe-main-table img{
+        width: 100%;
+   
+     
+    }
+
+
+    #m_6243712275847755750flexible-abe-main-table p{
+        font-size: 34px;
+    }
+
+    #m_6243712275847755750flexible-abe-main-table h2{
+        font-size: 34px;
+    }
+    #m_6243712275847755750flexible-abe-main-table h1{
+
+        font-size: 34px;
+    }
+    
+
+
+    img.STAT{
+        width: 450px;
+        height: auto;
+    }
+
+    p.SocialSecurity{
+        font-size: 40px;
+    }
+    
+    }
+
+    @media only screen and (min-device-width: 600px) {
+        table[role=presentation]{
+            max-width: 600px;
+        }
+
+        #m_6243712275847755750flexible-abe-main-table img{
+            width: 87px;
+        }
+        
+        #m_6243712275847755750flexible-abe-main-table p{
+            font-size: 15px;
+        }
+    
+        #m_6243712275847755750flexible-abe-main-table h2{
+            font-size: 17px;
+        }
+        #m_6243712275847755750flexible-abe-main-table h1{
+            font-size: 17px;
+        }
+
+
+        p.WTLF{
+            font-size: 20px!important;
+        }
+
+
+        img.STAT{
+            width: 283px!important;
+            height: auto;
+        }
+
+        
+       
+        }
