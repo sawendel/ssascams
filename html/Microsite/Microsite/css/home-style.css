@@ -1,0 +1,91 @@
+
+/* _________Main content_____________*/
+
+h1 + h2 {
+    margin-top: 1.6rem;
+    margin-bottom: 3.2rem;
+    max-width: 50rem;
+
+}
+
+.home-intro {
+    margin-left: 1.6rem;
+    margin-right: 1.6rem;
+}
+
+#home-big-image {
+    width: 100%;
+    margin-bottom: 3.2rem;
+}
+
+.home-explanation {
+    margin-left: 1.6rem;
+    margin-right: 1.6rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.home-explanation p, h2 {
+    max-width: 50rem;
+}
+
+
+.button_home {
+    border-radius: 2.6rem;
+    padding: .8rem 3.2rem .8rem 3.2rem;
+    max-width: 30rem;
+    border: .2rem solid white;
+}
+
+.button_home:hover {
+    background-color: white;
+    border: .2rem solid #C5050C;
+    color: #C5050C;
+}
+
+p + button {
+    margin-top: 3.2rem;
+}
+
+/* ____________TABLET_______________________________________________________________ */
+
+@media (min-width: 800px) {
+
+    /* _________Main content_____________*/
+
+    .home-intro {
+        margin-left: 2rem;
+        margin-right: 2rem;
+    }
+
+    .home-explanation {
+        margin-left: 2rem;
+        margin-right: 2rem;
+    }
+
+}
+
+/* ____________DESKTOP_______________________________________________________________ */
+
+@media (min-width: 1080px) {
+
+
+    /* _________Main content_____________*/
+
+    .home-intro {
+        display: flex;
+        flex-direction: column;
+        width: 1080px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .home-explanation {
+        display: flex;
+        flex-direction: column;
+        width: 1080px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+}

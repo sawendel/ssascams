@@ -1,0 +1,250 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ______________Fonts styles_______________ */
+html {
+    font-size: 62.5%; /* this sets 1rem = 10px, this is convenient regarding to accessibility and easy to calculate */
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+p {
+    font-size: 1.6rem;
+    color: #607D8B;
+    line-height: 150%;
+}
+
+p strong {
+    font-weight: bold;
+    color: #263238;
+}
+
+p + p {
+    margin-top: 2rem;
+}
+
+h1 {
+    font-size: 4.8rem;
+    color: #263238;
+}
+
+h2 {
+    font-size: 2.4rem;
+    color: #263238;
+    line-height: 150%;
+}
+
+
+h2 + p {
+    margin-top: 2rem;
+}
+
+footer a {
+    font-size: 1.6rem;
+    color: #0479A8;
+}
+
+.button {
+    background-color: #C5050C;
+    border: none;
+    color: white;
+    padding: 2rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.6rem;
+    margin-bottom: 6.4rem;
+    cursor: pointer;
+}
+
+header {
+    font-size: 1.6rem;
+    background-color: #C5050C;
+    color: white;
+    margin-bottom: 6.4rem;
+    height: 3.2rem;
+    width: 100%;
+}
+
+header div{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 1.6rem;
+    margin-right: 1.6rem;
+}
+
+/* _________NAVIGATION BAR_____________*/
+
+nav {
+    display: flex;
+}
+
+.logo-nav {
+    align-self: center;
+    margin-left: 0;
+}
+
+.hamburguer-menu {
+    align-self: center;
+    padding-top: 0.4rem;
+}
+
+nav ul {
+    display: none;
+}
+
+/* _________FOOTER_____________*/
+
+footer {
+    border-top: 1px solid #CFD8DC;
+    padding-top: 3.2rem;
+    margin-top: 10rem;
+    margin-bottom: 5rem;
+    display: flex;
+    flex-direction: column;
+    margin-left: 1.4rem;
+    margin-right: 1.4rem;
+}
+
+.footer-set-options {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.footer-option {
+    margin-top: 1.6rem;
+    display: flex;
+    flex-direction: row;
+    font-style: normal;
+}
+
+.footer-option a {
+    align-self: center;
+    text-decoration: none;
+}
+
+.footer-option a:hover {
+    align-self: center;
+    text-decoration: underline;
+}
+
+
+.footer-option-one {
+    font-weight: bold;
+}
+
+.footer-option-two {
+    font-weight: bold;
+}
+
+.footer-option-three {
+    font-style: italic;
+    font-size: 1.6rem;
+    color: #0479A8;
+}
+
+.footer-set-options :nth-child(3) {
+    margin-top: 2rem;
+}
+
+.footer-logos {
+    order: -1;
+    margin-bottom: 3.2rem;
+    max-width: 30rem;
+}
+
+.footer-logos img {
+    width: 100%;
+}
+
+/* ____________TABLET_______________________________________________________________ */
+
+@media (min-width: 800px) {
+
+    /* _________NAVIGATION BAR_____________*/
+    header div{
+        margin-left: 2rem;
+        margin-right: 2rem;
+    }
+
+    .hamburguer-menu {
+        display: none;
+    }
+
+    header div{
+        padding-top: 0.4rem;
+    }
+
+    nav ul {
+        display: flex;
+    }
+
+    nav li {
+        list-style: none;
+        padding-left: 1.6rem;
+        padding-right: 1.6rem;
+        margin: auto;
+    }
+    
+    li a{ 
+        text-decoration: none;
+        color: white;
+    }
+    
+    nav li :hover {
+        /* background-color:rgba(39, 77, 95, 0.5); */
+        color: #263238;
+    }
+
+    /* _________FOOTER_____________*/
+
+    footer {
+        margin-left: 2rem;
+        margin-right: 2rem;
+    }
+
+    .footer-logos img {
+        width: 75%;
+    }
+
+}
+
+/* ____________DESKTOP_______________________________________________________________ */
+
+@media (min-width: 1080px) {
+
+    /* _________NAVIGATION BAR_____________*/
+    header div{
+        width: 1080px;
+        margin-left: auto;
+        margin-right: auto;
+        /* padding: 0; */
+    }
+
+    h1 {
+        width: 80.8rem;
+    }
+
+    .logo-nav {
+        width: 25rem;
+        margin: 0;
+    }
+
+    /* _________FOOTER_____________*/
+
+    footer {
+        flex-direction: row;
+        width: 1080px;
+        margin-left: auto;
+        margin-right: auto;
+        justify-content: space-between;
+    }
+
+    .footer-logos {
+        order: 0;
+    }
+
+}
