@@ -30,6 +30,7 @@
   -ms-transform: translate(-50%,-50%);
 }
 
+
       .screen *,
       .component-wrapper * {
         box-sizing: border-box;
@@ -41,7 +42,7 @@
         display: flex;
         flex-direction: column;
       }
-      
+           
       .sidebar{
           display: flex;
           flex-direction: column;
@@ -431,10 +432,11 @@
         position: relative;
         display: inline-block;
     }
-    .overlay{
+	
+	 .overlay{
         display: none;
     }
-	
+
     /*Hide on tablet*/
     @media screen and (max-width: 1000px){
         .tablet-hide{
@@ -716,7 +718,6 @@
 					</div>
 				</div>
 
-                
             </div>
             
            
@@ -776,60 +777,56 @@
   -->
   
   <script>
-  var email_body = `
+  <!-- Change the text here, and only here --> 
   
-  <div style="width:100%;float:right;">
- <a onclick="return clickCaptureOverlayOn()" href="https://www.redcross.co">
-<img border="0" alt="American Red Cross" src="./images/redcross.png" width="283" height="178" style="float: right;">
-</div>
-</a>
-
-
-<!-- Main Content of Message -->
-<p class="text-paragraph">During the coronavirus (COVID-19) pandemic, life’s emergencies don’t stop — and neither does the work of the 
-American Red Cross.</p>
-
-<p class="text-paragraph">Because everyone’s wellbeing is our top priority, we continue to work closely with public health officials to deliver our services safely and coordinate our efforts with government agencies and partners. This means that, as the coronavirus evolves and affects communities differently, 
-our services may look different in each area to ensure we are aiding local families where they need us most.</p>
-
-<p class="text-paragraph"><font size="+1"><b>HOW YOU CAN HELP</b></font> This is the time to take care of one another. Join us:</p>
-<p class="text-paragraph">
-<ul>
-<li><b>Give Blood:</b> Please make an appointment to donate in the weeks ahead, if you are healthy and feeling well, by using the Red Cross Blood Donor App, visiting <a onclick="return clickCaptureOverlayOn()" href="http://www.redcrossblood.co">RedCrossBlood.org</a> or calling 1-888-RED CROSS (1-888-533-2467).
-<li><b>Donate:</b> Support all of the urgent humanitarian needs of the American Red Cross by donating to Where It Is Needed Most at <a onclick="return clickCaptureOverlayOn()"  href="http://www.redcross.co">redcross.org</a> or calling 1-888-RED CROSS (1-888-533-2467). A donation of any size makes a difference.
-<li><b>Learn More:</b> If you'd like to learn more about our work, and how you can help in your local area, just reply to this message and we'll connect you with one of our volunteer coordinators.
-</ul>
-</p>
-<br/>
-<p class="text-paragraph"></p>
-<p>Thank you for your onoging support.</p>
-<p>Yves Daccord</p>
-<p>Director General</p>
-<p>International Committee of the Red Cross</p>
-<br/>
-<br/>
-<p class="text-paragraph"></p>
-
-
-<p class="text-paragraph"><font size="-1"><i>About the American Red Cross:</i></font>
-<br/>
-<font size="-1"><i>The American Red Cross shelters, feeds and provides emotional support to victims of disasters; supplies about 40 percent of the nation's blood; teaches skills that save lives; provides international humanitarian aid; and supports military members and their families. The Red Cross is a not-for-profit organization that depends on volunteers and the generosity of the American public to perform its mission. For more information, please visit redcross.org or cruzrojaamericana.org, or visit us on Twitter at @RedCross.</i></font></p>
+  var email_body = `
+Dear <span id="nametofill">Stephen</span>: <br>
+<br>
+Thank you for creating an online account with Social Security. You can sign in any time to <a onclick="return clickCaptureOverlayOn()" onclick="return clickCaptureOverlayOn()" href="http://www.socialsecurity.gov/myaccount">www.socialsecurity.gov/myaccount</a> with your username, password, and the one time security code we will send you to access Social Security's online services. <br>
+<br>
+We require you to choose how you want to receive your security code in order to use our online services. If you have not chosen how you want to receive your security code, follow the steps below:<br>
+<br>
+1.&nbsp; Go to <a onclick="return clickCaptureOverlayOn()" href="http://www.socialsecurity.gov/myaccount">www.socialsecurity.gov/myaccount</a> <br>
+2.&nbsp; Select Sign In.<br>
+3.&nbsp; Enter your username and password.<br>
+4.&nbsp; Choose how you want to receive your security code.<br>
+5.&nbsp; Enter the required information.<br>
+6.&nbsp; We will send an 8-digit security code to you.<br>
+7.&nbsp; Enter the 8-digit security code. This 8-digit security code expires after 10 minutes and is only good for one use.<br>
+<br>
+Each time you sign in to your online Social Security account at <a onclick="return clickCaptureOverlayOn()" href="http://www.socialsecurity.gov/myaccount" rel="noreferrer" target="_blank" >www.socialsecurity.gov/myaccount</a> we will send an 8-digit security code to you. You will enter that 8-digit security code as part of your sign in process. This 8-digit security code is only valid for 10 minutes. If you do not use it within 10 minutes, you must request another security code from the website. If applicable, text messaging charges may apply depending on your plan.<br>
+<br>
+If you did not make this request, call us toll-free at 1-800-772-1213. We can answer specific questions from 7 a.m. to 7 p.m., Monday through Friday. Generally, you will have a shorter wait time if you call during the week after Tuesday. If you are deaf or hard of hearing, you may call our TTY number, 1-800-325-0778. <br>
+<br>
+Social Security may use an Identity Services Provider to help verify your identity and protect your privacy when you register to do business with us online.&nbsp; When we verify your account, our Identity Services Provider may use information from your credit report to help confirm your identity.&nbsp; As a result, you may see a "soft inquiry" entry with the Identity Services Provider on your credit report.&nbsp; This entry shows that we made an inquiry at your request, and the date of that request.&nbsp; This soft inquiry will not appear on a credit report from any other provider. <br>
+<br>
+Soft inquiries are not reported to lenders and do not affect your credit score. You do not incur any charges related to them. Soft inquiries appear only on a credit report issued to you and are generally removed from your credit report within 12 months. <br>
+<br>
+Once you have registered for an online account, you will not create new soft inquiries when you sign in to access our services. <br>
+<br>
+For more information about our Identity Services Provider, please visit <a onclick="return clickCaptureOverlayOn()" href="http://www.socialsecurity.gov/myaccount/verifyandprotectid.html" rel="noreferrer" target="_blank" >www.socialsecurity.gov/myaccount/verifyandprotectid.html</a> online.<br>
+<br>
+Please keep your information safe.&nbsp; Do not share your password with anyone. <br>
+<br>
+Thank you for using the Social Security Administration's services at <a onclick="return clickCaptureOverlayOn()" href="http://www.socialsecurity.gov/myaccount" rel="noreferrer" target="_blank" >www.socialsecurity.gov/myaccount</a> online.<br>
+<br>
+Please do not reply to this email, as we are unable to respond to messages sent to this address.
 `;
 
 email_body = JSON.stringify(email_body);
 
 //THIS IS THE DATA TO BE INSERTED IN THE EMAIL TEMPLATE
 const jsonData = `{
-    "Name" : "Red Cross Covid Campaign",
-    "Reply_to": "covidcampaign@redcross.co",
-    "From": "covidcampaign@redcross.co",
-    "Mailed_by": "Good job -- You checked the Email Header...",
+    "Name" : "NO-REPLY@ssa.gov",
+    "Reply_to": "NO-REPLY@ssa.gov",
+    "From": "NO-REPLY@ssa.gov",
+    "Mailed_by": "mail3.ssa.gov",
     "To": "youremail@gmail.com",
-    "Month": "Apr",
-    "Day": "08",
+    "Month": "Mar",
+    "Day": "07",
     "Year":"2021",
-    "Hour": "4:23pm",
-    "Subject": "Your Urgent Support Is Needed",
+    "Hour": "3:29pm",
+    "Subject": "Important Information About Your Online Account",
     "Email_body": ${email_body}
 }`;
 
@@ -839,12 +836,12 @@ const overlayMessages = `{
     "toMe": "",
     "Name_Sender": "",
     "Date": "",
-    "Reply_to": "",
+    "Reply_to": "Open the header's. Its <br/> from an Official .Gov Domain",
     "From": "",
     "Mailed_by": "",
     "To": ""
 }`;
-  </script>
+</script>
   
   
     <script type='text/javascript'>
@@ -943,8 +940,6 @@ const overlayMessages = `{
 
         });
         
-
-       
 
         function addOverlaysToBody(bodyWithTags){
             var result = bodyWithTags;

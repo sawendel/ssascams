@@ -41,7 +41,7 @@
         display: flex;
         flex-direction: column;
       }
-      
+           
       .sidebar{
           display: flex;
           flex-direction: column;
@@ -431,10 +431,11 @@
         position: relative;
         display: inline-block;
     }
-    .overlay{
+	
+	 .overlay{
         display: none;
     }
-	
+
     /*Hide on tablet*/
     @media screen and (max-width: 1000px){
         .tablet-hide{
@@ -710,12 +711,11 @@
 						
                 </div>
                 
-				<!-- Click Capture Overlay  -->
+			   <!-- Click Capture Overlay  -->
 				<div id="clickCaptureOverlay">
 					<div id="overlaytext">Links have been disabled in this email for testing purposes. Please select "real" in the survey question below to move to the next question.  
 					</div>
 				</div>
-
                 
             </div>
             
@@ -729,8 +729,8 @@
   </body>
 
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
-  
-  	<script>function clickCaptureOverlayOn() {
+
+	<script>function clickCaptureOverlayOn() {
 	  document.getElementById("clickCaptureOverlay").style.display = "block";
 	  return false; // Used to override the link
 	}
@@ -740,7 +740,7 @@
 	  return false;  // Used to override the link
 	}
 	</script>
-
+  
   <!-- Here is where all of the template content goes.  
   You can include it as a separate Javascript file, or simply add it in a script tag.
   The two variables you need to define are:
@@ -777,59 +777,117 @@
   
   <script>
   var email_body = `
-  
-  <div style="width:100%;float:right;">
- <a onclick="return clickCaptureOverlayOn()" href="https://www.redcross.co">
-<img border="0" alt="American Red Cross" src="./images/redcross.png" width="283" height="178" style="float: right;">
-</div>
-</a>
-
-
-<!-- Main Content of Message -->
-<p class="text-paragraph">During the coronavirus (COVID-19) pandemic, life’s emergencies don’t stop — and neither does the work of the 
-American Red Cross.</p>
-
-<p class="text-paragraph">Because everyone’s wellbeing is our top priority, we continue to work closely with public health officials to deliver our services safely and coordinate our efforts with government agencies and partners. This means that, as the coronavirus evolves and affects communities differently, 
-our services may look different in each area to ensure we are aiding local families where they need us most.</p>
-
-<p class="text-paragraph"><font size="+1"><b>HOW YOU CAN HELP</b></font> This is the time to take care of one another. Join us:</p>
-<p class="text-paragraph">
-<ul>
-<li><b>Give Blood:</b> Please make an appointment to donate in the weeks ahead, if you are healthy and feeling well, by using the Red Cross Blood Donor App, visiting <a onclick="return clickCaptureOverlayOn()" href="http://www.redcrossblood.co">RedCrossBlood.org</a> or calling 1-888-RED CROSS (1-888-533-2467).
-<li><b>Donate:</b> Support all of the urgent humanitarian needs of the American Red Cross by donating to Where It Is Needed Most at <a onclick="return clickCaptureOverlayOn()"  href="http://www.redcross.co">redcross.org</a> or calling 1-888-RED CROSS (1-888-533-2467). A donation of any size makes a difference.
-<li><b>Learn More:</b> If you'd like to learn more about our work, and how you can help in your local area, just reply to this message and we'll connect you with one of our volunteer coordinators.
-</ul>
-</p>
-<br/>
-<p class="text-paragraph"></p>
-<p>Thank you for your onoging support.</p>
-<p>Yves Daccord</p>
-<p>Director General</p>
-<p>International Committee of the Red Cross</p>
-<br/>
-<br/>
-<p class="text-paragraph"></p>
-
-
-<p class="text-paragraph"><font size="-1"><i>About the American Red Cross:</i></font>
-<br/>
-<font size="-1"><i>The American Red Cross shelters, feeds and provides emotional support to victims of disasters; supplies about 40 percent of the nation's blood; teaches skills that save lives; provides international humanitarian aid; and supports military members and their families. The Red Cross is a not-for-profit organization that depends on volunteers and the generosity of the American public to perform its mission. For more information, please visit redcross.org or cruzrojaamericana.org, or visit us on Twitter at @RedCross.</i></font></p>
+<table width="100%" cellpadding="12" cellspacing="0" border="0"><tbody><tr><td><div style="overflow: hidden;"><font size="-1"> <u></u>
+<div style="width:100%!important;height:100%!important;margin:0;padding:0">
+<img width="1" height="1" src="./images/cleardot.gif ">
+<table style="width:100%;border-collapse:collapse!important;text-align:left">
+<tbody>
+<tr>
+<td align="center" style="border-collapse:collapse!important;font-family:Arial,sans-serif">
+<table style="width:100%!important;border-collapse:collapse!important;text-align:left" dir="ltr">
+<tbody>
+<tr>
+<td align="center" style="border-collapse:collapse!important;font-family:Arial,sans-serif">
+<table style="width:375px;background-color:rgb(250,250,250);border-collapse:collapse!important;text-align:left">
+<tbody>
+<tr>
+<td style="padding-left:17px;padding-right:18px;padding-top:23px;padding-bottom:21px;border-collapse:collapse!important;font-family:Arial,sans-serif"> <a onclick="return clickCaptureOverlayOn()" href="https://www.amazon.com/gp/r.html?C=1JX3MHY6WXG8Y&amp;K=3E6OV4BZHZL5J&amp;M=urn:rtn:msg:20200826000132a9a76798ab474821822c6230bbf0p0na&amp;R=2VG6F71KRPL9R&amp;T=C&amp;U=http%3A%2F%2Fwww.amazon.com&amp;H=WEW4UWKB2UCCGQEDORSAKK6N2AEA" target="_blank" >
+<table style="margin-bottom:20px;width:100%;min-width:338px;border-collapse:collapse!important;text-align:left">
+<tbody>
+<tr>
+<td align="center" style="border-collapse:collapse!important;font-family:Arial,sans-serif">
+<img src="./images/amazon.png" alt="Amazon.com" title="Amazon.com" border="0" width="130" style="width:130px">
+</td>
+</tr>
+</tbody>
+</table> </a>
+<table style="background-color:rgb(255,255,255);border-left:1px solid rgb(214,214,214);border-right:1px solid rgb(214,214,214);border-bottom:1px solid rgb(214,214,214);border-top:2px solid rgb(206,206,206);border-collapse:collapse!important;text-align:left">
+<tbody>
+<tr>
+<td style="padding-left:23px;padding-right:23px;padding-top:25px;padding-bottom:33px;border-collapse:collapse!important;font-family:Arial,sans-serif">
+<table style="font-size:20px;line-height:24px;color:rgb(0,46,54);margin-bottom:18px;border-collapse:collapse!important;text-align:left">
+<tbody>
+<tr>
+<td style="border-collapse:collapse!important;font-family:Arial,sans-serif"><span>Hi <span id="nametofill">Stephen</a>,</span> </td>
+</tr>
+</tbody>
+</table>
+<table style="font-size:18px;line-height:24px;color:rgb(0,46,54);border-collapse:collapse!important;text-align:left">
+<tbody>
+<tr>
+<td style="padding-bottom:18px;border-collapse:collapse!important;font-family:Arial,sans-serif"><span>Your package is still on the way, but it's running late. Now expected August 26 - August 27.</span> </td>
+</tr>
+<tr>
+<td style="padding-bottom:18px;border-collapse:collapse!important;font-family:Arial,sans-serif"><span>We’re sorry it won’t arrive today, and we'll let you know when your package is out for delivery.</span> </td>
+</tr>
+<tr>
+<td style="padding-bottom:18px;border-collapse:collapse!important;font-family:Arial,sans-serif"><span>You can always <a onclick="return clickCaptureOverlayOn()" style="color:rgb(0,46,54);text-decoration:none;border-bottom:2px solid rgb(0,223,252)" href="https://www.amazon.com/gp/r.html?C=1JX3MHY6WXG8Y&amp;K=3E6OV4BZHZL5J&amp;M=urn:rtn:msg:20200826000132a9a76798ab474821822c6230bbf0p0na&amp;R=14VIANHZM3ZM9&amp;T=C&amp;U=https%3A%2F%2Fwww.amazon.com%2Fgp%2Fcss%2Fshiptrack%2Fview.html%3Fie%3DUTF8%26orderID%3D111-5681764-1322661%26orderingShipmentId%3D37343786279301%26packageId%3D1%26ref_%3Dpe_386300_442715950_DDT_E_DDE&amp;H=N3SABJ2TEAGNLBB4TC2VSNX4NF8A&amp;ref_=pe_386300_442715950_DDT_E_DDE" target="_blank" >track your package</a> for the latest updates.</span> </td>
+</tr>
+</tbody>
+</table>
+<table style="font-size:15px;line-height:20px;border-collapse:collapse!important;text-align:left">
+<tbody>
+<tr>
+<td style="padding-bottom:20px;border-collapse:collapse!important;font-family:Arial,sans-serif"> <a onclick="return clickCaptureOverlayOn()" href="https://www.amazon.com/gp/r.html?C=1JX3MHY6WXG8Y&amp;K=3E6OV4BZHZL5J&amp;M=urn:rtn:msg:20200826000132a9a76798ab474821822c6230bbf0p0na&amp;R=2II4SU4YIG1JQ&amp;T=C&amp;U=https%3A%2F%2Fwww.amazon.com%2Fdp%2FB08CZ869C7%3Fref_%3Dpe_386300_442715950_DDT_E_DDE_di_1&amp;H=IWZYDJ0UTYIAAILNSKC62F2GB2MA&amp;ref_=pe_386300_442715950_DDT_E_DDE_di_1" title="2 Pack Mouth Cover Mask with 4 Mask Activated Carbon Filter Anti Dust Pollution Face Mouth Mask Washable Reusable Mouth Masks for Smoke Cycling Campin" style="text-decoration:none;color:rgb(0,130,150)" target="_blank" >
+<!--<img src="facemask.jpg" alt="" title="Product Image" border="0" style="max-height:84px;max-width:84px">-->
+</a> </td>
+<td style="padding-bottom:20px;padding-left:26px;padding-right:22px;border-collapse:collapse!important;font-family:Arial,sans-serif"> <a onclick="return clickCaptureOverlayOn()" href="https://www.amazon.com/gp/r.html?C=1JX3MHY6WXG8Y&amp;K=3E6OV4BZHZL5J&amp;M=urn:rtn:msg:20200826000132a9a76798ab474821822c6230bbf0p0na&amp;R=3IJ4237M6O6VM&amp;T=C&amp;U=https%3A%2F%2Fwww.amazon.com%2Fdp%2FB08CZ869C7%3Fref_%3Dpe_386300_442715950_DDT_E_DDE_dt_1&amp;H=3AALGCAJMM92N9CNYCC97Z5TWCQA&amp;ref_=pe_386300_442715950_DDT_E_DDE_dt_1" title="2 Pack Mouth Cover Mask with 4 Mask Activated Carbon Filter Anti Dust Pollution Face Mouth Mask Washable Reusable Mouth Masks for Smoke Cycling Campin" style="text-decoration:none;color:rgb(0,130,150)" target="_blank" > 2 Pack Mouth Cover Mask with 4 Mask Activated... </a> </td>
+</tr>
+</tbody>
+</table>
+<table style="font-size:15px;line-height:18px;color:rgb(135,149,150);margin-bottom:18px;border-collapse:collapse!important;text-align:left">
+<tbody>
+<tr>
+<td style="border-collapse:collapse!important;font-family:Arial,sans-serif"> <a onclick="return clickCaptureOverlayOn()" href="https://www.amazon.com/gp/r.html?C=1JX3MHY6WXG8Y&amp;K=3E6OV4BZHZL5J&amp;M=urn:rtn:msg:20200826000132a9a76798ab474821822c6230bbf0p0na&amp;R=R4XNXXWI7LCU&amp;T=C&amp;U=https%3A%2F%2Fwww.amazon.com%2Fgp%2Fcss%2Fsummary%2Fedit.html%3Fie%3DUTF8%26orderID%3D111-5681764-1322661%26ref_%3Dpe_386300_442715950_DDT_E_DDE&amp;H=AONUSYWKS8AYRT1PPX2AWLZ0I30A&amp;ref_=pe_386300_442715950_DDT_E_DDE" style="text-decoration:none;color:rgb(135,149,150)" target="_blank" >Order #111-5681764-1322661</a> </td>
+</tr>
+</tbody>
+</table>
+<table border="0" width="100%" cellpadding="0" cellspacing="0" style="border-left:0;border-right:0;border-top:0;border-bottom:0;margin-bottom:18px;margin-top:12px;border-collapse:collapse!important;text-align:left">
+<tbody>
+<tr>
+<td style="width:5px;font-size:1px;border-collapse:collapse!important;font-family:Arial,sans-serif"> &nbsp; </td>
+<td style="width:284px;min-width:284px;background:none;border-top:0px;border-right:0px;border-left:0px;border-bottom:1px solid rgb(135,149,150);height:1px;margin:0px 0px 0px 0px;font-size:1px;border-collapse:collapse!important;font-family:Arial,sans-serif"> &nbsp; </td>
+<td style="width:5px;font-size:1px;border-collapse:collapse!important;font-family:Arial,sans-serif"> &nbsp; </td>
+</tr>
+</tbody>
+</table>
+<table style="font-size:9px;line-height:15px;color:rgb(134,134,134);border-collapse:collapse!important;text-align:left">
+<tbody>
+<tr>
+<td style="border-collapse:collapse!important;font-family:Arial,sans-serif"><span style="font-size:9px;line-height:15px;color:rgb(134,134,134)">This email was sent from an email address that can't receive emails. Please don't reply to this email.</span> </td>
+</tr>
+</tbody>
+</table> </td>
+</tr>
+</tbody>
+</table> </td>
+</tr>
+</tbody>
+</table> </td>
+</tr>
+</tbody>
+</table> </td>
+</tr>
+</tbody>
+</table>
+<img width="1" height="1" src="./images/cleardot.gif "></div>
+</font></div></td></tr></tbody></table>
 `;
 
 email_body = JSON.stringify(email_body);
 
 //THIS IS THE DATA TO BE INSERTED IN THE EMAIL TEMPLATE
 const jsonData = `{
-    "Name" : "Red Cross Covid Campaign",
-    "Reply_to": "covidcampaign@redcross.co",
-    "From": "covidcampaign@redcross.co",
-    "Mailed_by": "Good job -- You checked the Email Header...",
+    "Name" : "Amazon.com",
+    "Reply_to": "order-update@amazon.com",
+    "From": "no-reply@amazon.com",
+    "Mailed_by": "amazon.com",
     "To": "youremail@gmail.com",
-    "Month": "Apr",
-    "Day": "08",
+    "Month": "Mar",
+    "Day": "07",
     "Year":"2021",
-    "Hour": "4:23pm",
-    "Subject": "Your Urgent Support Is Needed",
+    "Hour": "3:29pm",
+    "Subject": "Delivery Update",
     "Email_body": ${email_body}
 }`;
 
@@ -839,12 +897,12 @@ const overlayMessages = `{
     "toMe": "",
     "Name_Sender": "",
     "Date": "",
-    "Reply_to": "",
+    "Reply_to": "Open the header's. Its <br/> from an Official .Gov Domain",
     "From": "",
     "Mailed_by": "",
     "To": ""
 }`;
-  </script>
+</script>
   
   
     <script type='text/javascript'>
@@ -943,8 +1001,6 @@ const overlayMessages = `{
 
         });
         
-
-       
 
         function addOverlaysToBody(bodyWithTags){
             var result = bodyWithTags;

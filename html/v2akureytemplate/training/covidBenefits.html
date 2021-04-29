@@ -433,8 +433,7 @@
     }
     .overlay{
         display: none;
-    }
-	
+    }	 
     /*Hide on tablet*/
     @media screen and (max-width: 1000px){
         .tablet-hide{
@@ -709,21 +708,16 @@
 						look like the person is viewing an email client. -->
 						
                 </div>
-                
-				<!-- Click Capture Overlay  -->
+				
+                <!-- Click Capture Overlay  -->
 				<div id="clickCaptureOverlay">
 					<div id="overlaytext">Links have been disabled in this email for testing purposes. Please select "real" in the survey question below to move to the next question.  
 					</div>
 				</div>
 
-                
             </div>
-            
            
             </div>
-
-           
-
             
     </div>
   </body>
@@ -777,59 +771,36 @@
   
   <script>
   var email_body = `
-  
-  <div style="width:100%;float:right;">
- <a onclick="return clickCaptureOverlayOn()" href="https://www.redcross.co">
-<img border="0" alt="American Red Cross" src="./images/redcross.png" width="283" height="178" style="float: right;">
-</div>
-</a>
-
-
-<!-- Main Content of Message -->
-<p class="text-paragraph">During the coronavirus (COVID-19) pandemic, life’s emergencies don’t stop — and neither does the work of the 
-American Red Cross.</p>
-
-<p class="text-paragraph">Because everyone’s wellbeing is our top priority, we continue to work closely with public health officials to deliver our services safely and coordinate our efforts with government agencies and partners. This means that, as the coronavirus evolves and affects communities differently, 
-our services may look different in each area to ensure we are aiding local families where they need us most.</p>
-
-<p class="text-paragraph"><font size="+1"><b>HOW YOU CAN HELP</b></font> This is the time to take care of one another. Join us:</p>
-<p class="text-paragraph">
-<ul>
-<li><b>Give Blood:</b> Please make an appointment to donate in the weeks ahead, if you are healthy and feeling well, by using the Red Cross Blood Donor App, visiting <a onclick="return clickCaptureOverlayOn()" href="http://www.redcrossblood.co">RedCrossBlood.org</a> or calling 1-888-RED CROSS (1-888-533-2467).
-<li><b>Donate:</b> Support all of the urgent humanitarian needs of the American Red Cross by donating to Where It Is Needed Most at <a onclick="return clickCaptureOverlayOn()"  href="http://www.redcross.co">redcross.org</a> or calling 1-888-RED CROSS (1-888-533-2467). A donation of any size makes a difference.
-<li><b>Learn More:</b> If you'd like to learn more about our work, and how you can help in your local area, just reply to this message and we'll connect you with one of our volunteer coordinators.
-</ul>
-</p>
-<br/>
-<p class="text-paragraph"></p>
-<p>Thank you for your onoging support.</p>
-<p>Yves Daccord</p>
-<p>Director General</p>
-<p>International Committee of the Red Cross</p>
-<br/>
-<br/>
-<p class="text-paragraph"></p>
-
-
-<p class="text-paragraph"><font size="-1"><i>About the American Red Cross:</i></font>
-<br/>
-<font size="-1"><i>The American Red Cross shelters, feeds and provides emotional support to victims of disasters; supplies about 40 percent of the nation's blood; teaches skills that save lives; provides international humanitarian aid; and supports military members and their families. The Red Cross is a not-for-profit organization that depends on volunteers and the generosity of the American public to perform its mission. For more information, please visit redcross.org or cruzrojaamericana.org, or visit us on Twitter at @RedCross.</i></font></p>
-`;
+   <a onclick="return clickCaptureOverlayOn()" href="https://www.ssa.gov"><img class="body-image" src="./images/security-today.svg"></a>
+<p class="text-greeting">Attention:</p>
+<p class="text-paragraph">As recorded in the Federal Register on January 28th, 2021, The Biden Administration has implemented a new, temporary, relief program for people suffering from the COVID-related economic downturn.</p>
+<p class="text-paragraph">Through May 31, 2021, American citizens will be able to acces a portion of the stored value @@Be suspicious when an <br/>email promises you money.@@ from  their Social Security benefits, due to a relaxation of the age requirement to receive those benefits. </p>
+<p class="text-paragraph">All funds received under this program are <b>treated as a self-loan</b>, similar to a 401(k) loan in which individuals pay back the balance over time through their existing, regular contributions to their account.</p>
+<p class="text-paragraph">For more information about this program, and how you can apply, please refer to the <a onclick="return clickCaptureOverlayOn()" href="https://www.socialsecurity.center">the Social Security website</a> @@Wrong URL@@ or 
+by phone at (800) 772-1223. @@Not the official number@@ </p>
+<div class="footer">
+    <img src="./images/regards.svg">@@A real person's name<br/>and picture doesn't<br/>make the email real.@@
+    <div class="regards-text">
+        <p>Regards</p>
+        <p>Commisioner Andrew Saul</p>
+        <p>Social Security Administration</p>
+    </div>
+</div>`;
 
 email_body = JSON.stringify(email_body);
 
 //THIS IS THE DATA TO BE INSERTED IN THE EMAIL TEMPLATE
 const jsonData = `{
-    "Name" : "Red Cross Covid Campaign",
-    "Reply_to": "covidcampaign@redcross.co",
-    "From": "covidcampaign@redcross.co",
-    "Mailed_by": "Good job -- You checked the Email Header...",
+    "Name" : "NO-REPLY@ssa.gov",
+    "Reply_to": "reply@socialsecurity.center",
+    "From": "&#60;no-reply@socialsecurity.center&#62;",
+    "Mailed_by": "flivver.dreamhost.com",
     "To": "youremail@gmail.com",
-    "Month": "Apr",
-    "Day": "08",
+    "Month": "Mar",
+    "Day": "06",
     "Year":"2021",
-    "Hour": "4:23pm",
-    "Subject": "Your Urgent Support Is Needed",
+    "Hour": "4:21pm",
+    "Subject": "Temporary COVID-Relief Program from the Social Security Administration",
     "Email_body": ${email_body}
 }`;
 
@@ -839,7 +810,7 @@ const overlayMessages = `{
     "toMe": "",
     "Name_Sender": "",
     "Date": "",
-    "Reply_to": "",
+    "Reply_to": "The Reply-To Address<br/> Isn't A ".Gov" domain",
     "From": "",
     "Mailed_by": "",
     "To": ""

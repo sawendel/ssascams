@@ -6,6 +6,30 @@
     <style>
       @import url("https://fonts.googleapis.com/css?family=Roboto:900,400");
 
+#clickCaptureOverlay {
+  position: fixed; /* Sit on top of the page content */
+  display: none; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+
+#overlaytext{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 16px;
+  color: white;
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+}
+
       .screen *,
       .component-wrapper * {
         box-sizing: border-box;
@@ -17,7 +41,7 @@
         display: flex;
         flex-direction: column;
       }
-      
+           
       .sidebar{
           display: flex;
           flex-direction: column;
@@ -407,6 +431,11 @@
         position: relative;
         display: inline-block;
     }
+	
+	 .overlay{
+        display: none;
+    }
+
     /*Hide on tablet*/
     @media screen and (max-width: 1000px){
         .tablet-hide{
@@ -577,7 +606,7 @@
                             <div class="name-date-sender">
                                 <p id="name"> Name</p>
                                 <p id ="date-left" class="hide-desktop span-date-hour">Date, Hour (2 days ago)</p>
-                                <p id= "sender-top" class="tablet-hide">< email@email.com ></p>
+                                <p id= "sender-top" class="tablet-hide"><email@email.com></p>
                                 <div class="message-overlay overlay-name hide-desktop overlay">
                                     <img class="overlay-image" src="./images/alert-triangle (1).svg" onclick="displayOverlay('Overlay-name')">
                                     <div id="Overlay-name" class="overlay-text">
@@ -681,15 +710,36 @@
 						look like the person is viewing an email client. -->
 						
                 </div>
-               
+                
+			   <!-- Click Capture Overlay  -->
+				<div id="clickCaptureOverlay">
+					<div id="overlaytext">Links have been disabled in this email for testing purposes. Please select "real" in the survey question below to move to the next question.  
+					</div>
+				</div>
+                
             </div>
+            
            
             </div>
+
+           
+
             
     </div>
   </body>
 
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+
+	<script>function clickCaptureOverlayOn() {
+	  document.getElementById("clickCaptureOverlay").style.display = "block";
+	  return false; // Used to override the link
+	}
+
+	function clickCaptureOverlayOff() {
+	  document.getElementById("clickCaptureOverlay").style.display = "none";
+	  return false;  // Used to override the link
+	}
+	</script>
   
   <!-- Here is where all of the template content goes.  
   You can include it as a separate Javascript file, or simply add it in a script tag.
@@ -707,8 +757,8 @@
 		"Year":"2021",
 		"Hour": "12:00pm",
 		"Subject": "The mail subject",
-		"Email_body": ${email_body}   // This is most easily done as another variable with the core of the email.
-				// Include overlays text within pairs of "@@"s. 
+		"Email_body": ${email_body}   # This is most easily done as another variable with the core of the email.
+				# Include overlays text within pairs of "@@"s. 
 	}`;
 
 
@@ -717,9 +767,9 @@
 		"Subject" : "",
 		"toMe": "",
 		"Name_Sender": "",
-		"Date": "mensaje de date",
+		"Date": "",
 		"Reply_to": "",
-		"From": "From overlay message",
+		"From": "",
 		"Mailed_by": "",
 		"To": ""
 	}`;
@@ -727,36 +777,43 @@
   
   <script>
   var email_body = `
-   <a onclick="return clickCaptureOverlayOn()" href="https://www.ssa.gov"><img class="body-image" src="./images/security-today.svg"></a>
-<p class="text-greeting">Attention:</p>
-<p class="text-paragraph">As recorded in the Federal Register on January 28th, 2021, The Biden Administration has implemented a new, temporary, relief program for people suffering from the COVID-related economic downturn.</p>
-<p class="text-paragraph">Through May 31, 2021, American citizens will be able to acces a portion of the stored value @@Be suspicious when an <br/>email promises you money.@@ from  their Social Security benefits, due to a relaxation of the age requirement to receive those benefits. </p>
-<p class="text-paragraph">All funds received under this program are <b>treated as a self-loan</b>, similar to a 401(k) loan in which individuals pay back the balance over time through their existing, regular contributions to their account.</p>
-<p class="text-paragraph">For more information about this program, and how you can apply, please refer to the <a onclick="return clickCaptureOverlayOn()" href="https://www.socialsecurity.center">the Social Security website</a> @@Wrong URL@@ or 
-by phone at (800) 772-1223. @@Not the official number@@ </p>
-<div class="footer">
-    <img src="./images/regards.svg">@@A real person's name<br/>and picture doesn't<br/>make the email real.@@
-    <div class="regards-text">
-        <p>Regards</p>
-        <p>Commisioner Andrew Saul</p>
-        <p>Social Security Administration</p>
-    </div>
-</div>`;
+<p class="text-greeting">Dear John:</p>
+<p class="text-greeting">We'd like to remind you to review your <i>Social Security Statement</i> online.
+The <i>Statement</i> has important Social Security information and, if applicable,
+estimates of your future benefits.</p>
+<p class="text-greeting">If you are working, we encourage you to check your <i>Statement</i> yearly to make
+sure your earnings record is correct. The <i>Statement</i> also will help in planning
+your financial future.</p>
+<p class="text-greeting">To view your most recent <i>Statement</i>, please visit
+<a onclick="return clickCaptureOverlayOn()" href="https://www.socialsecurity.gov/reviewyourstatement">www.socialsecurity.gov/reviewyourstatement</a>@@Real, ".Gov" Domain@@
+ and sign in to your account.</p>
+<p class="text-greeting">On June 10, 2017, we added a second method to verify your identity each time you sign in to your account. 
+This is in addition to your username and password. Using two ways to identify you when you log on will help better 
+protect your account from unauthorized use and fraud. Now, when you sign in to your account you will complete two steps:
+</p>
+<ul>
+<li>Step 1: Enter your username and password.</li>
+<li>Step 2: Enter the security code we send you by text message or email, depending on your choice 
+(your cell phone provider’s text message and data rates may apply).</li></ul><p></p>
+<p class="text-greeting">With instant access to your <i>Social Security Statement</i> at any time, you will no longer
+receive one periodically in the mail, saving money and the environment. Thank you for Going Green!</p>
+<p class="text-greeting">Please do not reply to this email, as we are unable to respond to messages
+sent to this address.</p>`;
 
 email_body = JSON.stringify(email_body);
 
 //THIS IS THE DATA TO BE INSERTED IN THE EMAIL TEMPLATE
 const jsonData = `{
     "Name" : "NO-REPLY@ssa.gov",
-    "Reply_to": "reply@socialsecurity.center",
-    "From": "NO-REPLY@ssa.gov <no-reply@socialsecurity.center>",
-    "Mailed_by": "flivver.dreamhost.com",
+    "Reply_to": "NO-REPLY@ssa.gov",
+    "From": "NO-REPLY@ssa.gov",
+    "Mailed_by": "mail3.ssa.gov",
     "To": "youremail@gmail.com",
     "Month": "Mar",
-    "Day": "06",
+    "Day": "07",
     "Year":"2021",
-    "Hour": "4:21pm",
-    "Subject": "Temporary COVID-Relief Program from the Social Security Administration",
+    "Hour": "3:29pm",
+    "Subject": "Annual Reminder to Review Your Social Security Statement",
     "Email_body": ${email_body}
 }`;
 
@@ -766,12 +823,12 @@ const overlayMessages = `{
     "toMe": "",
     "Name_Sender": "",
     "Date": "",
-    "Reply_to": "The Reply-To Address<br/> Isn't A ".Gov" domain",
+    "Reply_to": "Open the header's. Its <br/> from an Official .Gov Domain",
     "From": "",
     "Mailed_by": "",
     "To": ""
 }`;
-  </script>
+</script>
   
   
     <script type='text/javascript'>
@@ -782,13 +839,23 @@ const overlayMessages = `{
 
                 document.getElementById("subject").innerText = data.Subject;
                 
-                document.getElementById("name").innerText = data.Name;
-                document.getElementById("sender-top").innerHTML = "< ".concat(data.From, " >");
-                document.getElementById("date-left").innerHTML = data.Month.concat(" ", data.Day, ", ", data.Year,", ", data.Hour, " (2 days ago)" );
+				if (data.Name.length > 0) {
+					document.getElementById("name").innerText = data.Name;
+				} else {
+					document.getElementById("name").innerHTML =  " ".concat("&#60;", data.From, "&#62;");
+				}
 
-                document.getElementById("date-right").innerHTML = data.Month.concat(" ", data.Day, ", ", data.Year,", ", data.Hour, " (2 days ago)" );
+                document.getElementById("sender-top").innerHTML = " " // .concat("&#60;", data.From, "&#62;");;
+                document.getElementById("date-left").innerHTML = data.Month.concat(" ", data.Day, ", ", data.Year,", ", data.Hour, " " );
 
-                document.getElementById("sender").innerHTML = data.Name.concat(" | ", data.From);
+                document.getElementById("date-right").innerHTML = data.Month.concat(" ", data.Day, ", ", data.Year,", ", data.Hour, " " );
+
+				if (data.Name.length > 0) {
+					document.getElementById("sender").innerHTML = data.Name.concat(" | ", data.From);
+				} else {
+					document.getElementById("sender").innerHTML = data.From;
+				}
+
                 document.getElementById("reply-to").innerHTML = data.Reply_to;
                 document.getElementById("to").innerHTML = data.To;
                 document.getElementById("date").innerHTML = data.Month.concat(" ", data.Day, ", ", data.Year,", ", data.Hour);
@@ -801,6 +868,18 @@ const overlayMessages = `{
 
 
                 //ADDING THE SET OVERLAY MESSAGES
+                var params = window.location.search.substring(1);
+                var displayTheOverlays = (params.split('=')[1] == 'true');
+               
+                if(displayTheOverlays){
+                    document.querySelector(".toMe-arrow").classList.toggle("rotated");
+                    document.querySelector(".mail-box-table").classList.toggle("expanded");
+                    var overlays = document.querySelectorAll(".overlay");
+                    overlays.forEach((overlay)=>{
+                        overlay.style.display = "flex";
+                    });
+                }
+
                 var overlay_Messages = JSON.parse(overlayMessages);
                 if(overlay_Messages.Subject == "" || overlay_Messages.Subject == null){
                     document.querySelector(".overlay-subject").style.display = "none";
@@ -840,31 +919,6 @@ const overlayMessages = `{
                 
                 //THIS HIDES OR SHOWS ALL THE OVERLAYS
                 //To hide include in the html url '?showOverlays=true'
-
-                var params = window.location.search.substring(1);
-                var displayTheOverlays = (params.split('=')[1] == 'true');
-                if(!(params == "")){
-                    if(!displayTheOverlays){
-                        var overlays = document.querySelectorAll(".overlay");
-                        overlays.forEach((overlay)=>{
-                            overlay.style.display = "none";
-                        });
-                    }
-                    else{
-                        document.querySelector(".toMe-arrow").classList.toggle("rotated");
-                        document.querySelector(".mail-box-table").classList.toggle("expanded");
-                    }
-                }
-                else{
-                    var overlays = document.querySelectorAll(".overlay");
-                        overlays.forEach((overlay)=>{
-                            overlay.style.display = "none";
-                        });
-                }
-                
-                
-
-
                 
                 if (screen.width < 620) {
                     document.querySelectorAll(`.overlay-text`).forEach((element) => element.classList.toggle("collapsed-horizontal"));
@@ -874,13 +928,10 @@ const overlayMessages = `{
         });
         
 
-       
-
         function addOverlaysToBody(bodyWithTags){
             var result = bodyWithTags;
             var overlayComponent;
             const OverlayTexts = getAllTheOverlayTexts(bodyWithTags);
-            console.log(OverlayTexts);
             OverlayTexts.forEach((element)=>{
                     overlayComponent = getOverlayComponent(getTagText(element[0]))
                     result = result.replace(element[0], overlayComponent);

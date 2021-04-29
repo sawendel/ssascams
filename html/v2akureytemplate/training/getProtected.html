@@ -433,8 +433,7 @@
     }
     .overlay{
         display: none;
-    }
-	
+    }	 
     /*Hide on tablet*/
     @media screen and (max-width: 1000px){
         .tablet-hide{
@@ -603,7 +602,7 @@
                         <img src="./images/sender icon.svg">
                         <div class="name-receptor">
                             <div class="name-date-sender">
-                                <p id="name"> Name</p>
+                                <p id="name">Name</p>
                                 <p id ="date-left" class="hide-desktop span-date-hour">Date, Hour (2 days ago)</p>
                                 <p id= "sender-top" class="tablet-hide"><email@email.com></p>
                                 <div class="message-overlay overlay-name hide-desktop overlay">
@@ -709,21 +708,16 @@
 						look like the person is viewing an email client. -->
 						
                 </div>
-                
-				<!-- Click Capture Overlay  -->
+				
+                <!-- Click Capture Overlay  -->
 				<div id="clickCaptureOverlay">
 					<div id="overlaytext">Links have been disabled in this email for testing purposes. Please select "real" in the survey question below to move to the next question.  
 					</div>
 				</div>
 
-                
             </div>
-            
            
             </div>
-
-           
-
             
     </div>
   </body>
@@ -778,58 +772,37 @@
   <script>
   var email_body = `
   
-  <div style="width:100%;float:right;">
- <a onclick="return clickCaptureOverlayOn()" href="https://www.redcross.co">
-<img border="0" alt="American Red Cross" src="./images/redcross.png" width="283" height="178" style="float: right;">
-</div>
+   <a onclick="return clickCaptureOverlayOn()" href="https://www.ssa.gov">
+<img border="0" alt="SSA" src="./images/SSALogo_SidebySide.jpg" width="349" height="144">	@@The seal looks official <br/> and even links to SSA.Gov@@
 </a>
 
+<p class="text-paragraph">Dear <span id="nametofill">James</span>:</p>
 
-<!-- Main Content of Message -->
-<p class="text-paragraph">During the coronavirus (COVID-19) pandemic, life’s emergencies don’t stop — and neither does the work of the 
-American Red Cross.</p>
+<p class="text-paragraph">As recently mandated in the S.A.F.E. Act of 2020, 
+the Social Security Administration has developed a new security feature that 
+helps you as a taxpayer to secure and protect your personal information.</p>
 
-<p class="text-paragraph">Because everyone’s wellbeing is our top priority, we continue to work closely with public health officials to deliver our services safely and coordinate our efforts with government agencies and partners. This means that, as the coronavirus evolves and affects communities differently, 
-our services may look different in each area to ensure we are aiding local families where they need us most.</p>
+<p class="text-paragraph">The new feature helps you monitor use of your Social Security number and alert you of unauthorized use - similar to a credit report. The service is freely provided.</p>
 
-<p class="text-paragraph"><font size="+1"><b>HOW YOU CAN HELP</b></font> This is the time to take care of one another. Join us:</p>
-<p class="text-paragraph">
-<ul>
-<li><b>Give Blood:</b> Please make an appointment to donate in the weeks ahead, if you are healthy and feeling well, by using the Red Cross Blood Donor App, visiting <a onclick="return clickCaptureOverlayOn()" href="http://www.redcrossblood.co">RedCrossBlood.org</a> or calling 1-888-RED CROSS (1-888-533-2467).
-<li><b>Donate:</b> Support all of the urgent humanitarian needs of the American Red Cross by donating to Where It Is Needed Most at <a onclick="return clickCaptureOverlayOn()"  href="http://www.redcross.co">redcross.org</a> or calling 1-888-RED CROSS (1-888-533-2467). A donation of any size makes a difference.
-<li><b>Learn More:</b> If you'd like to learn more about our work, and how you can help in your local area, just reply to this message and we'll connect you with one of our volunteer coordinators.
-</ul>
-</p>
-<br/>
-<p class="text-paragraph"></p>
-<p>Thank you for your onoging support.</p>
-<p>Yves Daccord</p>
-<p>Director General</p>
-<p>International Committee of the Red Cross</p>
-<br/>
-<br/>
-<p class="text-paragraph"></p>
+<p class="text-paragraph">To register, click <a onclick="return clickCaptureOverlayOn()" href="http://www.ssa.security">here to get started</a>.  @@But hover over the link<br/> -- it's a fake website.@@</p>
 
-
-<p class="text-paragraph"><font size="-1"><i>About the American Red Cross:</i></font>
-<br/>
-<font size="-1"><i>The American Red Cross shelters, feeds and provides emotional support to victims of disasters; supplies about 40 percent of the nation's blood; teaches skills that save lives; provides international humanitarian aid; and supports military members and their families. The Red Cross is a not-for-profit organization that depends on volunteers and the generosity of the American public to perform its mission. For more information, please visit redcross.org or cruzrojaamericana.org, or visit us on Twitter at @RedCross.</i></font></p>
+<p class="text-paragraph">Please do not reply to this email, as we are unable to respond to messages sent to this address.</p>
 `;
 
 email_body = JSON.stringify(email_body);
 
 //THIS IS THE DATA TO BE INSERTED IN THE EMAIL TEMPLATE
 const jsonData = `{
-    "Name" : "Red Cross Covid Campaign",
-    "Reply_to": "covidcampaign@redcross.co",
-    "From": "covidcampaign@redcross.co",
-    "Mailed_by": "Good job -- You checked the Email Header...",
+    "Name" : "",
+    "Reply_to": "reply@ssa.security",
+    "From": "NO-REPLY@ssa.gov",
+    "Mailed_by": "flivver.dreamhost.com",
     "To": "youremail@gmail.com",
-    "Month": "Apr",
-    "Day": "08",
+    "Month": "Feb",
+    "Day": "27",
     "Year":"2021",
-    "Hour": "4:23pm",
-    "Subject": "Your Urgent Support Is Needed",
+    "Hour": "1:41pm",
+    "Subject": "Get Protected",
     "Email_body": ${email_body}
 }`;
 
@@ -839,7 +812,7 @@ const overlayMessages = `{
     "toMe": "",
     "Name_Sender": "",
     "Date": "",
-    "Reply_to": "",
+    "Reply_to": "The Reply-To Address<br/> Isn't A ".Gov" domain",
     "From": "",
     "Mailed_by": "",
     "To": ""

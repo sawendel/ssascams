@@ -6,30 +6,6 @@
     <style>
       @import url("https://fonts.googleapis.com/css?family=Roboto:900,400");
 
-#clickCaptureOverlay {
-  position: fixed; /* Sit on top of the page content */
-  display: none; /* Hidden by default */
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
-  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-  cursor: pointer; /* Add a pointer on hover */
-}
-
-#overlaytext{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  font-size: 16px;
-  color: white;
-  transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-}
-
       .screen *,
       .component-wrapper * {
         box-sizing: border-box;
@@ -42,6 +18,10 @@
         flex-direction: column;
       }
       
+     
+
+
+	 
       .sidebar{
           display: flex;
           flex-direction: column;
@@ -431,10 +411,10 @@
         position: relative;
         display: inline-block;
     }
+
     .overlay{
         display: none;
     }
-	
     /*Hide on tablet*/
     @media screen and (max-width: 1000px){
         .tablet-hide{
@@ -539,14 +519,13 @@
     }
 
   
+
+
+
     </style>
   </head>
   <body>
     <div class="container-center-horizontal">
-	
-		<!-- Start HTML for Email Reader  -- code that makes it look lik this is in an email client
-		You SHOULD NOT need to change any of this --> 
-
         <div class="sidebar"> 
             <img class="sidebar-icon" src="./images/inbox.svg">
             <img class="sidebar-icon" src="./images/sent.svg">
@@ -576,18 +555,9 @@
             
             
         </div>
-		
-		<!-- End HTML for Email Reader Wrapper --> 
-
 
         <div class="email-content">
             <div class="email-content-container">
-			
-				<!-- Start HTML for Email Header.  
-				See the data file for setting these values -- they are all parameterized, with option overlays.  
-				You SHOULD NOT need to change any of this --> 
-				
-				
                 <div class = "overlay-container">
                     <h1 id="subject">Subject of the email</h1>
                     <div class="message-overlay overlay-subject overlay">
@@ -605,7 +575,7 @@
                             <div class="name-date-sender">
                                 <p id="name"> Name</p>
                                 <p id ="date-left" class="hide-desktop span-date-hour">Date, Hour (2 days ago)</p>
-                                <p id= "sender-top" class="tablet-hide"><email@email.com></p>
+                                <p id= "sender-top" class="tablet-hide">< email@email.com ></p>
                                 <div class="message-overlay overlay-name hide-desktop overlay">
                                     <img class="overlay-image" src="./images/alert-triangle (1).svg" onclick="displayOverlay('Overlay-name')">
                                     <div id="Overlay-name" class="overlay-text">
@@ -627,9 +597,9 @@
                     </div>
                     <div class="mail-options">
                         <p id= "date-right" class="tablet-hide">Date, Hour (2 days ago)</p>
-                        <a onclick="return clickCaptureOverlayOn()" href="https://www.behavioralsurvey.com/replyto"><img src="./images/corner-up-left.svg"></a>
-                        <a onclick="return clickCaptureOverlayOn()" href="https://www.behavioralsurvey.com/replyall"><img class="tablet-hide" src="./images/Reply All.svg"></a>
-                        <a onclick="return clickCaptureOverlayOn()" href="https://www.behavioralsurvey.com/forward"><img class="tablet-hide" src="./images/Forward.svg"></a>
+                        <img src="./images/corner-up-left.svg">
+                        <img class="tablet-hide" src="./images/Reply All.svg">
+                        <img class="tablet-hide" src="./images/Forward.svg">
                         <img src="./images/more-vertical.svg" onclick="hideOverlays()">
                         <div id="overlay-hour-container" class="message-overlay tablet-hide overlay">
                             <img class="overlay-image" src="./images/alert-triangle (1).svg" onclick="displayOverlay('Overlay-hour')">
@@ -700,22 +670,12 @@
                         </div>
                     </div>
                     
-
-				<!-- End HTML for Email Header --> 
+                
                 
                 <div class="mail-text">    
                         
-						<!-- Here is where the core of the email goes. The rest is a wrapper to make it 
-						look like the person is viewing an email client. -->
-						
                 </div>
                 
-				<!-- Click Capture Overlay  -->
-				<div id="clickCaptureOverlay">
-					<div id="overlaytext">Links have been disabled in this email for testing purposes. Please select "real" in the survey question below to move to the next question.  
-					</div>
-				</div>
-
                 
             </div>
             
@@ -729,124 +689,9 @@
   </body>
 
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
-  
-  	<script>function clickCaptureOverlayOn() {
-	  document.getElementById("clickCaptureOverlay").style.display = "block";
-	  return false; // Used to override the link
-	}
-
-	function clickCaptureOverlayOff() {
-	  document.getElementById("clickCaptureOverlay").style.display = "none";
-	  return false;  // Used to override the link
-	}
-	</script>
-
-  <!-- Here is where all of the template content goes.  
-  You can include it as a separate Javascript file, or simply add it in a script tag.
-  The two variables you need to define are:
-  
-	# Email content and header
-	const jsonData = `{
-		"Name" : "Jose Chavarria",
-		"Reply_to": "replyto@gmail.com",
-		"From": "sendermail1@gmail.com",
-		"Mailed_by": "sendermail@email.com",
-		"To": "myemail@email.com",
-		"Month": "Mar",
-		"Day": "04",
-		"Year":"2021",
-		"Hour": "12:00pm",
-		"Subject": "The mail subject",
-		"Email_body": ${email_body}   # This is most easily done as another variable with the core of the email.
-				# Include overlays text within pairs of "@@"s. 
-	}`;
-
-
-	# Popup overlay messages
-	const overlayMessages = `{
-		"Subject" : "",
-		"toMe": "",
-		"Name_Sender": "",
-		"Date": "",
-		"Reply_to": "",
-		"From": "",
-		"Mailed_by": "",
-		"To": ""
-	}`;
-  -->
-  
-  <script>
-  var email_body = `
-  
-  <div style="width:100%;float:right;">
- <a onclick="return clickCaptureOverlayOn()" href="https://www.redcross.co">
-<img border="0" alt="American Red Cross" src="./images/redcross.png" width="283" height="178" style="float: right;">
-</div>
-</a>
-
-
-<!-- Main Content of Message -->
-<p class="text-paragraph">During the coronavirus (COVID-19) pandemic, life’s emergencies don’t stop — and neither does the work of the 
-American Red Cross.</p>
-
-<p class="text-paragraph">Because everyone’s wellbeing is our top priority, we continue to work closely with public health officials to deliver our services safely and coordinate our efforts with government agencies and partners. This means that, as the coronavirus evolves and affects communities differently, 
-our services may look different in each area to ensure we are aiding local families where they need us most.</p>
-
-<p class="text-paragraph"><font size="+1"><b>HOW YOU CAN HELP</b></font> This is the time to take care of one another. Join us:</p>
-<p class="text-paragraph">
-<ul>
-<li><b>Give Blood:</b> Please make an appointment to donate in the weeks ahead, if you are healthy and feeling well, by using the Red Cross Blood Donor App, visiting <a onclick="return clickCaptureOverlayOn()" href="http://www.redcrossblood.co">RedCrossBlood.org</a> or calling 1-888-RED CROSS (1-888-533-2467).
-<li><b>Donate:</b> Support all of the urgent humanitarian needs of the American Red Cross by donating to Where It Is Needed Most at <a onclick="return clickCaptureOverlayOn()"  href="http://www.redcross.co">redcross.org</a> or calling 1-888-RED CROSS (1-888-533-2467). A donation of any size makes a difference.
-<li><b>Learn More:</b> If you'd like to learn more about our work, and how you can help in your local area, just reply to this message and we'll connect you with one of our volunteer coordinators.
-</ul>
-</p>
-<br/>
-<p class="text-paragraph"></p>
-<p>Thank you for your onoging support.</p>
-<p>Yves Daccord</p>
-<p>Director General</p>
-<p>International Committee of the Red Cross</p>
-<br/>
-<br/>
-<p class="text-paragraph"></p>
-
-
-<p class="text-paragraph"><font size="-1"><i>About the American Red Cross:</i></font>
-<br/>
-<font size="-1"><i>The American Red Cross shelters, feeds and provides emotional support to victims of disasters; supplies about 40 percent of the nation's blood; teaches skills that save lives; provides international humanitarian aid; and supports military members and their families. The Red Cross is a not-for-profit organization that depends on volunteers and the generosity of the American public to perform its mission. For more information, please visit redcross.org or cruzrojaamericana.org, or visit us on Twitter at @RedCross.</i></font></p>
-`;
-
-email_body = JSON.stringify(email_body);
-
-//THIS IS THE DATA TO BE INSERTED IN THE EMAIL TEMPLATE
-const jsonData = `{
-    "Name" : "Red Cross Covid Campaign",
-    "Reply_to": "covidcampaign@redcross.co",
-    "From": "covidcampaign@redcross.co",
-    "Mailed_by": "Good job -- You checked the Email Header...",
-    "To": "youremail@gmail.com",
-    "Month": "Apr",
-    "Day": "08",
-    "Year":"2021",
-    "Hour": "4:23pm",
-    "Subject": "Your Urgent Support Is Needed",
-    "Email_body": ${email_body}
-}`;
-
-
-const overlayMessages = `{
-    "Subject" : "",
-    "toMe": "",
-    "Name_Sender": "",
-    "Date": "",
-    "Reply_to": "",
-    "From": "",
-    "Mailed_by": "",
-    "To": ""
-}`;
-  </script>
-  
-  
+        
+        
+  <script src = "./data/fancy-email.js"></script>
     <script type='text/javascript'>
         $(document).ready(function(){
                 
@@ -855,23 +700,13 @@ const overlayMessages = `{
 
                 document.getElementById("subject").innerText = data.Subject;
                 
-				if (data.Name.length > 0) {
-					document.getElementById("name").innerText = data.Name;
-				} else {
-					document.getElementById("name").innerHTML =  " ".concat("&#60;", data.From, "&#62;");
-				}
+                document.getElementById("name").innerText = data.Name;
+                document.getElementById("sender-top").innerHTML = "< ".concat(data.From, " >");
+                document.getElementById("date-left").innerHTML = data.Month.concat(" ", data.Day, ", ", data.Year,", ", data.Hour, " (2 days ago)" );
 
-                document.getElementById("sender-top").innerHTML = " " // .concat("&#60;", data.From, "&#62;");;
-                document.getElementById("date-left").innerHTML = data.Month.concat(" ", data.Day, ", ", data.Year,", ", data.Hour, " " );
+                document.getElementById("date-right").innerHTML = data.Month.concat(" ", data.Day, ", ", data.Year,", ", data.Hour, " (2 days ago)" );
 
-                document.getElementById("date-right").innerHTML = data.Month.concat(" ", data.Day, ", ", data.Year,", ", data.Hour, " " );
-
-				if (data.Name.length > 0) {
-					document.getElementById("sender").innerHTML = data.Name.concat(" | ", data.From);
-				} else {
-					document.getElementById("sender").innerHTML = data.From;
-				}
-
+                document.getElementById("sender").innerHTML = data.Name.concat(" | ", data.From);
                 document.getElementById("reply-to").innerHTML = data.Reply_to;
                 document.getElementById("to").innerHTML = data.To;
                 document.getElementById("date").innerHTML = data.Month.concat(" ", data.Day, ", ", data.Year,", ", data.Hour);
@@ -895,7 +730,7 @@ const overlayMessages = `{
                         overlay.style.display = "flex";
                     });
                 }
-
+                
                 var overlay_Messages = JSON.parse(overlayMessages);
                 if(overlay_Messages.Subject == "" || overlay_Messages.Subject == null){
                     document.querySelector(".overlay-subject").style.display = "none";
@@ -933,9 +768,9 @@ const overlayMessages = `{
                 document.querySelector("#Overlay-4>p").innerHTML = overlay_Messages.Date;
                 document.querySelector("#Overlay-5>p").innerHTML = overlay_Messages.Mailed_by;
                 
-                //THIS HIDES OR SHOWS ALL THE OVERLAYS
+                //THIS HIDES OR SHOWAS ALL THE OVERLAYS
                 //To hide include in the html url '?showOverlays=true'
-                
+        
                 if (screen.width < 620) {
                     document.querySelectorAll(`.overlay-text`).forEach((element) => element.classList.toggle("collapsed-horizontal"));
                     document.querySelectorAll(`.overlay-text`).forEach((element) => element.classList.toggle("no-shadow"));
