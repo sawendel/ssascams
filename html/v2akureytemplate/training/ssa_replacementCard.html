@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Roboto:900,400");
+
+#clickCaptureOverlay {
+  position: fixed; /* Sit on top of the page content */
+  display: none; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+
+#overlaytext{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 16px;
+  color: white;
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+}
+
+      .screen *,
+      .component-wrapper * {
+        box-sizing: border-box;
+        width: 100%;
+      }
+      .container-center-horizontal {
+        justify-content: center;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+           
+      .sidebar{
+          display: flex;
+          flex-direction: column;
+          position: fixed;
+          left: 0;
+          top: 0;
+          width: 50px;
+          height: 100%;
+          background-color: var(--gray1);
+          z-index: 999;
+      }
+
+      .sidebar-icon{
+          width: 60%;
+          height: auto;
+          align-self: center;
+          margin: 30% 0 30% 0;
+      }
+      .email-body{
+          display: flex;
+          flex-direction: column;
+          height: auto;
+          width: 100%;
+          position: absolute;
+      }
+      .top-body-bar{
+          display: flex;
+          flex-direction: row;
+          position: fixed;
+          top: 0;
+          left: 50px;
+          height: 45px;
+          box-shadow: 0px 1px 6px rgb(144 164 174 / 50%);
+          width: 100%;
+          align-items: center;
+          background-color:white;
+          z-index: 998;
+          
+      }
+      .body-bar-item{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-left: 20px;
+        width: 150px;
+        justify-content: center;
+      }
+      .body-bar-container{
+          display: flex;
+          flex-direction: row;
+          align-items: flex-start;
+      }
+      .body-bar-item p{
+          font-family: 'Roboto';
+          color: var(--gray10);
+          margin: 0 10% 0 10%;
+      }
+      .back-arrow{
+          margin-left: 3%;
+
+      }
+      .more-dots{
+        position: fixed;
+        right: 5%;
+      }
+
+       /*FOR THE EMAIL CONTENT*/
+       .email-content {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          height: auto;
+          position: absolute;
+          left: 50px;
+          top: 50px;
+          width: calc(100% - 50px);
+          overflow-x:auto;
+
+          
+      }
+
+      .email-content * {
+          font-family: 'Roboto';
+          
+      }
+
+      .email-content-container{
+          margin: 0 50px 0 50px;
+      }
+
+      #subject{
+          font-weight: 200;
+          color: var(--gray10);
+      }
+
+
+
+
+      .mail-info{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        position: relative;
+        margin-bottom: 20px;
+      }
+
+
+      .info{
+          width: 50%;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+      }
+      .name-receptor {
+          margin-left: 30px ;
+      }
+      .name-date-sender{
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          flex-wrap: wrap;
+          position: relative;
+      }
+      .name-date-sender p{
+          margin-right: 10px;
+      }
+
+      .mail-options{
+          width: 50%;
+          position: relative;
+          right: 0;
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-end;
+          align-items: center;
+      }
+      .mail-options *{
+          margin: 0 4px 0 4px; 
+          word-break: break-word; 
+      }
+
+      .mail-options>p{
+          color: var(--gray6);
+      }
+
+      .mail-options>img{
+          height: auto;
+          width: 25px;
+      }
+
+      .toMe{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 0;
+        
+        position:relative;
+      }  
+      .toMe>p{
+        color: var(--gray6);
+      } 
+      .toMe>img{
+          margin-left: 10px ;
+      }
+      .span-date-hour{
+          font-size: 12px;
+          color: var(--gray6);
+        
+      }
+
+      .toMe-arrow{
+        transition: transform 0.5s linear;
+      }
+      .rotated{
+          transform: rotate(180deg);
+      }
+
+
+      /*FOR THE MAIL BOX TABLE*/
+    
+      
+      .mail-box-table{
+          display: flex;
+          flex-direction: column;
+          background-color: var(--gray1);
+          border-radius: 15px;
+          width: 410px;
+          margin: 5px 0 5px 6%;
+          word-break: break-word;
+          transition: max-height 0.5s linear;
+          overflow: hidden;
+          max-height: 0;
+          position: relative;
+         
+      }
+
+      .mail-box-table.expanded{
+          max-height: 500px;
+          overflow: visible;
+      }
+      .box-mail-row{
+          display: flex;
+          flex-direction: row;
+          margin: 5px 10px 5px 15px;
+          position: relative;
+      }
+      .box-mail-row:first-child{
+          margin-top: 15px ;
+      }
+      .box-mail-row:last-child{
+        margin-bottom: 15px
+      }
+
+      .box-mail-column-left{
+        color: var(--gray6);
+        width: 30%
+      }
+      .box-mail-column-right{
+        color: var(--gray10);
+        width: 60%;
+      }
+    :root{
+        --gray10 :#263238;
+        --gray9: #B0BEC5;
+        --gray8: #455A64;
+        --gray7: #546E7A;
+        --gray6: #607D8B;
+        --gray5: #78909C;
+        --gray2: #CFD8DC;
+        --gray1: #ECEFF1;
+        --primary-blue: #03269E;
+
+    }
+
+
+    .mail-text{
+        padding-top: 25px;
+        padding-bottom: 30px ;
+        border-top: 1px solid #B0BEC5;
+        position: relative;
+    }
+    p{
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+
+    .text-greeting, .text-paragraph{
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+
+    /*FOR THE FOOTER*/
+    .footer{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .regards-text{
+        display: flex;
+        flex-direction: column;
+        margin-left: 20px;
+        position: relative;
+    }
+    .hide-desktop{
+        display: none;
+    }
+
+    
+/*for the message overlay in headers*/
+
+.message-overlay{
+            border-radius: 8px;
+            background-color:  #455a64;
+            width: auto;
+            height: fit-content;
+            position: absolute;
+            left: calc(100% + 15px);
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            z-index: 1;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 11px 8px;
+        }
+        .message-overlay::after{
+            content: " ";
+            position: absolute;
+            top: 50%;
+            right: 100%; /* To the left of the tooltip */
+            margin-top: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color:  transparent #455a64 transparent transparent;
+        }
+        .overlay-text{
+            padding: 0px;
+            overflow: hidden;
+            max-width: 250px;
+            max-height: 300px;
+            width: max-content;
+        }
+        .overlay-text p{
+            font-size: 12px;
+            margin: 0;
+            font-family: 'Roboto';
+            color: white;
+        }
+        .overlay-image{
+            height: 20px;
+            width: 20px;
+            z-index: 2;
+            margin-right: 10px;
+        }
+
+        .overlay-container{
+            position: relative;
+            width: fit-content;
+        }
+
+
+#overlay-hour-container{
+    left: 70%;
+}
+
+#overlay-hour-container>img{
+    left: -15px;
+    top: -15px;
+
+}
+
+  
+
+/*This will style the overlays in the body*/
+        .overlay-inline{
+            z-index: 1;
+            position: absolute;
+            width: fit-content;
+            bottom: 20px;
+            left: -50px;
+            border-radius: 8px;
+            box-shadow: 0px 1px 7px 2px rgb(38 50 56 / 17%);
+            background-color: #455a64;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            max-width: 200px;
+            height: auto;
+            padding: 11px 8px;
+        }
+        .body-overlay-text{
+            width: max-content;
+            text-align: center;
+            margin: auto;
+            font-family: 'Roboto';
+            font-size: 12px;
+            display: inline-block;
+            color: white;
+            font-family: 'Roboto';
+            
+
+        }
+        .overlay-inline::after{
+            content: " ";
+            position: absolute;
+            top: 100%; /* At the bottom of the tooltip */
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #455a64 transparent transparent transparent;
+        }
+        .body-overlay-image{
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+    .body-overlay-wrapper{
+        position: relative;
+        display: inline-block;
+    }
+	
+	 .overlay{
+        display: none;
+    }
+
+    /*Hide on tablet*/
+    @media screen and (max-width: 1000px){
+        .tablet-hide{
+            display: none;
+        }
+        .hide-desktop{
+            display:flex ;
+        }
+        .info{
+            width: 70%;
+
+        }
+        .mail-options{
+            width: 30%;
+        }
+        .name-receptor .message-overlay{
+          left: -20px;
+      }
+      
+
+    
+    }
+
+    @media screen and (max-width: 620px){
+        
+        .mobile-hide{
+            display: none;
+        }
+        .hide-desktop{
+            display:initial ;
+        }
+        .mail-box-table{
+            width: 80%;
+        }
+        .name-receptor{
+            margin-left: 15px;
+        }
+        /* .email-content-container{
+            margin-left: 20px;
+            margin-right: 20px;
+        } */
+        
+      .body-bar-container{
+          justify-content: flex-end;
+      }
+      .body-bar-item{
+          width: fit-content;
+      }
+      .body-bar-item:last-child{
+          align-self: center;
+
+      }
+
+      .more-dots{
+          right: 15px;
+      }
+      .body-bar-container{
+          position: absolute;
+          right: 95px;
+      }
+
+
+      .overlay-container .message-overlay{
+          left: -10px;
+      }
+      .box-mail-row .message-overlay{
+          left: -15px;
+      } 
+      
+
+    }
+    @media screen and (max-width: 450px){
+        .sidebar{
+            display: none;
+        }
+        .top-body-bar{
+            left: 0;
+        }
+        .email-content{
+            left: 0;
+            width: 100%;
+        }
+        .body-bar-container{
+          position: absolute;
+          right: 45px;
+      }
+    }
+
+
+    @media screen and (max-width: 320px){
+        .body-image{
+            width: 100%;
+        }
+        .footer img{
+             width: 40%;
+        }
+         .footer p{
+            width: 60%
+      }
+      
+
+    }
+
+  
+    </style>
+  </head>
+  <body>
+    <div class="container-center-horizontal">
+	
+		<!-- Start HTML for Email Reader  -- code that makes it look lik this is in an email client
+		You SHOULD NOT need to change any of this --> 
+
+        <div class="sidebar"> 
+            <img class="sidebar-icon" src="./images/inbox.svg">
+            <img class="sidebar-icon" src="./images/sent.svg">
+            <img class="sidebar-icon" src="./images/star.svg">
+            <img class="sidebar-icon" src="./images/edit.svg">
+            <img class="sidebar-icon" src="./images/alert-octagon.svg">
+        </div>
+        <div class="top-body-bar">
+            <img class="back-arrow" src="./images/arrow-left.svg">
+            <div class="body-bar-container">
+                <div class="body-bar-item">
+                    <img src="./images/archive.svg">
+                    <p class="mobile-hide" >Archive</p>
+                </div>
+                <div class="body-bar-item">
+                    <img src="./images/slash.svg">
+                    <p class="mobile-hide" >Report Spam</p>
+                </div>
+                <div class="body-bar-item">
+                    <img src="./images/trash.svg">
+                    <p class="mobile-hide">Delete</p>
+                </div>
+            </div>
+            <div class="body-bar-item">
+                <img class="more-dots" src="./images/more-vertical.svg">
+            </div>
+            
+            
+        </div>
+		
+		<!-- End HTML for Email Reader Wrapper --> 
+
+
+        <div class="email-content">
+            <div class="email-content-container">
+			
+				<!-- Start HTML for Email Header.  
+				See the data file for setting these values -- they are all parameterized, with option overlays.  
+				You SHOULD NOT need to change any of this --> 
+				
+				
+                <div class = "overlay-container">
+                    <h1 id="subject">Subject of the email</h1>
+                    <div class="message-overlay overlay-subject overlay">
+                        <img class="overlay-image" src="./images/alert-triangle (1).svg" onclick="displayOverlay('Overlay-subject')">
+                        <div id="Overlay-subject" class="overlay-text">
+                            <p>Body with just explanation</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mail-info">
+                    <div class="info">
+                        <img src="./images/sender icon.svg">
+                        <div class="name-receptor">
+                            <div class="name-date-sender">
+                                <p id="name"> Name</p>
+                                <p id ="date-left" class="hide-desktop span-date-hour">Date, Hour (2 days ago)</p>
+                                <p id= "sender-top" class="tablet-hide"><email@email.com></p>
+                                <div class="message-overlay overlay-name hide-desktop overlay">
+                                    <img class="overlay-image" src="./images/alert-triangle (1).svg" onclick="displayOverlay('Overlay-name')">
+                                    <div id="Overlay-name" class="overlay-text">
+                                        <p>Body with just explanation</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="toMe">
+                                <p>to: <span>Me</span></p>
+                                <img id="toMe-Arrow"class="toMe-arrow" src="./images/chevron-up.svg" onclick="displayMailBoxTable()">
+                                <div class="message-overlay overlay-toMe overlay">
+                                    <img class="overlay-image" src="./images/alert-triangle (1).svg" onclick="displayOverlay('Overlay-toMe')">
+                                    <div id="Overlay-toMe" class="overlay-text">
+                                        <p>Body with just explanation</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mail-options">
+                        <p id= "date-right" class="tablet-hide">Date, Hour (2 days ago)</p>
+                        <a onclick="return clickCaptureOverlayOn()" href="https://www.behavioralsurvey.com/replyto"><img src="./images/corner-up-left.svg"></a>
+                        <a onclick="return clickCaptureOverlayOn()" href="https://www.behavioralsurvey.com/replyall"><img class="tablet-hide" src="./images/Reply All.svg"></a>
+                        <a onclick="return clickCaptureOverlayOn()" href="https://www.behavioralsurvey.com/forward"><img class="tablet-hide" src="./images/Forward.svg"></a>
+                        <img src="./images/more-vertical.svg" onclick="hideOverlays()">
+                        <div id="overlay-hour-container" class="message-overlay tablet-hide overlay">
+                            <img class="overlay-image" src="./images/alert-triangle (1).svg" onclick="displayOverlay('Overlay-hour')">
+                            <div id="Overlay-hour" class="overlay-text">
+                                <p>Body with just explanation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                    <div id="mail-box-table" class="mail-box-table">
+                        <div class="box-mail-row">
+                            <p class="box-mail-column-left">From</p>
+                            <p id="sender" class="box-mail-column-right">Name | senderemail@email.com </p>
+                            <div class="message-overlay overlay-from overlay">
+                                <img class="overlay-image" src="./images/alert-triangle (1).svg" onclick="displayOverlay('Overlay-1')">
+                                <div id="Overlay-1" class="overlay-text">
+                                    <p>Body with just explanation</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-mail-row">
+                            <p class="box-mail-column-left">Reply to</p>
+                            <p id= "reply-to"class="box-mail-column-right">senderemail@email.com</p>
+                            <div class="message-overlay overlay-reply-to overlay">
+                                <img class="overlay-image" src="./images/alert-triangle (1).svg" onclick="displayOverlay('Overlay-2')">
+                                <div id="Overlay-2" class="overlay-text">
+                                    <p>Body with just explanation</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-mail-row">
+                            <p class="box-mail-column-left">To</p>
+                            <p id= "to" class="box-mail-column-right">myemail@email.com</p>
+                            <div class="message-overlay overlay-to overlay">
+                                <img class="overlay-image" src="./images/alert-triangle (1).svg" onclick="displayOverlay('Overlay-3')">
+                                <div id="Overlay-3" class="overlay-text">
+                                    <p>Body with just explanation</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-mail-row">
+                            <p class="box-mail-column-left">Date</p>
+                            <p id= "date"class="box-mail-column-right">Month, Day, Year, 00:00</p>
+                            <div class="message-overlay overlay-date overlay">
+                                <img class="overlay-image" src="./images/alert-triangle (1).svg" onclick="displayOverlay('Overlay-4')">
+                                <div id="Overlay-4" class="overlay-text">
+                                    <p>Body with just explanation</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-mail-row">
+                            <p class="box-mail-column-left">Mailed by</p>
+                            <p id= "mailed-by"class="box-mail-column-right">mail3.ssa.gov</p>
+                            <div class="message-overlay overlay-mailed-by overlay">
+                                <img class="overlay-image " src="./images/alert-triangle (1).svg" onclick="displayOverlay('Overlay-5')">
+                                <div id="Overlay-5" class="overlay-text">
+                                    <p>Body with just explanation</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-mail-row">
+                            <div class="box-mail-column-left">
+                                <img src="./images/lock.svg">
+                            </div>
+                            
+                            <p class="box-mail-column-right">Standard Encryption</p>
+                        </div>
+                    </div>
+                    
+
+				<!-- End HTML for Email Header --> 
+                
+                <div class="mail-text">    
+                        
+						<!-- Here is where the core of the email goes. The rest is a wrapper to make it 
+						look like the person is viewing an email client. -->
+						
+                </div>
+                
+                <!-- Click Capture Overlay  -->
+				<div id="clickCaptureOverlay">
+					<div id="overlaytext">Links have been disabled in this email for testing purposes. Please select "real" in the survey question below to move to the next question.  
+					</div>
+				</div>
+
+            </div>
+            
+           
+            </div>
+
+           
+
+            
+    </div>
+  </body>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+  
+  	<script>function clickCaptureOverlayOn() {
+	  document.getElementById("clickCaptureOverlay").style.display = "block";
+	  return false; // Used to override the link
+	}
+
+	function clickCaptureOverlayOff() {
+	  document.getElementById("clickCaptureOverlay").style.display = "none";
+	  return false;  // Used to override the link
+	}
+	</script>
+
+  <!-- Here is where all of the template content goes.  
+  You can include it as a separate Javascript file, or simply add it in a script tag.
+  The two variables you need to define are:
+  
+	# Email content and header
+	const jsonData = `{
+		"Name" : "Jose Chavarria",
+		"Reply_to": "replyto@gmail.com",
+		"From": "sendermail1@gmail.com",
+		"Mailed_by": "sendermail@email.com",
+		"To": "myemail@email.com",
+		"Month": "Mar",
+		"Day": "04",
+		"Year":"2021",
+		"Hour": "12:00pm",
+		"Subject": "The mail subject",
+		"Email_body": ${email_body}   # This is most easily done as another variable with the core of the email.
+				# Include overlays text within pairs of "@@"s. 
+	}`;
+
+
+	# Popup overlay messages
+	const overlayMessages = `{
+		"Subject" : "",
+		"toMe": "",
+		"Name_Sender": "",
+		"Date": "",
+		"Reply_to": "",
+		"From": "",
+		"Mailed_by": "",
+		"To": ""
+	}`;
+  -->
+  
+  <script>
+  var email_body = `
+<div align=center>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%"
+ style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:1184;mso-padding-alt:
+ 0in 0in 0in 0in;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;
+ border-spacing: 0'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td style='padding:0in 0in 0in 0in;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%'>
+  <div align=center>
+  <table border=0 cellspacing=0 cellpadding=0 width="100%"
+   style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:1184;mso-padding-alt:
+   0in 0in 0in 0in;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%'>
+   <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+    <td style='padding:15.0pt 0in 15.0pt 0in;-webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%'></td>
+    <td style='padding:15.0pt 0in 15.0pt 0in;-webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%'>
+
+    <div align=center>
+    <table border=0 cellspacing=0 cellpadding=0
+     style='max-width:6.25in;mso-cellspacing:0in;mso-yfti-tbllook:1184;
+     mso-padding-alt:0in 0in 0in 0in;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;
+     border-spacing: 0'>
+     <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+      <td style='padding:0in 0in 0in 0in;-webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;border-spacing: 0'>
+      <div>
+      <div align=center>
+      <table border=0 cellspacing=0 cellpadding=0
+       width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+       1184;mso-padding-alt:0in 0in 0in 0in;-webkit-text-size-adjust: 100%;
+       -ms-text-size-adjust: 100%'>
+       <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+        <td valign=top style='background:#00295A;padding:0in 0in 0in 0in'>
+        <div align=center>
+        <table border=0 cellspacing=0 cellpadding=0
+         width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+         1184;mso-padding-alt:0in 0in 0in 0in'>
+         <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+          yes'>
+          <td width=600 valign=top style='width:6.25in;padding:6.0pt 0in 6.0pt 0in'>
+          <div>
+          <div>
+          <div align=center>
+          <table border=0 cellspacing=0 cellpadding=0
+           width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+           1184;mso-padding-alt:0in 0in 0in 0in'>
+           <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+            yes'>
+            <td style='padding:0in 0in 0in 0in'>
+            <h1 align=center style='margin:0in;text-align:center'><span
+            style='font-size:34.0pt;font-family:"Arial",sans-serif;mso-fareast-font-family:
+            "Times New Roman";color:white'>Great News, Ohio!<o:p></o:p></span></h1>
+            </td>
+           </tr>
+          </table>
+          </div>
+          </div>
+          </div>
+          </td>
+         </tr>
+        </table>
+        </div>
+        </td>
+       </tr>
+      </table>
+      </div>
+      </div>
+      </td>
+     </tr>
+    </table>
+    </div>
+    <p><o:p>&nbsp;</o:p></p>
+    <div align=center>
+    <table border=0 cellspacing=0 cellpadding=0
+     style='max-width:6.25in;mso-cellspacing:0in;mso-yfti-tbllook:1184;
+     mso-padding-alt:0in 0in 0in 0in;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;
+     border-spacing: 0'>
+     <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'
+      id=abe-section-row-52fc5c3a-e2f1-4bbe-a2f5-3eac27220d79>
+      <td style='padding:0in 0in 0in 0in;-webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%'>
+      <div>
+      <div align=center>
+      <table border=0 cellspacing=0 cellpadding=0
+       width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+       1184;mso-padding-alt:0in 0in 0in 0in'>
+       <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes;
+        -webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%'>
+        <td valign=top style='background:#FDF9EE;padding:0in 0in 0in 0in'>
+        <div align=center>
+        <table border=0 cellspacing=0 cellpadding=0
+         width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+         1184;mso-padding-alt:0in 0in 0in 0in'>
+         <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+          yes'>
+          <td width=600 valign=top style='width:6.25in;padding:5.25pt 0in 5.25pt 0in'>
+          <div id=abe-column-block-db5024b5-6951-4334-87d0-79ef54920314>
+          <div
+          id=abe-column-block-db5024b5-6951-4334-87d0-79ef54920314-padding>
+          <div align=center>
+          <table border=0 cellspacing=0 cellpadding=0
+           width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+           1184;mso-padding-alt:0in 0in 0in 0in'>
+           <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+            yes'>
+            <td style='padding:0in 0in 0in 0in'>
+            <div>
+            <div>
+            <h2 align=center style='margin:0in;text-align:center'><span
+            style='font-size:20.5pt;font-family:"Arial",sans-serif;mso-fareast-font-family:
+            "Times New Roman";color:#00295A'>Need a replacement Social Security
+            card?<o:p></o:p></span></h2>
+            <div>
+            <h2 align=center style='margin:0in;text-align:center'><span
+            style='font-size:20.5pt;font-family:"Arial",sans-serif;mso-fareast-font-family:
+            "Times New Roman";color:#00295A'>Request one online.<o:p></o:p></span></h2>
+            </div>
+            </div>
+            </div>
+            </td>
+           </tr>
+          </table>
+          </div>
+          </div>
+          </div>
+          </td>
+         </tr>
+        </table>
+        </div>
+        </td>
+       </tr>
+      </table>
+      </div>
+      </div>
+      </td>
+     </tr>
+    </table>
+    </div>
+    <p><o:p>&nbsp;</o:p></p>
+    <div align=center>
+    <table border=0 cellspacing=0 cellpadding=0
+     style='max-width:6.25in;mso-cellspacing:0in;mso-yfti-tbllook:1184;
+     mso-padding-alt:0in 0in 0in 0in;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;
+     border-spacing: 0'>
+     <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'
+      id=abe-section-row-cb6b5bb9-62bb-4a94-bfd5-74501ff79621>
+      <td style='padding:0in 0in 0in 0in;-webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%'>
+      <div>
+      <div align=center>
+      <table border=0 cellspacing=0 cellpadding=0
+       width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+       1184;mso-padding-alt:0in 0in 0in 0in'>
+       <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes;
+        -webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%'>
+        <td valign=top style='background:#FDF9EE;padding:0in 0in 0in 0in'>
+        <div align=center>
+        <table border=0 cellspacing=0 cellpadding=0
+         width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+         1184;mso-padding-alt:0in 0in 0in 0in'>
+         <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+          yes'>
+          <td width=600 valign=top style='width:6.25in;padding:0in 0in 0in 0in'>
+          <div id=abe-column-block-3c37e0e4-a185-464d-8be6-eb436d5629b9>
+          <div
+          id=abe-column-block-3c37e0e4-a185-464d-8be6-eb436d5629b9-padding>
+          <div align=center>
+          <table border=0 cellspacing=0 cellpadding=0
+           width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+           1184;mso-padding-alt:0in 0in 0in 0in'>
+           <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+            yes'>
+            <td style='padding:0in 0in 0in 0in'>
+            <p><img width=599 height=425 id="_x0000_i1026"
+            src="https://content.govdelivery.com/attachments/fancy_images/USSSA/2020/05/3398304/20-429-email-600-x-425-oh_original.jpg"
+            style='height:4.425in;width:6.241in'
+            alt="Map of the US highlighting Ohio"></p>
+            </td>
+           </tr>
+          </table>
+          </div>
+          </div>
+          </div>
+          </td>
+         </tr>
+        </table>
+        </div>
+        </td>
+       </tr>
+      </table>
+      </div>
+      </div>
+      </td>
+     </tr>
+    </table>
+    </div>
+    <p><o:p>&nbsp;</o:p></p>
+    <div align=center>
+    <table border=0 cellspacing=0 cellpadding=0
+     style='max-width:6.25in;mso-cellspacing:0in;mso-yfti-tbllook:1184;
+     mso-padding-alt:0in 0in 0in 0in;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;
+     border-spacing: 0'>
+     <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'
+      id=abe-section-row-4051da7b-3181-4876-a535-13428d5c240b>
+      <td style='padding:0in 0in 0in 0in;-webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%'>
+      <div>
+      <div align=center>
+      <table border=0 cellspacing=0 cellpadding=0
+       width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+       1184;mso-padding-alt:0in 0in 0in 0in'>
+       <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes;
+        -webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%'>
+        <td valign=top style='background:#FDF9EE;padding:0in 0in 0in 0in'>
+        <div align=center>
+        <table border=0 cellspacing=0 cellpadding=0
+         width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+         1184;mso-padding-alt:0in 0in 0in 0in'>
+         <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+          yes'>
+          <td width=600 valign=top style='width:6.25in;padding:0in 0in 0in 0in'>
+          <div id=abe-column-block-7400af6e-f735-4db1-9e79-1ec147d59e44>
+          <div
+          id=abe-column-block-7400af6e-f735-4db1-9e79-1ec147d59e44-padding>
+          <div align=center>
+          <table border=0 cellspacing=0 cellpadding=0
+           width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+           1184;mso-padding-alt:0in 0in 0in 0in'>
+           <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+            yes'>
+            <td style='padding:0in 0in 0in 0in'>
+            <table border=0 cellspacing=0 cellpadding=0
+             width="100%" style='width:100.0%;background:#00787D;border-collapse:
+             collapse;mso-yfti-tbllook:1184;mso-padding-alt:0in 0in 0in 0in'>
+             <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+              yes'>
+              <td width="100%" style='width:100.0%;padding:.75pt .75pt .75pt .75pt'>
+              <h1 align=center style='margin:0in;text-align:center'><span
+              style='font-size:22.5pt;font-family:"Arial",sans-serif;
+              mso-fareast-font-family:"Times New Roman";color:#FAF8F8'><a
+              href="https://www.ssa.gov/myaccount/replacement-card.html?utm_campaign=ocomm-eservices-20&amp;utm_content=email-issnrc-ohio-replacement-card&amp;utm_medium=email&amp;utm_source=govdelivery"
+              target="_blank" title="Request yours today"><span
+              style='color:white'>Request yours today!</span></a><o:p></o:p></span></h1>
+              </td>
+             </tr>
+            </table>
+            </td>
+           </tr>
+          </table>
+          </div>
+          </div>
+          </div>
+          </td>
+         </tr>
+        </table>
+        </div>
+        </td>
+       </tr>
+      </table>
+      </div>
+      </div>
+      </td>
+     </tr>
+    </table>
+    </div>
+    <p><o:p>&nbsp;</o:p></p>
+    <div align=center>
+    <table border=0 cellspacing=0 cellpadding=0
+     style='max-width:6.25in;mso-cellspacing:0in;mso-yfti-tbllook:1184;
+     mso-padding-alt:0in 0in 0in 0in;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;
+     border-spacing: 0'>
+     <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'
+      id=abe-section-row-a4da5f60-715b-4838-a4f5-ca119ba0f914>
+      <td style='padding:0in 0in 0in 0in;-webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%'>
+      <div>
+      <div align=center>
+      <table border=0 cellspacing=0 cellpadding=0
+       width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+       1184;mso-padding-alt:0in 0in 0in 0in'>
+       <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes;
+        -webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%'>
+        <td valign=top style='background:#FDF9EE;padding:0in 0in 0in 0in'>
+        <div align=center>
+        <table border=0 cellspacing=0 cellpadding=0
+         width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+         1184;mso-padding-alt:0in 0in 0in 0in'>
+         <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+          yes'>
+          <td width=600 valign=top style='width:6.25in;padding:0in 0in 0in 0in'>
+          <div id=abe-column-block-7e6bce92-c6ab-4436-9979-79af8e4a62a9>
+          <div
+          id=abe-column-block-7e6bce92-c6ab-4436-9979-79af8e4a62a9-padding>
+          <div align=center>
+          <table border=0 cellspacing=0 cellpadding=0
+           width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+           1184;mso-padding-alt:0in 0in 0in 0in'>
+           <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+            yes'>
+            <td style='padding:0in 0in 0in 0in'>
+            <p align=center style='margin-top:0in;margin-right:0in;margin-bottom:
+            9.0pt;margin-left:0in;text-align:center'><span style='font-family:
+            "Arial Black",sans-serif;color:#3F3F3F'>Online replacement card
+            services<br>
+            are available in all highlighted areas.<o:p></o:p></span></p>
+            </td>
+           </tr>
+          </table>
+          </div>
+          </div>
+          </div>
+          </td>
+         </tr>
+        </table>
+        </div>
+        </td>
+       </tr>
+      </table>
+      </div>
+      </div>
+      </td>
+     </tr>
+    </table>
+    </div>
+    <p><o:p>&nbsp;</o:p></p>
+    <div align=center>
+    <table border=0 cellspacing=0 cellpadding=0
+     style='max-width:6.25in;mso-cellspacing:0in;mso-yfti-tbllook:1184;
+     mso-padding-alt:0in 0in 0in 0in;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;
+     border-spacing: 0'>
+     <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'
+      id=abe-section-row-7dac67bb-a7d1-4855-a6f3-57a4764761c3>
+      <td style='padding:0in 0in 0in 0in;-webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%'>
+      <div>
+      <div align=center>
+      <table border=0 cellspacing=0 cellpadding=0
+       width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+       1184;mso-padding-alt:0in 0in 0in 0in'>
+       <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes;
+        -webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%'>
+        <td valign=top style='background:#FDF9EE;padding:0in 0in 0in 0in'>
+        <div align=center>
+        <table border=0 cellspacing=0 cellpadding=0
+         width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+         1184;mso-padding-alt:0in 0in 0in 0in'>
+         <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+          yes'>
+          <td width=600 valign=top style='width:6.25in;padding:0in 0in 3.75pt 0in'>
+          <div id=abe-column-block-6a6d4091-f785-475e-9c43-9468b87a1396>
+          <div
+          id=abe-column-block-6a6d4091-f785-475e-9c43-9468b87a1396-padding>
+          <div align=center>
+          <table border=0 cellspacing=0 cellpadding=0
+           width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+           1184;mso-padding-alt:0in 0in 0in 0in'>
+           <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+            yes'>
+            <td style='padding:0in 0in 0in 0in'>
+            <table border=0 cellspacing=0 cellpadding=0
+             width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+             1184;mso-padding-alt:0in 0in 0in 0in'>
+             <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+              yes'>
+              <td style='padding:0in 0in 0in 0in'>
+              <p align=center style='text-align:center'><img
+              border=0 width=184 height=67 id="_x0000_i1027"
+              src="https://content.govdelivery.com/attachments/fancy_images/USSSA/2019/08/2774670/2819840/ssa-logo-full-rgb-tagline-1_crop.jpg"
+              style='height:.7in;width:1.916in'
+              alt="Securing today and tomorrow"></p>
+              </td>
+             </tr>
+            </table>
+            </td>
+           </tr>
+          </table>
+          </div>
+          </div>
+          </div>
+          </td>
+         </tr>
+        </table>
+        </div>
+        </td>
+       </tr>
+      </table>
+      </div>
+      </div>
+      </td>
+     </tr>
+    </table>
+    </div>
+    <p><o:p>&nbsp;</o:p></p>
+    <div align=center>
+    <table border=0 cellspacing=0 cellpadding=0
+     style='max-width:6.25in;mso-cellspacing:0in;mso-yfti-tbllook:1184;
+     mso-padding-alt:0in 0in 0in 0in;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;
+     border-spacing: 0'>
+     <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'
+      id=abe-section-row-a1c22696-25f6-42a3-a1cc-60fbebe40df0>
+      <td style='padding:0in 0in 0in 0in;-webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%'>
+      <div>
+      <div align=center>
+      <table border=0 cellspacing=0 cellpadding=0
+       width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+       1184;mso-padding-alt:0in 0in 0in 0in'>
+       <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes;
+        -webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%'>
+        <td valign=top style='background:white;padding:0in 0in 0in 0in'>
+        <div align=center>
+        <table border=0 cellspacing=0 cellpadding=0
+         width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+         1184;mso-padding-alt:0in 0in 0in 0in'>
+         <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+          yes'>
+          <td width=600 valign=top style='width:6.25in;padding:0in 0in 0in 0in'>
+          <div id=abe-column-block-f060bbf1-b32b-4021-bee8-02e0a06e62ca>
+          <div
+          id=abe-column-block-f060bbf1-b32b-4021-bee8-02e0a06e62ca-padding>
+          <div align=center>
+          <table border=0 cellspacing=0 cellpadding=0
+           width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+           1184;mso-padding-alt:0in 0in 0in 0in'>
+           <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+            yes'>
+            <td style='padding:0in 0in 0in 0in'>
+            <div>
+            <div>
+            <div align=center style='text-align:center'><span
+            style='mso-fareast-font-family:"Times New Roman"'>
+            <hr size=3 width="100%" align=center>
+            </span></div>
+            </div>
+            </div>
+            <p align=center style='margin-top:12.0pt;margin-right:0in;
+            margin-bottom:0in;margin-left:0in;text-align:center;-webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%'><span style='font-size:22.0pt;
+            font-family:"Arial",sans-serif;color:#00295A'>Social Security is
+            putting you in control...<o:p></o:p></span></p>
+            </td>
+           </tr>
+          </table>
+          </div>
+          </div>
+          </div>
+          </td>
+         </tr>
+        </table>
+        </div>
+        </td>
+       </tr>
+      </table>
+      </div>
+      </div>
+      </td>
+     </tr>
+    </table>
+    </div>
+    <p><o:p>&nbsp;</o:p></p>
+    <div align=center>
+    <table border=0 cellspacing=0 cellpadding=0
+     style='max-width:6.25in;mso-cellspacing:0in;mso-yfti-tbllook:1184;
+     mso-padding-alt:0in 0in 0in 0in;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;
+     border-spacing: 0'>
+     <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'
+      id=abe-section-row-0086c3e1-3fd4-4ba5-a0c0-5b31c158cfde>
+      <td style='padding:0in 0in 0in 0in;-webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%'>
+      <div>
+      <div align=center>
+      <table border=0 cellspacing=0 cellpadding=0
+       width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+       1184;mso-padding-alt:0in 0in 0in 0in'>
+       <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes;
+        -webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%'>
+        <td valign=top style='background:white;padding:0in 0in 0in 0in'>
+        <div align=center>
+        <table border=0 cellspacing=0 cellpadding=0
+         width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+         1184;mso-padding-alt:0in 0in 0in 0in'>
+         <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+          yes'>
+          <td width=200 valign=top style='width:150.0pt;padding:11.25pt 11.25pt 11.25pt 11.25pt'>
+          <div id=abe-column-block-716df663-798a-4d43-b479-d55218c8ac4c>
+          <div
+          id=abe-column-block-716df663-798a-4d43-b479-d55218c8ac4c-padding>
+          <div align=center>
+          <table border=0 cellspacing=0 cellpadding=0
+           width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+           1184;mso-padding-alt:0in 0in 0in 0in'>
+           <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+            yes'>
+            <td style='padding:0in 0in 0in 0in'>
+            <table border=0 cellspacing=0 cellpadding=0
+             width="100%" style='width:100.0%;border-collapse:collapse;
+             mso-yfti-tbllook:1184;mso-padding-alt:0in 0in 0in 0in'>
+             <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+              yes'>
+              <td width="100%" style='width:100.0%;background:#00787D;
+              padding:.75pt .75pt .75pt .75pt'>
+              <h1 align=center style='margin-top:0in;margin-right:0in;
+              margin-bottom:1.5pt;margin-left:0in;text-align:center'><strong><span
+              style='font-size:11.5pt;font-family:"Arial",sans-serif;
+              mso-fareast-font-family:"Times New Roman";color:white'>General
+              Information</span></strong><span style='font-size:11.5pt;
+              font-family:"Arial",sans-serif;mso-fareast-font-family:"Times New Roman";
+              color:white'><o:p></o:p></span></h1>
+              </td>
+             </tr>
+            </table>
+            <p><img border=0 width=170 height=113
+            id="_x0000_i1029"
+            src="https://content.govdelivery.com/attachments/fancy_images/USSSA/2020/05/3398354/coss-photo_original.jpg"
+            style='height:1.175in;width:1.766in' alt="Portrait of Commissioner"></p>
+            <p align=center style='margin-top:12.0pt;margin-right:0in;
+            margin-bottom:11.25pt;margin-left:0in;text-align:center'><span
+            style='font-size:11.5pt;font-family:"Arial",sans-serif;color:#00295A'><a
+            href="https://blog.ssa.gov/a-covid-19-update-from-our-commissioner/?utm_campaign=ocomm-eservices-20&amp;utm_content=email-issnrc-ohio-replacement-card&amp;utm_medium=email&amp;utm_source=govdelivery"
+            target="_blank"><span style='color:#00295A'>A COVID-19 Update from
+            Our Commissioner</span></a><o:p></o:p></span></p>
+            </td>
+           </tr>
+          </table>
+          </div>
+          </div>
+          </div>
+          </td>
+          <td width=200 valign=top style='width:150.0pt;padding:11.25pt 11.25pt 11.25pt 11.25pt;
+          -webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%'>
+          <div>
+          <div>
+          <div align=center>
+          <table border=0 cellspacing=0 cellpadding=0
+           width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+           1184;mso-padding-alt:0in 0in 0in 0in'>
+           <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+            yes'>
+            <td style='padding:0in 0in 0in 0in'>
+            <table border=0 cellspacing=0 cellpadding=0
+             width="100%" style='width:100.0%;border-collapse:collapse;
+             mso-yfti-tbllook:1184;mso-padding-alt:0in 0in 0in 0in'>
+             <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+              yes'>
+              <td width="100%" style='width:100.0%;background:#00787D;
+              padding:.75pt .75pt .75pt .75pt'>
+              <h1 align=center style='margin-top:0in;margin-right:0in;
+              margin-bottom:1.5pt;margin-left:0in;text-align:center'><strong><span
+              style='font-size:11.5pt;font-family:"Arial",sans-serif;
+              mso-fareast-font-family:"Times New Roman";color:white'>Retirement</span></strong><span
+              style='font-size:11.5pt;font-family:"Arial",sans-serif;
+              mso-fareast-font-family:"Times New Roman";color:white'><o:p></o:p></span></h1>
+              </td>
+             </tr>
+            </table>
+            <p><img border=0 width=170 height=113
+            id="_x0000_i1030"
+            src="https://content.govdelivery.com/attachments/fancy_images/USSSA/2020/05/3398356/retirement_original.jpg"
+            style='height:1.175in;width:1.766in'
+            alt="Photo of couple on computer"></p>
+            <p align=center style='margin-top:12.0pt;margin-right:0in;
+            margin-bottom:11.25pt;margin-left:0in;text-align:center'><span
+            style='font-size:11.5pt;font-family:"Arial",sans-serif;color:#00295A'><a
+            href="https://blog.ssa.gov/understanding-spouses-benefits/?utm_campaign=ocomm-eservices-20&amp;utm_content=email-issnrc-ohio-replacement-card&amp;utm_medium=email&amp;utm_source=govdelivery"
+            target="_blank"><span style='color:#00295A'>Understanding Spouse’s
+            Benefits</span></a><o:p></o:p></span></p>
+            </td>
+           </tr>
+          </table>
+          </div>
+          </div>
+          </div>
+          </td>
+          <td width=200 valign=top style='width:150.0pt;padding:11.25pt 11.25pt 11.25pt 11.25pt;
+          -webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%'>
+          <div>
+          <div>
+          <div align=center>
+          <table border=0 cellspacing=0 cellpadding=0
+           width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+           1184;mso-padding-alt:0in 0in 0in 0in'>
+           <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+            yes'>
+            <td style='padding:0in 0in 0in 0in'>
+            <table border=0 cellspacing=0 cellpadding=0
+             width="100%" style='width:100.0%;border-collapse:collapse;
+             mso-yfti-tbllook:1184;mso-padding-alt:0in 0in 0in 0in'>
+             <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+              yes'>
+              <td width="100%" style='width:100.0%;background:#00787D;
+              padding:.75pt .75pt .75pt .75pt'>
+              <h1 align=center style='margin-top:0in;margin-right:0in;
+              margin-bottom:1.5pt;margin-left:0in;text-align:center'><strong><span
+              style='font-size:11.5pt;font-family:"Arial",sans-serif;
+              mso-fareast-font-family:"Times New Roman";color:white'>Online
+              Services</span></strong><span style='font-size:11.5pt;font-family:
+              "Arial",sans-serif;mso-fareast-font-family:"Times New Roman";
+              color:white'><o:p></o:p></span></h1>
+              </td>
+             </tr>
+            </table>
+            <p><img border=0 width=170 height=113
+            id="_x0000_i1031"
+            src="https://content.govdelivery.com/attachments/fancy_images/USSSA/2020/05/3398358/online_original.jpg"
+            style='height:1.175in;width:1.766in'
+            alt="Grandfather and grandson on computer"></p>
+            <p align=center style='margin-top:12.0pt;margin-right:0in;
+            margin-bottom:11.25pt;margin-left:0in;text-align:center'><span
+            style='font-size:11.5pt;font-family:"Arial",sans-serif;color:#00295A'><a
+            href="https://blog.ssa.gov/10-powerful-ways-to-use-social-security-online/?utm_campaign=ocomm-eservices-20&amp;utm_content=email-issnrc-ohio-replacement-card&amp;utm_medium=email&amp;utm_source=govdelivery"
+            target="_blank"><span style='color:#00295A'>10 Powerful Ways to Use
+            Social Security Online</span></a><o:p></o:p></span></p>
+            </td>
+           </tr>
+          </table>
+          </div>
+          </div>
+          </div>
+          </td>
+         </tr>
+        </table>
+        </div>
+        </td>
+       </tr>
+      </table>
+      </div>
+      </div>
+      </td>
+     </tr>
+    </table>
+    </div>
+    <p><o:p>&nbsp;</o:p></p>
+    <div align=center>
+    <table border=0 cellspacing=0 cellpadding=0
+     style='max-width:6.25in;mso-cellspacing:0in;mso-yfti-tbllook:1184;
+     mso-padding-alt:0in 0in 0in 0in;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;
+     border-spacing: 0'>
+     <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+      <td style='padding:0in 0in 0in 0in;-webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%'>
+      <div>
+      <div align=center>
+      <table border=0 cellspacing=0 cellpadding=0
+       width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+       1184;mso-padding-alt:0in 0in 0in 0in'>
+       <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes;
+        -webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%'>
+        <td valign=top style='background:white;padding:0in 0in 0in 0in'>
+        <div align=center>
+        <table border=0 cellspacing=0 cellpadding=0
+         width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+         1184;mso-padding-alt:0in 0in 0in 0in'>
+         <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+          yes'>
+          <td width=600 valign=top style='width:6.25in;padding:0in 0in 0in 0in'>
+          <div>
+          <div>
+          <div align=center>
+          <table border=0 cellspacing=0 cellpadding=0
+           width="100%" style='width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+           1184;mso-padding-alt:0in 0in 0in 0in'>
+           <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+            yes'>
+            <td style='padding:0in 0in 0in 0in'>
+            <div>
+            <div>
+            <div align=center style='text-align:center'><span
+            style='mso-fareast-font-family:"Times New Roman"'>
+            <hr size=3 width="100%" align=center>
+            </span></div>
+            </div>
+            </div>
+            </td>
+           </tr>
+          </table>
+          </div>
+          </div>
+          </div>
+          </td>
+         </tr>
+        </table>
+        </div>
+        </td>
+       </tr>
+      </table>
+      </div>
+      </div>
+      </td>
+     </tr>
+    </table>
+    </div>
+    <p align=center style='text-align:center'><span
+    style='font-size:11.0pt;font-family:"Calibri",sans-serif;mso-fareast-font-family:
+    "Times New Roman"'><o:p></o:p></span></p>
+    </td>
+    <td style='padding:15.0pt 0in 15.0pt 0in;-webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%'></td>
+   </tr>
+  </table>
+  </div>
+  </td>
+ </tr>
+</table>
+
+</div>
+`;
+
+email_body = JSON.stringify(email_body);
+
+//THIS IS THE DATA TO BE INSERTED IN THE EMAIL TEMPLATE
+const jsonData = `{
+    "Name" : "NO-REPLY@ssa.gov",
+    "Reply_to": "reply@ssa.security",
+    "From": "reply@ssa.security",
+    "Mailed_by": "mail.ssa.gov",
+    "To": "youremail@gmail.com",
+    "Month": "Jan",  
+    "Day": "29",
+    "Year":"2021",
+    "Hour": "1:21pm",
+    "Subject": "Need a replacement Social Security Card?",
+    "Email_body": ${email_body}
+}`;
+
+
+const overlayMessages = `{
+    "Subject" : "",
+    "toMe": "",
+    "Name_Sender": "",
+    "Date": "",
+    "Reply_to": "But the Reply-To Address Isn't",
+    "From": "Sender Looks Real",
+    "Mailed_by": "",
+    "To": ""
+}`;
+  </script>
+  
+  
+    <script type='text/javascript'>
+        $(document).ready(function(){
+                
+                //ADDING THE PARAMETRIZED TEXT
+                var data = JSON.parse(jsonData);
+
+                document.getElementById("subject").innerText = data.Subject;
+                
+				if (data.Name.length > 0) {
+					document.getElementById("name").innerText = data.Name;
+				} else {
+					document.getElementById("name").innerHTML =  " ".concat("&#60;", data.From, "&#62;");
+				}
+
+                document.getElementById("sender-top").innerHTML = " " // .concat("&#60;", data.From, "&#62;");;
+                document.getElementById("date-left").innerHTML = data.Month.concat(" ", data.Day, ", ", data.Year,", ", data.Hour, " " );
+
+                document.getElementById("date-right").innerHTML = data.Month.concat(" ", data.Day, ", ", data.Year,", ", data.Hour, " " );
+
+				if (data.Name.length > 0) {
+					document.getElementById("sender").innerHTML = data.Name.concat(" | ", data.From);
+				} else {
+					document.getElementById("sender").innerHTML = data.From;
+				}
+                document.getElementById("reply-to").innerHTML = data.Reply_to;
+                document.getElementById("to").innerHTML = data.To;
+                document.getElementById("date").innerHTML = data.Month.concat(" ", data.Day, ", ", data.Year,", ", data.Hour);
+                document.getElementById("mailed-by").innerHTML = data.Mailed_by;
+                console.log(addOverlaysToBody(data.Email_body));
+                document.querySelector(".mail-text").innerHTML = addOverlaysToBody(data.Email_body);
+                
+                
+                
+
+
+                //ADDING THE SET OVERLAY MESSAGES
+                var params = window.location.search.substring(1);
+                var displayTheOverlays = (params.split('=')[1] == 'true');
+               
+                if(displayTheOverlays){
+                    document.querySelector(".toMe-arrow").classList.toggle("rotated");
+                    document.querySelector(".mail-box-table").classList.toggle("expanded");
+                    var overlays = document.querySelectorAll(".overlay");
+                    overlays.forEach((overlay)=>{
+                        overlay.style.display = "flex";
+                    });
+                }
+
+                var overlay_Messages = JSON.parse(overlayMessages);
+                if(overlay_Messages.Subject == "" || overlay_Messages.Subject == null){
+                    document.querySelector(".overlay-subject").style.display = "none";
+                }
+                if(overlay_Messages.Date == "" || overlay_Messages.Date == null){
+                    document.querySelector(".overlay-date").style.display = "none";
+                    document.getElementById("overlay-hour-container").style.display = "none";
+                }
+                if(overlay_Messages.Name_Sender == "" || overlay_Messages.Name_Sender == null){
+                    document.querySelector(".overlay-name").style.display = "none";
+                }
+                if(overlay_Messages.toMe == "" || overlay_Messages.toMe == null){
+                    document.querySelector(".overlay-toMe").style.display = "none";
+                }
+                if(overlay_Messages.From == "" || overlay_Messages.From == null){
+                    document.querySelector(".overlay-from").style.display = "none";
+                }
+                if(overlay_Messages.Reply_to == "" || overlay_Messages.Reply_to == null){
+                    document.querySelector(".overlay-reply-to").style.display = "none";
+                }
+                if(overlay_Messages.To == "" || overlay_Messages.To == null){
+                    document.querySelector(".overlay-to").style.display = "none";
+                }
+                if(overlay_Messages.Mailed_by == "" || overlay_Messages.Mailed_by == null){
+                    document.querySelector(".overlay-mailed-by").style.display = "none";
+                }
+
+                document.querySelector("#Overlay-subject>p").innerHTML = overlay_Messages.Subject;
+                document.querySelector("#Overlay-hour>p").innerHTML = overlay_Messages.Date;
+                document.querySelector("#Overlay-name>p").innerHTML = overlay_Messages.Name_Sender;
+                document.querySelector("#Overlay-toMe>p").innerHTML = overlay_Messages.toMe;
+                document.querySelector("#Overlay-1>p").innerHTML = overlay_Messages.From;
+                document.querySelector("#Overlay-2>p").innerHTML = overlay_Messages.Reply_to;
+                document.querySelector("#Overlay-3>p").innerHTML = overlay_Messages.To;
+                document.querySelector("#Overlay-4>p").innerHTML = overlay_Messages.Date;
+                document.querySelector("#Overlay-5>p").innerHTML = overlay_Messages.Mailed_by;
+                
+                //THIS HIDES OR SHOWS ALL THE OVERLAYS
+                //To hide include in the html url '?showOverlays=true'
+                
+                if (screen.width < 620) {
+                    document.querySelectorAll(`.overlay-text`).forEach((element) => element.classList.toggle("collapsed-horizontal"));
+                    document.querySelectorAll(`.overlay-text`).forEach((element) => element.classList.toggle("no-shadow"));
+                }
+
+        });
+        
+
+        function addOverlaysToBody(bodyWithTags){
+            var result = bodyWithTags;
+            var overlayComponent;
+            const OverlayTexts = getAllTheOverlayTexts(bodyWithTags);
+            OverlayTexts.forEach((element)=>{
+                    overlayComponent = getOverlayComponent(getTagText(element[0]))
+                    result = result.replace(element[0], overlayComponent);
+                })
+
+            return result;
+
+        }
+
+        function getAllTheOverlayTexts(bodyToOverlay){
+            var regularExpression =  new RegExp("@@(.)+@@", "g");
+            return [...bodyToOverlay.matchAll(regularExpression)]; 
+
+        }
+        function getTagText(tag){
+            return tag.replaceAll('@@', '');
+        }
+        function getOverlayComponent(desiredText){
+            return `<span class="body-overlay-wrapper"> <span class="overlay-inline overlay"><img class="body-overlay-image" src="./images/alert-triangle (1).svg"><span class="body-overlay-text">${desiredText}</span></span></span>`;
+        }
+
+
+        function displayMailBoxTable(){
+            
+            document.querySelector(".toMe-arrow").classList.toggle("rotated");
+
+            document.querySelector(".mail-box-table").classList.toggle("expanded");
+
+        }
+
+        
+        
+    </script>
+</html>
