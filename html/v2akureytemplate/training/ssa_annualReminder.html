@@ -594,7 +594,7 @@
                     <div class="message-overlay overlay-subject overlay">
                         <img class="overlay-image" src="./images/alert-triangle (1).svg" onclick="displayOverlay('Overlay-subject')">
                         <div id="Overlay-subject" class="overlay-text">
-                            <p>Body with just explanation</p>
+                            <p>Subject with explanation</p>
                         </div>
                     </div>
                 </div>
@@ -604,23 +604,23 @@
                         <img src="./images/sender icon.svg">
                         <div class="name-receptor">
                             <div class="name-date-sender">
-                                <p id="name"> Name</p>
+                                <p id="name">Name</p>
                                 <p id ="date-left" class="hide-desktop span-date-hour">Date, Hour (2 days ago)</p>
                                 <p id= "sender-top" class="tablet-hide"><email@email.com></p>
-                                <div class="message-overlay overlay-name hide-desktop overlay">
+                                <div class="message-overlay overlay-name overlay">
                                     <img class="overlay-image" src="./images/alert-triangle (1).svg" onclick="displayOverlay('Overlay-name')">
                                     <div id="Overlay-name" class="overlay-text">
-                                        <p>Body with just explanation</p>
+                                        <p>Name with explanation</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="toMe">
                                 <p>to: <span>Me</span></p>
-                                <img id="toMe-Arrow"class="toMe-arrow" src="./images/chevron-up.svg" onclick="displayMailBoxTable()">
+                                <img id="toMe-Arrow" class="toMe-arrow" src="./images/chevron-up.svg" onclick="displayMailBoxTable()">
                                 <div class="message-overlay overlay-toMe overlay">
                                     <img class="overlay-image" src="./images/alert-triangle (1).svg" onclick="displayOverlay('Overlay-toMe')">
                                     <div id="Overlay-toMe" class="overlay-text">
-                                        <p>Body with just explanation</p>
+                                        <p>To with explanation</p>
                                     </div>
                                 </div>
                             </div>
@@ -635,7 +635,7 @@
                         <div id="overlay-hour-container" class="message-overlay tablet-hide overlay">
                             <img class="overlay-image" src="./images/alert-triangle (1).svg" onclick="displayOverlay('Overlay-hour')">
                             <div id="Overlay-hour" class="overlay-text">
-                                <p>Body with just explanation</p>
+                                <p>Date with explanation</p>
                             </div>
                         </div>
                     </div>
@@ -648,7 +648,7 @@
                             <div class="message-overlay overlay-from overlay">
                                 <img class="overlay-image" src="./images/alert-triangle (1).svg" onclick="displayOverlay('Overlay-1')">
                                 <div id="Overlay-1" class="overlay-text">
-                                    <p>Body with just explanation</p>
+                                    <p>From/Name with explanation</p>
                                 </div>
                             </div>
                         </div>
@@ -658,7 +658,7 @@
                             <div class="message-overlay overlay-reply-to overlay">
                                 <img class="overlay-image" src="./images/alert-triangle (1).svg" onclick="displayOverlay('Overlay-2')">
                                 <div id="Overlay-2" class="overlay-text">
-                                    <p>Body with just explanation</p>
+                                    <p>Replyto with explanation</p>
                                 </div>
                             </div>
                         </div>
@@ -668,7 +668,7 @@
                             <div class="message-overlay overlay-to overlay">
                                 <img class="overlay-image" src="./images/alert-triangle (1).svg" onclick="displayOverlay('Overlay-3')">
                                 <div id="Overlay-3" class="overlay-text">
-                                    <p>Body with just explanation</p>
+                                    <p>Mailto with explanation</p>
                                 </div>
                             </div>
                         </div>
@@ -678,7 +678,7 @@
                             <div class="message-overlay overlay-date overlay">
                                 <img class="overlay-image" src="./images/alert-triangle (1).svg" onclick="displayOverlay('Overlay-4')">
                                 <div id="Overlay-4" class="overlay-text">
-                                    <p>Body with just explanation</p>
+                                    <p>Date with explanation</p>
                                 </div>
                             </div>
                         </div>
@@ -688,7 +688,7 @@
                             <div class="message-overlay overlay-mailed-by overlay">
                                 <img class="overlay-image " src="./images/alert-triangle (1).svg" onclick="displayOverlay('Overlay-5')">
                                 <div id="Overlay-5" class="overlay-text">
-                                    <p>Body with just explanation</p>
+                                    <p>Mailed by explanation</p>
                                 </div>
                             </div>
                         </div>
@@ -777,7 +777,7 @@
   
   <script>
   var email_body = `
-<p class="text-greeting">Dear John:</p>
+<p class="text-greeting">Dear <span id="nametofill">YourName</span>:</p>
 <p class="text-greeting">We'd like to remind you to review your <i>Social Security Statement</i> online.
 The <i>Statement</i> has important Social Security information and, if applicable,
 estimates of your future benefits.</p>
@@ -785,7 +785,7 @@ estimates of your future benefits.</p>
 sure your earnings record is correct. The <i>Statement</i> also will help in planning
 your financial future.</p>
 <p class="text-greeting">To view your most recent <i>Statement</i>, please visit
-<a onclick="return clickCaptureOverlayOn()" href="https://www.socialsecurity.gov/reviewyourstatement">www.socialsecurity.gov/reviewyourstatement</a>@@Real, ".Gov" Domain@@
+<a onclick="return clickCaptureOverlayOn()" href="https://www.socialsecurity.gov/reviewyourstatement">www.socialsecurity.gov/reviewyourstatement</a>@@Text can be faked. But Hover Over the link: it goes to a real, ".Gov" Domain@@
  and sign in to your account.</p>
 <p class="text-greeting">On June 10, 2017, we added a second method to verify your identity each time you sign in to your account. 
 This is in addition to your username and password. Using two ways to identify you when you log on will help better 
@@ -804,7 +804,7 @@ email_body = JSON.stringify(email_body);
 
 //THIS IS THE DATA TO BE INSERTED IN THE EMAIL TEMPLATE
 const jsonData = `{
-    "Name" : "NO-REPLY@ssa.gov",
+    "Name" : "",
     "Reply_to": "NO-REPLY@ssa.gov",
     "From": "NO-REPLY@ssa.gov",
     "Mailed_by": "mail3.ssa.gov",
@@ -821,9 +821,9 @@ const jsonData = `{
 const overlayMessages = `{
     "Subject" : "",
     "toMe": "",
-    "Name_Sender": "",
+    "Name_Sender": "While 'From' Address can be faked...",
     "Date": "",
-    "Reply_to": "Open the header's. Its <br/> from an Official .Gov Domain",
+    "Reply_to": "This one is from an Official .Gov Domain. <br/> Remember to open the headers.",
     "From": "",
     "Mailed_by": "",
     "To": ""
@@ -860,13 +860,9 @@ const overlayMessages = `{
                 document.getElementById("to").innerHTML = data.To;
                 document.getElementById("date").innerHTML = data.Month.concat(" ", data.Day, ", ", data.Year,", ", data.Hour);
                 document.getElementById("mailed-by").innerHTML = data.Mailed_by;
-                console.log(addOverlaysToBody(data.Email_body));
+                // console.log(addOverlaysToBody(data.Email_body));
                 document.querySelector(".mail-text").innerHTML = addOverlaysToBody(data.Email_body);
-                
-                
-                
-
-
+   
                 //ADDING THE SET OVERLAY MESSAGES
                 var params = window.location.search.substring(1);
                 var displayTheOverlays = (params.split('=')[1] == 'true');
@@ -924,6 +920,24 @@ const overlayMessages = `{
                     document.querySelectorAll(`.overlay-text`).forEach((element) => element.classList.toggle("collapsed-horizontal"));
                     document.querySelectorAll(`.overlay-text`).forEach((element) => element.classList.toggle("no-shadow"));
                 }
+				
+				const nameElement = document.getElementById('nametofill')
+				const queryString = window.location.search;
+				const urlParams = new URLSearchParams(queryString);
+				if (nameElement && urlParams.has('name')) {
+					var theNewName = urlParams.get('name');
+					if (theNewName && theNewName.length > 1) {
+						nameElement.textContent = theNewName;
+				}
+
+
+	 }
+	else { 
+	
+	}
+	
+
+
 
         });
         

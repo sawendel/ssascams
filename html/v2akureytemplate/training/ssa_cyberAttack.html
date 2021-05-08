@@ -607,7 +607,7 @@
                                 <p id="name"> Name</p>
                                 <p id ="date-left" class="hide-desktop span-date-hour">Date, Hour (2 days ago)</p>
                                 <p id= "sender-top" class="tablet-hide"><email@email.com></p>
-                                <div class="message-overlay overlay-name hide-desktop overlay">
+                                <div class="message-overlay overlay-name overlay">
                                     <img class="overlay-image" src="./images/alert-triangle (1).svg" onclick="displayOverlay('Overlay-name')">
                                     <div id="Overlay-name" class="overlay-text">
                                         <p>Body with just explanation</p>
@@ -819,10 +819,10 @@ const jsonData = `{
 const overlayMessages = `{
     "Subject" : "",
     "toMe": "",
-    "Name_Sender": "",
+    "Name_Sender": "Sender Looks Real",
     "Date": "",
     "Reply_to": "But the Reply-To Address Isn't",
-    "From": "Sender Looks Real",
+    "From": "",
     "Mailed_by": "",
     "To": ""
 }`;

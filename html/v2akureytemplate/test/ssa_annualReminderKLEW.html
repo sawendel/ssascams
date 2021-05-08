@@ -41,7 +41,7 @@
         display: flex;
         flex-direction: column;
       }
-      
+           
       .sidebar{
           display: flex;
           flex-direction: column;
@@ -431,9 +431,11 @@
         position: relative;
         display: inline-block;
     }
-    .overlay{
+	
+	 .overlay{
         display: none;
-    }	 
+    }
+
     /*Hide on tablet*/
     @media screen and (max-width: 1000px){
         .tablet-hide{
@@ -614,7 +616,7 @@
                             </div>
                             <div class="toMe">
                                 <p>to: <span>Me</span></p>
-                                <img id="toMe-Arrow" class="toMe-arrow" src="./images/chevron-up.svg" onclick="displayMailBoxTable()">
+                                <img id="toMe-Arrow"class="toMe-arrow" src="./images/chevron-up.svg" onclick="displayMailBoxTable()">
                                 <div class="message-overlay overlay-toMe overlay">
                                     <img class="overlay-image" src="./images/alert-triangle (1).svg" onclick="displayOverlay('Overlay-toMe')">
                                     <div id="Overlay-toMe" class="overlay-text">
@@ -708,23 +710,27 @@
 						look like the person is viewing an email client. -->
 						
                 </div>
-				
-                <!-- Click Capture Overlay  -->
+                
+			   <!-- Click Capture Overlay  -->
 				<div id="clickCaptureOverlay">
 					<div id="overlaytext">Links have been disabled in this email for testing purposes. Please select "real" in the survey question below to move to the next question.  
 					</div>
 				</div>
-
+                
             </div>
+            
            
             </div>
+
+           
+
             
     </div>
   </body>
 
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
-  
-  	<script>function clickCaptureOverlayOn() {
+
+	<script>function clickCaptureOverlayOn() {
 	  document.getElementById("clickCaptureOverlay").style.display = "block";
 	  return false; // Used to override the link
 	}
@@ -734,7 +740,7 @@
 	  return false;  // Used to override the link
 	}
 	</script>
-
+  
   <!-- Here is where all of the template content goes.  
   You can include it as a separate Javascript file, or simply add it in a script tag.
   The two variables you need to define are:
@@ -771,36 +777,43 @@
   
   <script>
   var email_body = `
-   <a onclick="return clickCaptureOverlayOn()" href="https://www.ssa.gov"><img class="body-image" src="./images/security-today.svg"></a>
-<p class="text-greeting">Attention:</p>
-<p class="text-paragraph">As recorded in the Federal Register on January 28th, 2021, The Biden Administration has implemented a new, temporary, relief program for people suffering from the COVID-related economic downturn.</p>
-<p class="text-paragraph">Through May 31, 2021, American citizens will be able to acces a portion of the stored value @@Be suspicious when an <br/>email promises you money.@@ from  their Social Security benefits, due to a relaxation of the age requirement to receive those benefits. </p>
-<p class="text-paragraph">All funds received under this program are <b>treated as a self-loan</b>, similar to a 401(k) loan in which individuals pay back the balance over time through their existing, regular contributions to their account.</p>
-<p class="text-paragraph">For more information about this program, and how you can apply, please refer to the <a onclick="return clickCaptureOverlayOn()" href="https://www.socialsecurity.center">the Social Security website</a> @@Wrong URL@@ or 
-by phone at (800) 772-1223. @@Not the official number@@ </p>
-<div class="footer">
-    <img src="./images/regards.svg">@@A real person's name<br/>and picture doesn't<br/>make the email real.@@
-    <div class="regards-text">
-        <p>Regards</p>
-        <p>Commisioner Andrew Saul</p>
-        <p>Social Security Administration</p>
-    </div>
-</div>`;
+<p class="text-greeting">Dear</p>
+<p class="text-greeting">We'd like to remind you to review your <i>Social Security Statement</i> online.
+The <i>Statement</i> has important Social Security information and, if applicable,
+estimates of your future benefits.</p>
+<p class="text-greeting">If you are working, we encourage you to check your <i>Statement</i> yearly to make
+sure your earnings record is correct. The <i>Statement</i> also will help in planning
+your financial future.</p>
+<p class="text-greeting">To view your most recent <i>Statement</i>, please visit
+<a onclick="return clickCaptureOverlayOn()" href="https://www.social.security/reviewyourstatement">www.socialsecurity.gov/reviewyourstatement</a>@@Hover over yhe link - it's fake@@
+ and sign in to your account.</p>
+<p class="text-greeting">On June 10, 2017, we added a second method to verify your identity each time you sign in to your account. 
+This is in addition to your username and password. Using two ways to identify you when you log on will help better 
+protect your account from unauthorized use and fraud. Now, when you sign in to your account you will complete two steps:
+</p>
+<ul>
+<li>Step 1: Enter your username and password.</li>
+<li>Step 2: Enter the security code we send you by text message or email, depending on your choice 
+(your cell phone provider’s text message and data rates may apply).</li></ul><p></p>
+<p class="text-greeting">With instant access to your <i>Social Security Statement</i> at any time, you will no longer
+receive one periodically in the mail, saving money and the environment. Thank you for Going Green!</p>
+<p class="text-greeting">Please do not reply to this email, as we are unable to respond to messages
+sent to this address.</p>`;
 
 email_body = JSON.stringify(email_body);
 
 //THIS IS THE DATA TO BE INSERTED IN THE EMAIL TEMPLATE
 const jsonData = `{
-    "Name" : "NO-REPLY@ssa.gov",
-    "Reply_to": "reply@socialsecurity.center",
-    "From": "&#60;no-reply@socialsecurity.center&#62;",
-    "Mailed_by": "flivver.dreamhost.com",
+    "Name" : "",
+    "Reply_to": "NO-REPLY@social.security.org",
+    "From": "NO-REPLY@ssa.gov",
+    "Mailed_by": "automail.social.security.org",
     "To": "youremail@gmail.com",
-    "Month": "Mar",
+    "Month": "May",
     "Day": "06",
     "Year":"2021",
-    "Hour": "4:21pm",
-    "Subject": "Temporary COVID-Relief Program from the Social Security Administration",
+    "Hour": "3:29pm",
+    "Subject": "Annual Reminder to Review Your Social Security Statement",
     "Email_body": ${email_body}
 }`;
 
@@ -810,12 +823,12 @@ const overlayMessages = `{
     "toMe": "",
     "Name_Sender": "",
     "Date": "",
-    "Reply_to": "The Reply-To Address<br/> Isn't A .Gov domain",
+    "Reply_to": "Open the headers. Its not Real!",
     "From": "",
     "Mailed_by": "",
     "To": ""
 }`;
-  </script>
+</script>
   
   
     <script type='text/javascript'>
@@ -914,8 +927,6 @@ const overlayMessages = `{
 
         });
         
-
-       
 
         function addOverlaysToBody(bodyWithTags){
             var result = bodyWithTags;

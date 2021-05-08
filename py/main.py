@@ -13,17 +13,28 @@ trainingQuestions = {'CyberAttack':'Fake',
                     'ProtectYourself':'Real',
                      'AnnualReminder':'Real',
                      'CovidSSA':'Fake',
-                     'GetProtected':'Fake'}
-testQuestions = {'ImportantInformation': 'Real',
-                 'AmazonPayment': 'Fake',
+                     'GetProtected':'Fake',
+                     'lt_favorable':'Real'}
+
+testQuestions = {'ImportantInformation':'Real',
+                 'AmazonPayment':'Fake',
                  'AmazonDelay':'Real',
                  'RedCross':'Fake',
-                 'Disability':'Fake'}
+                 'Disability':'Fake',
+                 'ssa_optout':'Real',
+                 'replacementCard':'Real',
+                 'annualReminderKLEW':'Fake',
+                 'lt_medicare':'Real',
+                 'sms_disability':'Fake',
+                 'lt_suspension':'Fake',
+                 'sms_redcross':'Real'
+                 }
 
 
 def readdata():
     # dta = pd.read_csv("C:/Dev/sensitive_data/CFS/SSA_February14_Clean.csv")
-    dta = pd.read_csv("C:/Dev/sensitive_data/CFS/SSA_February 14_Test2_Clean.csv")
+    # dta = pd.read_csv("C:/Dev/sensitive_data/CFS/SSA_February 14_Test2_Clean.csv")
+    dta = pd.read_csv("C:/Dev/src/ssascams/data/SSA_v3_May 8_clean2.csv")
 
     dta['numCorrect'] = 0
 
@@ -36,7 +47,7 @@ def readdata():
     order_value_control_group = dta.loc[dta.surveyArm == "arm1_control", "numCorrect"]
     order_value_arm2_group = dta.loc[dta.surveyArm == "arm2_generalinfo", "numCorrect"]
     order_value_arm3_group = dta.loc[dta.surveyArm == "arm3_control", "numCorrect"]
-    order_value_arm4_group = dta.loc[dta.surveyArm == "arm4_training", "numCorrect"]
+    order_value_arm4_group = dta.loc[dta.surveyArm == "notSet", "numCorrect"]
     tscore, pval = ttest_ind(order_value_control_group, order_value_arm4_group)
     print('t-score:', round(tscore, 3))
     print('p value:', round(pval, 3))

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Roboto:900,400");
+
+      .screen *,
+      .component-wrapper{
+        box-sizing: border-box;
+        width: 100%;
+      }
+      .container-center-horizontal {
+        /* justify-content: center; */
+        width: 100%;
+        /* display: flex;
+        flex-direction: row; */
+      }
+      .phone{
+          z-index: 1;
+          display: block;
+          box-sizing: border-box;
+          flex-direction: column;
+          position: relative;
+          height: 555px;
+          width: 250px;
+          /* border: 1px solid black; */
+          margin-top: 45px;
+          border-radius: 20px;
+
+          margin-left: auto;
+          margin-right: auto;
+          
+      }
+      .phone *{
+        font-family: 'Roboto', Arial, Helvetica, sans-serif;
+      }
+      .phone-shell{
+        position: absolute;
+        visibility: visible;
+        margin-top: 29px;
+        height: auto;
+        width: 280px;
+        margin-left: auto;
+        margin-right: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+      }
+
+      /*FOR THE HEADER PART*/
+
+    .phone-header{
+        width: 100%;
+        height: 17%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        border-bottom: 2px solid var(--textGray);
+        margin-top: 6px;
+        padding-top: 7px;
+        position: relative;
+    }
+      
+    .back-arrow, .info-icon{
+        height: auto;
+        width: 20px;
+    }
+    .back-arrow{
+        position: absolute;
+        top: 10px;
+        left: 15px
+    }
+    .info-icon{
+        position: absolute;
+        top: 10px;
+        right: 15px
+    }
+
+    .user-info p, .user-info>div{
+        margin-top: 5px;
+        margin-bottom: 5px;
+        text-align: center;
+    }
+    
+    .user-info {
+        display: block;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+    }
+    .phone-number{
+        color: var(--shadow-blue);
+        font-size: 14px;
+
+    }
+   
+    .user-icon{
+        height: auto;
+        width: 30px;
+    }
+
+
+    /*FOR THE FOOTER*/
+
+
+    .phone-footer{
+        width: 100%;
+        height: 8%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        bottom: 0;
+        position: absolute;
+        background-color: var(--textGray);
+        padding-bottom: 3%;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+    .write-text-icon{
+        height: auto;
+        width: 20px;
+
+    }
+    .write-message{
+        margin: 6px 5px 6px 5px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        background-color: white;
+        border-radius: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
+        width: 55%;
+    }
+    .write-message p{
+        margin-top: 3px ;
+        margin-bottom: 3px;
+        text-align: left;
+        justify-content: center;
+        
+    }
+    .text-message{
+        color: var(--steel-teal);
+        font-size: 14px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
+
+    .container-footer-icon{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 10%;
+    }
+
+
+
+    .container-text-message{
+        width: 70%;
+        display: flex;
+        justify-content: center;
+    }
+    .container-write-text-icon{
+        width: 15%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+
+
+
+    /*FOR THE MESSAGE BODY*/
+
+    .phone-body{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        height: 72%;
+        overflow-x: scroll;
+        
+    }
+    .phone-body-content{
+        /* position: absolute;
+        bottom: 0; 
+        margin-top: auto;*/
+        
+    }
+    .phone-body-content .date{
+        text-align: center;
+        color: var(--shadow-blue);
+        font-size: 14px;
+    }
+    
+    .phone-body-content .date-n-hour{
+        text-align: left;
+        color: var(--shadow-blue);
+        margin-top: 5px;
+        margin-bottom: 0;
+        padding-left: 20px ;
+        padding-right: 20px;
+        padding-bottom: 10px;
+        font-size: 12px;
+    }
+
+    .sms-text-wrapper{
+        width: 100%;
+        position: relative;
+    }
+
+    .sms-text{
+        background-color: var(--textGray) ;
+        border-radius: 15px;
+        padding: 15px;
+        margin: 0 20px;
+        font-size: 14px;
+
+    }
+    .sms-tail-img{
+        color: #ECEFF1;
+        position: absolute;
+        bottom: 0px;
+        left: 8px;
+    }
+
+
+    /*OVERLAY TOOLTIPS*/
+
+    .message-overlay{
+            border-radius: 8px;
+            background-color:  #455a64;
+            height: fit-content;
+            position: absolute;
+            width: max-content;
+            max-width: 200px;
+            left: 0;
+            right: 0;
+            bottom: 60%;
+            margin: auto;
+            z-index: 99999;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 11px 8px;
+        }
+        .message-overlay::after{
+            content: " ";
+            position: absolute;
+            top: 100%;
+            left: 50%; /* To the left of the tooltip */
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #455a64 transparent  transparent transparent;
+        }
+        .overlay-text{
+            padding: 0px;
+            overflow: hidden;
+            max-width: 250px;
+            max-height: 300px;
+            width: max-content;
+            font-size: 12px;
+            font-family: 'Roboto';
+            color: white;
+        }
+
+        .overlay-image{
+            height: 20px;
+            width: 20px;
+            z-index: 2;
+            margin-right: 10px;
+        }
+        .overlay-user-info{
+            top: 28px;
+            bottom: unset;
+            left: unset;
+            left: 90%;
+        }
+        .overlay-user-info::after, .overlay-number::after{
+            content: " ";
+            position: absolute;
+            top: 50%;
+            left: unset;
+            right: 100%; /* To the left of the tooltip */
+            margin-top: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent #455a64  transparent transparent;
+        }
+        .overlay-number{
+            top: 70px;
+            bottom: unset;
+            left: unset;
+            left: 90%;
+        }
+    
+        .overlay-sms{
+            top: 50%;
+            
+        }
+		
+		.message-overlay{
+        display: none;
+    }
+
+    
+    :root{
+        --textGray : #ECEFF1;
+        --black: rgba(0,0,0,1.0);
+        --fiord: rgba(69,90,100,1.0);
+        --gallery: rgba(236,239,241,1.0);
+        --shadow-blue: rgba(120,144,156,1.0);
+        --steel-teal: rgba(96,125,139,1.0);
+        --white: rgba(255,255,255,1.0);
+
+
+    }
+
+    @media only screen and (min-width: 600px) {
+        
+    }
+
+    </style>
+  </head>
+  <body>
+    <div class="component-wrapper">
+        <div class="container-center-horizontal">
+           
+            <div class="phone">
+                <div class="message-overlay overlay-user-info">
+                    <img class="overlay-image" src="./images/alert-triangle.svg">
+                    <div id="overlay-name" class="overlay-text">
+                        Body with just explanation user name
+                    </div>
+                </div>
+                <div class="message-overlay overlay-number">
+                    <img class="overlay-image" src="./images/alert-triangle.svg">
+                    <div id="overlay-number" class="overlay-text">
+                        Body with just explanation number
+                    </div>
+                </div>
+                <div class="phone-header">
+                    <div>
+                        <img class = "back-arrow" src="./images/Back arrow.svg">
+                    </div>
+                    <div class="user-info">
+                        
+                        <div>
+                            <img class ="user-icon" src="./images/sender icon.svg">
+                        </div>
+                        <p id="contact-name">Unknown</p>
+                        <p id= "phone-number" class="phone-number">+506 2839 2719</p>
+                    </div>
+                    <div>
+                        <img class= "info-icon" src="./images/Vector.svg">
+                    </div>
+                </div>
+
+
+                <div class="phone-body">
+                    <div class="phone-body-content">
+                        <div class="message-overlay overlay-sms">
+                            <img class="overlay-image" src="./images/alert-triangle.svg">
+                            <div id="overlay-sms" class="overlay-text">
+                                Body with just explanation sms
+                            </div>
+                        </div>
+                        <p id="date" class="date">Today</p>
+                        <div class="sms-text-wrapper">
+                            <div id= "SMSText" class="sms-text">
+                                this is the text inside the div this text is longer and should fit longer text should still make the div bigger and must fit perfectly
+                            </div>
+                            <img class="sms-tail-img" src="./images/Base form.svg">
+                        </div>
+                        
+                        <p id="date-n-hour" class="date-n-hour">Today • 10:00am</p>
+                        
+                    </div>
+                </div>
+
+                <div class = "phone-footer">
+                    <div class="container-footer-icon">
+                        <img  class= "write-text-icon" src="./images/Cam.svg">
+                    </div>
+                    <div class="container-footer-icon">
+                        <img  class= "write-text-icon" src="./images/add photo.svg">
+                    </div>
+                    <div class="write-message">
+                        <div class="container-text-message"> 
+                            <p class="text-message">Text Message</p>
+                        </div>
+                        <div class="container-write-text-icon"> 
+                            <img  class= "write-text-icon" src="./images/Add emoji.svg">
+                        </div>
+                        <div class="container-write-text-icon"> 
+                            <img class= "write-text-icon" src="./images/Mic.svg">
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+            <img class = "phone-shell" src="./images/celphone SG.svg" >
+        </div>
+      </div>
+  </body>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+        
+        
+  <script>
+  const jsonData = `{
+    "Name" : "",
+    "PhoneNumber": "949-409-0220",
+    "Date": "1/28/2021",
+    "Hour": "12:34",
+    "SMSText": "Disability Alert: Please call the Social Security Administration at 949-409-0220 regarding your recent disability benefits application."}`;
+
+    const overlayMessages = `{
+        "Name" : "",
+        "PhoneNumber": "",
+        "SMS": "Check the phone number -- it's not really the SSA; it's a known scammer number."
+    }`;
+  </script>
+    <script type='text/javascript'>
+        $(document).ready(function(){
+                var data = JSON.parse(jsonData);
+				
+				 //ADDING THE SET OVERLAY MESSAGES
+                var params = window.location.search.substring(1);
+                var displayTheOverlays = (params.split('=')[1] == 'true');
+               
+                if(displayTheOverlays){
+                    var overlays = document.querySelectorAll(".message-overlay");
+                    overlays.forEach((overlay)=>{
+                        overlay.style.display = "flex";
+                    });
+                }
+
+                var overlay_Messages = JSON.parse(overlayMessages);
+                if(overlay_Messages.SMS == "" || overlay_Messages.SMS == null){
+                    document.querySelector(".overlay-sms").style.display = "none";
+                }
+                else{
+                    document.getElementById("overlay-sms").innerHTML = overlay_Messages.SMS;
+                }
+                if(overlay_Messages.PhoneNumber == "" || overlay_Messages.PhoneNumber == null){
+                    document.querySelector(".overlay-number").style.display = "none";
+                }
+                else{
+                    document.getElementById("overlay-number").innerHTML = overlay_Messages.PhoneNumber;
+                }
+                if(overlay_Messages.Name == "" || overlay_Messages.Name == null){
+                    document.querySelector(".overlay-user-info").style.display = "none";
+                }
+                else{
+                    document.getElementById("overlay-name").innerHTML = overlay_Messages.Name;
+                }
+                
+
+                document.getElementById("SMSText").innerHTML = data.SMSText;
+                document.getElementById("date-n-hour").innerHTML = data.Date.concat( " • ", data.Hour);
+                document.getElementById("contact-name").innerHTML = data.Name;
+                document.getElementById("phone-number").innerHTML = data.PhoneNumber;
+                // document.getElementById("date").innerHTML = data.Date;
+				document.getElementById("date").innerHTML = "";
+            
+
+        });
+    </script>
+</html>
