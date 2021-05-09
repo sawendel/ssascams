@@ -785,7 +785,7 @@ estimates of your future benefits.</p>
 sure your earnings record is correct. The <i>Statement</i> also will help in planning
 your financial future.</p>
 <p class="text-greeting">To view your most recent <i>Statement</i>, please visit
-<a onclick="return clickCaptureOverlayOn()" href="https://www.social.security/reviewyourstatement">www.socialsecurity.gov/reviewyourstatement</a>@@Hover over yhe link - it's fake@@
+<a onclick="return clickCaptureOverlayOn()" href="https://social.security.org/reviewyourstatement">www.socialsecurity.gov/reviewyourstatement</a>@@Hover over yhe link - it's fake@@
  and sign in to your account.</p>
 <p class="text-greeting">On June 10, 2017, we added a second method to verify your identity each time you sign in to your account. 
 This is in addition to your username and password. Using two ways to identify you when you log on will help better 
@@ -806,7 +806,7 @@ email_body = JSON.stringify(email_body);
 const jsonData = `{
     "Name" : "",
     "Reply_to": "NO-REPLY@social.security.org",
-    "From": "NO-REPLY@ssa.gov",
+    "From": "NO-REPLY@social.security.org",
     "Mailed_by": "automail.social.security.org",
     "To": "youremail@gmail.com",
     "Month": "May",
@@ -862,14 +862,19 @@ const overlayMessages = `{
                 document.getElementById("mailed-by").innerHTML = data.Mailed_by;
                 console.log(addOverlaysToBody(data.Email_body));
                 document.querySelector(".mail-text").innerHTML = addOverlaysToBody(data.Email_body);
+                                
                 
-                
-                
-
-
                 //ADDING THE SET OVERLAY MESSAGES
-                var params = window.location.search.substring(1);
-                var displayTheOverlays = (params.split('=')[1] == 'true');
+				const queryString = window.location.search;
+				const urlParams = new URLSearchParams(queryString);
+                // var params = window.location.search.substring(1);
+				var displayTheOverlays = false;
+				if (urlParams.has('showOverlays')) {
+					var theParam = urlParams.get('showOverlays');
+					if (theParam == 'true') {
+						displayTheOverlays = true;
+					}
+				}
                
                 if(displayTheOverlays){
                     document.querySelector(".toMe-arrow").classList.toggle("rotated");
@@ -924,6 +929,16 @@ const overlayMessages = `{
                     document.querySelectorAll(`.overlay-text`).forEach((element) => element.classList.toggle("collapsed-horizontal"));
                     document.querySelectorAll(`.overlay-text`).forEach((element) => element.classList.toggle("no-shadow"));
                 }
+				
+				// Fill in the name, if there is a space for it & we have a name to put in
+				const nameElement = document.getElementById('nametofill')
+				if (nameElement && urlParams.has('name')) {
+					var theNewName = urlParams.get('name');
+					if (theNewName && theNewName.length > 1) {
+						nameElement.textContent = theNewName;
+					}
+				}
+
 
         });
         

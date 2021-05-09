@@ -402,8 +402,9 @@ please use our TTY number @@Lookup this number; it's listed on the Official SSA.
 `;
 
 letterBody = JSON.stringify(letterBody);
+var nameBody = JSON.stringify(`<span id="nametofill">Your Name</span>`);
 const jsonData = `{
-    "Recipient_Name" : "Your Name",
+    "Recipient_Name" : ${nameBody},
     "Recipient_Street_Address": "15432 YourAddress Str",
     "Recipient_City": "YourCity",
     "Recipient_State": "ST",
@@ -436,7 +437,7 @@ const overlayMessages = `{
                 var data = JSON.parse(jsonData);
                 
 
-                document.getElementById("recipient-name").innerText = data.Recipient_Name;
+                document.getElementById("recipient-name").innerHTML = data.Recipient_Name;
                 document.getElementById("recipient-street-address").innerHTML = data.Recipient_Street_Address;
                 document.getElementById("recipient-city-state-zip").innerHTML = data.Recipient_City.concat(", ", data.Recipient_State, " ", data.Recipient_Zip_Code);
 
@@ -453,8 +454,16 @@ const overlayMessages = `{
                 document.getElementById("form-id").innerHTML = data.Form_ID;
 
                 //ADDING THE SET OVERLAY MESSAGES
-                var params = window.location.search.substring(1);
-                var displayTheOverlays = (params.split('=')[1] == 'true');
+				const queryString = window.location.search;
+				const urlParams = new URLSearchParams(queryString);
+                // var params = window.location.search.substring(1);
+				var displayTheOverlays = false;
+				if (urlParams.has('showOverlays')) {
+					var theParam = urlParams.get('showOverlays');
+					if (theParam == 'true') {
+						displayTheOverlays = true;
+					}
+				}
                
                 if(displayTheOverlays){
                     var overlays = document.querySelectorAll(".overlay");
@@ -484,6 +493,16 @@ const overlayMessages = `{
                 else{
                     document.getElementById("overlay-date").innerHTML = overlay_Messages.Date;
                 }
+				
+				// Fill in the name, if there is a space for it & we have a name to put in
+				const nameElement = document.getElementById('nametofill')
+				if (nameElement && urlParams.has('name')) {
+					var theNewName = urlParams.get('name');
+					if (theNewName && theNewName.length > 1) {
+						nameElement.textContent = theNewName;
+					}
+				}
+
 				
         });
 

@@ -1258,17 +1258,17 @@ const jsonData = `{
     "Day": "27",
     "Year":"2021",
     "Hour": "1:41pm",
-    "Subject": "Protect Yourself from Social Security Scams",
+    "Subject": "Protect Yourself from<br/> Social Security Scams",
     "Email_body": ${email_body}
 }`;
 
 
 const overlayMessages = `{
-    "Subject" : "",
+    "Subject" : "The SSA does send out emails<br/> so we shouldn't be overly suspicious.",
     "toMe": "",
-    "Name_Sender": "",
+    "Name_Sender": "To know for sure, click at the <br/>top of the message to open the headers.",
     "Date": "",
-    "Reply_to": "Open the headers. It's <br/> from an Official .Gov Domain",
+    "Reply_to": "This is from an Official .Gov Domain<br/> That means it's REAL.",
     "From": "",
     "Mailed_by": "",
     "To": ""
@@ -1282,7 +1282,7 @@ const overlayMessages = `{
                 //ADDING THE PARAMETRIZED TEXT
                 var data = JSON.parse(jsonData);
 
-                document.getElementById("subject").innerText = data.Subject;
+                document.getElementById("subject").innerHTML = data.Subject;
                 
 				if (data.Name.length > 0) {
 					document.getElementById("name").innerText = data.Name;
@@ -1313,9 +1313,17 @@ const overlayMessages = `{
 
 
                 //ADDING THE SET OVERLAY MESSAGES
-                var params = window.location.search.substring(1);
-                var displayTheOverlays = (params.split('=')[1] == 'true');
-               
+				const queryString = window.location.search;
+				const urlParams = new URLSearchParams(queryString);
+                // var params = window.location.search.substring(1);
+				var displayTheOverlays = false;
+				if (urlParams.has('showOverlays')) {
+					var theParam = urlParams.get('showOverlays');
+					if (theParam == 'true') {
+						displayTheOverlays = true;
+					}
+				}
+				
                 if(displayTheOverlays){
                     document.querySelector(".toMe-arrow").classList.toggle("rotated");
                     document.querySelector(".mail-box-table").classList.toggle("expanded");
@@ -1369,6 +1377,15 @@ const overlayMessages = `{
                     document.querySelectorAll(`.overlay-text`).forEach((element) => element.classList.toggle("collapsed-horizontal"));
                     document.querySelectorAll(`.overlay-text`).forEach((element) => element.classList.toggle("no-shadow"));
                 }
+
+				// Fill in the name, if there is a space for it & we have a name to put in
+				const nameElement = document.getElementById('nametofill')
+				if (nameElement && urlParams.has('name')) {
+					var theNewName = urlParams.get('name');
+					if (theNewName && theNewName.length > 1) {
+						nameElement.textContent = theNewName;
+					}
+				}
 
         });
         
