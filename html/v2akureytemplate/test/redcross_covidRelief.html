@@ -779,7 +779,7 @@
   var email_body = `
   
   <div style="width:100%;float:right;">
- <a onclick="return clickCaptureOverlayOn()" href="https://www.redcross.co">
+ <a onclick="return clickCaptureOverlayOn()" href="https://www.redcross.biz">
 <img border="0" alt="American Red Cross" src="./images/redcross.png" width="283" height="178" style="float: right;">
 </div>
 </a>
@@ -796,7 +796,7 @@ our services may look different in each area to ensure we are aiding local famil
 <p class="text-paragraph">
 <ul>
 <li><b>Give Blood:</b> Please make an appointment to donate in the weeks ahead, if you are healthy and feeling well, by using the Red Cross Blood Donor App, visiting <a onclick="return clickCaptureOverlayOn()" href="http://www.redcrossblood.co">RedCrossBlood.org</a> or calling 1-888-RED CROSS (1-888-533-2467).
-<li><b>Donate:</b> Support all of the urgent humanitarian needs of the American Red Cross by donating to Where It Is Needed Most at <a onclick="return clickCaptureOverlayOn()"  href="http://www.redcross.co">redcross.org</a> or calling 1-888-RED CROSS (1-888-533-2467). A donation of any size makes a difference.
+<li><b>Donate:</b> Support all of the urgent humanitarian needs of the American Red Cross by donating to Where It Is Needed Most at <a onclick="return clickCaptureOverlayOn()"  href="http://www.redcross.biz">redcross.org</a> or calling 1-888-RED CROSS (1-888-533-2467). A donation of any size makes a difference.
 <li><b>Learn More:</b> If you'd like to learn more about our work, and how you can help in your local area, just reply to this message and we'll connect you with one of our volunteer coordinators.
 </ul>
 </p>
@@ -821,9 +821,9 @@ email_body = JSON.stringify(email_body);
 //THIS IS THE DATA TO BE INSERTED IN THE EMAIL TEMPLATE
 const jsonData = `{
     "Name" : "Red Cross Covid Campaign",
-    "Reply_to": "covidcampaign@redcross.co",
-    "From": "covidcampaign@redcross.co",
-    "Mailed_by": "Good job -- You checked the Email Header...",
+    "Reply_to": "covidcampaign@redcross.biz",
+    "From": "covidcampaign@redcross.biz",
+    "Mailed_by": "outbound.sendgrid.com",
     "To": "youremail@gmail.com",
     "Month": "Apr",
     "Day": "08",

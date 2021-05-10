@@ -9,6 +9,7 @@ import numpy as np
 
 from swstats import *
 
+surveyVersion = 4
 
 debugging = False
 trainingQuestions = {'CyberAttack':'Fake',
@@ -18,25 +19,52 @@ trainingQuestions = {'CyberAttack':'Fake',
                      'GetProtected':'Fake',
                      'lt_favorable':'Real'}
 
-testQuestions = {'ImportantInformation':'Real',
-                 'AmazonPayment':'Fake',
-                 'AmazonDelay':'Real',
-                 'RedCross':'Fake',
-                 'Disability':'Fake',
-                 'ssa_optout':'Fake',
-                 'replacementCard':'Fake',
-                 'annualReminderKLEW':'Fake',
-                 'lt_medicare':'Real',
-                 'sms_disability':'Fake',
-                 'lt_suspension':'Fake',
-                 'sms_redcross':'Real'
-                 }
+if (surveyVersion == 1 or surveyVersion == 2):
+    testQuestions = {'ImportantInformation':'Real',
+                     'AmazonPayment':'Fake',
+                     'AmazonDelay':'Real',
+                     'RedCross':'Fake',
+                     'Disability':'Fake',
+                     }
+elif surveyVersion == 3:  # There was an unintentional mistake in the SSA_Optout and Replacement Card in v3
+    testQuestions = {'ImportantInformation':'Real',
+                     'AmazonPayment':'Fake',
+                     'AmazonDelay':'Real',
+                     'RedCross':'Fake',
+                     'Disability':'Fake',
+                     'ssa_optout':'Fake',
+                     'replacementCard':'Fake',
+                     'annualReminderKLEW':'Fake',
+                     'lt_medicare':'Real',
+                     'sms_disability':'Fake',
+                     'lt_suspension':'Fake',
+                     'sms_redcross':'Real'
+                     }
+elif surveyVersion >= 4:
+    testQuestions = {'ImportantInformation':'Real',
+                     'AmazonPayment':'Fake',
+                     'AmazonDelay':'Real',
+                     'RedCross':'Fake',
+                     'Disability':'Fake',
+                     'ssa_optout':'Fake',
+                     'replacementCard':'Real',
+                     'annualReminderKLEW':'Fake',
+                     'lt_medicare':'Real',
+                     'sms_disability':'Fake',
+                     'lt_suspension':'Fake',
+                     'sms_redcross':'Real'
+                     }
 
 
 def readdata():
 
     dataDir  = "C:/Dev/src/ssascams/data/"
-    dataFileName = "SSA_v3_May 9, 2021_08.18_clean.csv"
+
+    if surveyVersion == 1:
+        dataFileName = "SSA_February 14_Test2_Clean.csv"
+    elif surveyVersion == 3:
+        dataFileName = "SSA_v3_May 9, 2021_08.18_clean.csv"
+
     # dta = pd.read_csv("C:/Dev/sensitive_data/CFS/SSA_February 14_Test2_Clean.csv")
     dta = pd.read_csv(dataDir + dataFileName)
 
@@ -51,10 +79,18 @@ def readdata():
     dta['StartDate'] = pd.to_datetime(dta.StartDate)
 
     dta['Wave'] = None
-    dta.loc[(dta.StartDate < '2021-05-08 10:00'), 'Wave'] = 1
-    dta.loc[(dta.StartDate >= '2021-05-08 10:00') & (dta.StartDate < '2021-05-08 13:00'), 'Wave'] = 2
-    dta.loc[(dta.StartDate >= '2021-05-08 13:00') & (dta.StartDate < '2021-05-08 17:00'), 'Wave'] = 3
-    dta.loc[(dta.StartDate >= '2021-05-08 17:00') & (dta.StartDate < '2021-05-08 23:59'), 'Wave'] = 4
+    if surveyVersion == 3:
+        # Small tests to see if it was working
+        dta.loc[(dta.StartDate < '2021-05-08 10:00'), 'Wave'] = 1
+        dta.loc[(dta.StartDate >= '2021-05-08 10:00') & (dta.StartDate < '2021-05-08 13:00'), 'Wave'] = 2
+        # 3: Full test
+        dta.loc[(dta.StartDate >= '2021-05-08 13:00') & (dta.StartDate < '2021-05-08 17:00'), 'Wave'] = 3
+        # 4: Added Stronger Language to clarify purpose; REAL and FAKE
+        dta.loc[(dta.StartDate >= '2021-05-08 17:00') & (dta.StartDate < '2021-05-08 23:59'), 'Wave'] = 4
+        # 5: Mobile Only Version of 1; Has Updated Files meant for Study Version 4
+        dta.loc[(dta.StartDate >= '2021-05-09 08:00') & (dta.StartDate < '2021-05-10 10:00'), 'Wave'] = 5
+    else:
+        dta.Wave = 1
 
     print(dta.Wave.value_counts(dropna=False))
 
