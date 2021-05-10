@@ -9,7 +9,7 @@ import numpy as np
 
 from swstats import *
 
-surveyVersion = 4
+surveyVersion = 3
 
 debugging = False
 trainingQuestions = {'CyberAttack':'Fake',
@@ -63,7 +63,11 @@ def readdata():
     if surveyVersion == 1:
         dataFileName = "SSA_February 14_Test2_Clean.csv"
     elif surveyVersion == 3:
+        # dataFileName = "SSA_v3_May 9, 2021_08.18_clean.csv"
+        dataFileName = "SSA_v3_asFielded_May 10, 2021_07.41_clean.csv"
+    elif surveyVersion == 4:
         dataFileName = "SSA_v3_May 9, 2021_08.18_clean.csv"
+
 
     # dta = pd.read_csv("C:/Dev/sensitive_data/CFS/SSA_February 14_Test2_Clean.csv")
     dta = pd.read_csv(dataDir + dataFileName)
@@ -142,6 +146,9 @@ def readdata():
     ''' Data Cleaning '''
     dta['cleanStatus'] = "Keep"
     dta.loc[(dta['cleanStatus'] == "Keep") & (dta['Duration (in seconds)'] < 60*3), 'cleanStatus'] = 'Too Fast'
+    dta.loc[(dta['cleanStatus'] == "Keep") & (dta['Progress'] < 98), 'cleanStatus'] = 'Incomplete'
+
+
 
     if (debugging):
         # dta.cleanStatus.value_counts(dropna=False)
@@ -155,7 +162,7 @@ def readdata():
     # dta['DuplicatedIP'] = dta.IPAddress.duplicated(keep='first')
     # dta.loc[(dta['cleanStatus'] == "Keep") & (dta['DuplicatedIP']), 'cleanStatus'] = 'Dup IPAddress'
 
-    dta['PID_Length'] = dta.PID.apply(len)
+    dta['PID_Length'] = dta.PID.map(str).apply(len)
     dta.loc[(dta['cleanStatus'] == "Keep") & (dta.PID_Length < 10), 'cleanStatus'] = 'Invalid PID'
 
     if (debugging):
@@ -179,13 +186,15 @@ def readdata():
 
     # dta.cleanStatus.value_counts(dropna=False)
     dta = dta[dta.cleanStatus == "Keep"].copy()
-    # dta = dta[dta.Wave==4].copy()
+    # dta = dta[dta.Wave==5].copy()
 
     order_value_control_group = dta.loc[dta.surveyArm == "arm1_control", "numCorrect"]
     order_value_arm2_group = dta.loc[dta.surveyArm == "arm2_generalinfo", "numCorrect"]
     order_value_arm3_group = dta.loc[dta.surveyArm == "arm3_tips", "numCorrect"]
     order_value_arm4_group = dta.loc[dta.surveyArm == "arm4_training", "numCorrect"]
 
+    dta['percentCorrect'] = dta.numCorrect/12 * 100
+    np.std(dta.percentCorrect)
     tscore, pval = ttest_ind(order_value_control_group, order_value_arm4_group)
     # print('t-score:', round(tscore, 3))
     print('p value:', round(pval, 3))
@@ -198,15 +207,17 @@ def readdata():
     # print('t-score:', round(tscore, 3))
     print('p value:', round(pval, 3))
 
-    grouped = dta[varsToSummarize + ["surveyArm", "Wave"]].groupby(["surveyArm", "Wave"])
+    grouped = dta[varsToSummarize + ["percentCorrect", "surveyArm", "Wave"]].groupby(["surveyArm", "Wave"])
+    # grouped = dta[varsToSummarize + ["percentCorrect","surveyArm", "Wave"]].groupby(["surveyArm"])
 
-    summaryStats = grouped.agg(["mean"])
+    summaryStats = grouped.agg(["mean", "median"])
     summaryStats.sort_values(['Wave', 'surveyArm'], inplace=True)
     summaryStats.to_csv(dataDir + "RESULTS_" + dataFileName)
     dta.to_csv(dataDir + "PROCESSED_" + dataFileName)
 
     if (debugging):
         grouped.agg(["count"])
+        grouped.percentCorrect.mean()
         grouped.numCorrect.mean()
         grouped.numReal.mean()
         grouped['Correct_ImportantInformation'].value_counts(dropna=False, normalize=True)
