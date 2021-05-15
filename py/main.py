@@ -57,23 +57,34 @@ elif surveyVersion >= 4:
                      'sms_redcross':'Real'
                      }
 
+def getPIDs(dataDir, fileNames):
+    pids = set()
+    for theFileName in fileNames:
+        dta = pd.read_csv(dataDir + theFileName)
+        pids.update(dta.PID)
+    return pids
 
 def readdata():
 
     dataDir  = "C:/Dev/src/ssascams/data/"
 
+    surveyOutputFilesByVersion = {1: "SSA_v1_asFielded_ExtractedMay 15, 2021_clean.csv",
+                   3: "SSA_v3_asFielded_ExtractedMay 9, 2021_clean.csv",
+                   4: "SSA_v4_asFielded_Part1_ExtractedMay 13, 2021.csv"}
+
+    priorPids = None
     if surveyVersion == 1:
-        dataFileName = "SSA_February 14_Test2_Clean.csv"
+        dataFileName = surveyOutputFilesByVersion[1]
         dta = pd.read_csv(dataDir + dataFileName)
     elif surveyVersion == 3:
-        # dataFileName = "SSA_v3_May 9, 2021_08.18_clean.csv"
-        dataFileName = "SSA_v3_asFielded_May 10, 2021_07.41_clean.csv"
+        dataFileName = surveyOutputFilesByVersion[3]
         dta = pd.read_csv(dataDir + dataFileName)
+        priorPids =  getPIDs(dataDir, [surveyOutputFilesByVersion[1]])
+
     elif surveyVersion == 4:
-        dataFileName_p1 = "SSA_v4_Part1_May 13, 2021_20.02_clean.csv"
-        dataFileName_prolific = "prolific_export_6099c49373d406738c79f948.csv"
-        dataFileName_p2 = "SSA_v4_Part2_AllQualtrics_May 14, 2021_17.51_clean.csv"
-        dataFileName =  "SSA_v4_May 13, 2021_20.02_clean.csv" # For Output Files
+        dataFileName_p1 = surveyOutputFilesByVersion[4]
+        dataFileName_prolific = "prolific_export_SSA_v4_Wave2NatRep_6099c49373d406738c79f948.csv"
+        dataFileName_p2 = "SSA_v4_Part2_AllQualtrics_May 15, 2021_12.22_Clean.csv"
 
         dta_p1 = pd.read_csv(dataDir + dataFileName_p1)
         dta_profilic = pd.read_csv(dataDir + dataFileName_prolific)
@@ -82,6 +93,10 @@ def readdata():
 
         dta = dta_p1.merge(dta_profilic, right_on="participant_id", left_on = "PID", how="left")
         dta = dta.merge(dta_p2, right_on="PID", left_on = "PID", how="left", suffixes=["", "_end"])
+
+        priorPids = getPIDs(dataDir, [surveyOutputFilesByVersion[1],surveyOutputFilesByVersion[3]])
+
+    outputFileName = "SSA_v" + str(surveyVersion)
 
     # remove empty columns
     dta = dta.dropna(axis=1, how='all')
@@ -115,15 +130,17 @@ def readdata():
 
     ''' Data Cleaning '''
     dta['cleanStatus'] = "Keep"
+    dta.loc[(dta['cleanStatus'] == "Keep") & (dta.PID.isin(priorPids)), 'cleanStatus'] = 'PID from prior version'
+
     if surveyVersion == 3:
         dta.loc[(dta['cleanStatus'] == "Keep") & (dta['Duration (in seconds)'] < 60*3), 'cleanStatus'] = 'Too Fast'
     elif surveyVersion == 4:
         dta.loc[(dta['cleanStatus'] == "Keep") & (dta['status'] == 'RETURNED'), 'cleanStatus'] = 'Task Returned'
         dta.loc[(dta['cleanStatus'] == "Keep") & (dta['Progress_end'].isna()), 'cleanStatus'] = 'No Second Round'
-        dta.loc[(dta['cleanStatus'] == "Keep") & (dta['Progress_end'] < 98), 'cleanStatus'] = 'Incomplete Round 2'
+        dta.loc[(dta['cleanStatus'] == "Keep") & (dta['Progress_end'] <= 95), 'cleanStatus'] = 'Incomplete Round 2'
 
     # dta.loc[(dta['cleanStatus'] == "Keep") & (dta['statusCode'] != 200), 'cleanStatus'] = 'Email Error'
-    dta.loc[(dta['cleanStatus'] == "Keep") & (dta['Progress'] < 98), 'cleanStatus'] = 'Incomplete'
+    dta.loc[(dta['cleanStatus'] == "Keep") & (dta['Progress'] <= 95), 'cleanStatus'] = 'Incomplete'
 
 
     if (debugging):
@@ -132,8 +149,9 @@ def readdata():
         len(dta.PID.unique())/len(dta.PID)
 
     dta.sort_values('StartDate', inplace=True)  # This now sorts in date order
-    dta['DuplicatedPID'] = dta.PID.duplicated(keep='first')
-    dta.loc[(dta['cleanStatus'] == "Keep") & (dta['DuplicatedPID']), 'cleanStatus'] = 'Dup PID'
+    dta['DuplicatedPID'] = False
+    dta.loc[(dta['cleanStatus'] == "Keep"), 'DuplicatedCleanPID'] = dta.loc[(dta['cleanStatus'] == "Keep"), 'PID'].duplicated(keep='first')
+    dta.loc[(dta['cleanStatus'] == "Keep") & (dta['DuplicatedCleanPID']), 'cleanStatus'] = 'Dup PID within current Version'
 
     # dta['DuplicatedIP'] = dta.IPAddress.duplicated(keep='first')
     # dta.loc[(dta['cleanStatus'] == "Keep") & (dta['DuplicatedIP']), 'cleanStatus'] = 'Dup IPAddress'
@@ -157,7 +175,7 @@ def readdata():
         grouped.agg(["count"])
         grouped.cleanStatus.value_counts(dropna=False, normalize=True)
         # Interesting -- this is STRONGLY by arm. The training arm isn't straightining, the others are.
-        # So, not somethin we can clean on.
+        # So, not something we can clean on.
 
 
     # dta.cleanStatus.value_counts(dropna=False)
@@ -244,7 +262,7 @@ def readdata():
 
     summaryStats = grouped.agg(["mean", "median"])
     summaryStats.sort_values(['Wave', 'surveyArm'], inplace=True)
-    summaryStats.to_csv(dataDir + "RESULTS_" + dataFileName)
+    summaryStats.to_csv(dataDir + "RESULTS_" + outputFileName + '.csv')
 
     # ##############
     # Demographic processing, etc
@@ -308,13 +326,9 @@ def readdata():
     # What determines fraud susceptibility (whether people get tricked or not)?
     # Ie, false negatives
 
-    import re
-    dataFileNameBase = re.sub('\.csv$', '', dataFileName) # dataFileName.removesuffix('.csv')
+    writer = pd.ExcelWriter(dataDir + 'REGRESSION_' + outputFileName + '.xlsx',engine='xlsxwriter')
 
-    writer = pd.ExcelWriter(dataDir + 'REGRESSION_' + dataFileNameBase + '.xlsx',engine='xlsxwriter')
-    # workbook = xlsxwriter.Workbook('REGRESSION' + dataFileNameBase + '.xlsx')
-    # workbook = writer.book
-
+    # First Try
     resultTables = ols('numFakeLabeledReal ~ C(surveyArm) + trustScore + lIncomeAmount + '
               'C(race5) + C(employment3) + educYears + marriedI + ageYears + ageYearsSq + genderI', data=dta).fit().summary().tables
     pd.DataFrame(resultTables[0]).to_excel(writer, sheet_name="numFakeLabeledReal_WRace", startrow=1, header=False, index=False)
@@ -351,7 +365,7 @@ def readdata():
     # ##############
     # Save the processed data
     # ##############
-    dta.to_csv(dataDir + "PROCESSED_" + dataFileName)
+    dta.to_csv(dataDir + "PROCESSED_" + outputFileName + ".csv")
 
     if (debugging):
         grouped.agg(["count"])
