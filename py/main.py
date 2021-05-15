@@ -3,10 +3,8 @@
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 import pandas as pd
-import os
 from scipy.stats import ttest_ind
-import numpy as np
-
+import xlsxwriter
 import numpy as np
 from statsmodels.formula.api import ols
 
@@ -306,32 +304,52 @@ def readdata():
     # ##############
 
     indepVars = ['surveyArm', 'trustScore', 'incomeAmount', 'race5', 'employment3', 'educYears', 'married2', 'ageYears', 'Gender']
-    # What determines whether people get tricked or not?
+
+    # What determines fraud susceptibility (whether people get tricked or not)?
     # Ie, false negatives
+
+    import re
+    dataFileNameBase = re.sub('\.csv$', '', dataFileName) # dataFileName.removesuffix('.csv')
+
+    writer = pd.ExcelWriter(dataDir + 'REGRESSION_' + dataFileNameBase + '.xlsx',engine='xlsxwriter')
+    # workbook = xlsxwriter.Workbook('REGRESSION' + dataFileNameBase + '.xlsx')
+    # workbook = writer.book
+
     resultTables = ols('numFakeLabeledReal ~ C(surveyArm) + trustScore + lIncomeAmount + '
-              'C(race5) + C(employment3) + educYears + marriedI + ageYears + ageYearsSq + genderI', data=dta).fit().summary().tables()
+              'C(race5) + C(employment3) + educYears + marriedI + ageYears + ageYearsSq + genderI', data=dta).fit().summary().tables
+    pd.DataFrame(resultTables[0]).to_excel(writer, sheet_name="numFakeLabeledReal_WRace", startrow=1, header=False, index=False)
+    pd.DataFrame(resultTables[1]).to_excel(writer, sheet_name="numFakeLabeledReal_WRace", startrow=1 + len(resultTables[0]) + 2, header=False, index=False)
+
 
     # Remove race - many variables, small counts - likely over specifying
     resultTables = ols('numFakeLabeledReal ~ C(surveyArm) + trustScore + lIncomeAmount + '
-              'C(employment3) + educYears + marriedI + ageYears + ageYearsSq + genderI', data=dta).fit().summary().tables()
+              'C(employment3) + educYears + marriedI + ageYears + ageYearsSq + genderI', data=dta).fit().summary().tables
+    pd.DataFrame(resultTables[0]).to_excel(writer, sheet_name="numFakeLabeledReal", startrow=1, header=False, index=False)
+    pd.DataFrame(resultTables[1]).to_excel(writer, sheet_name="numFakeLabeledReal", startrow=1 + len(resultTables[0]) + 2, header=False, index=False)
 
     resultTables = ols('numLabeledReal ~ C(surveyArm) + trustScore + lIncomeAmount + '
-              'C(employment3) + educYears + marriedI + ageYears + ageYearsSq + genderI', data=dta).fit().summary().tables()
+              'C(employment3) + educYears + marriedI + ageYears + ageYearsSq + genderI', data=dta).fit().summary().tables
+    pd.DataFrame(resultTables[0]).to_excel(writer, sheet_name="numLabeledReal", startrow=1, header=False, index=False)
+    pd.DataFrame(resultTables[1]).to_excel(writer, sheet_name="numLabeledReal", startrow=1 + len(resultTables[0]) + 2, header=False, index=False)
 
 
-    # What determines who doesn't trust?
+    # What determines lack of trust?
     # Ie, false positive
     resultTables = ols('numRealLabeledFake ~ C(surveyArm) + trustScore + lIncomeAmount + '
-              'C(employment3) + educYears + marriedI + ageYears + ageYearsSq + genderI', data=dta).fit().summary().tables()
+              'C(employment3) + educYears + marriedI + ageYears + ageYearsSq + genderI', data=dta).fit().summary().tables
+    pd.DataFrame(resultTables[0]).to_excel(writer, sheet_name="numRealLabeledFake", startrow=1, header=False, index=False)
+    pd.DataFrame(resultTables[1]).to_excel(writer, sheet_name="numRealLabeledFake", startrow=1 + len(resultTables[0]) + 2, header=False, index=False)
 
     resultTables = ols('numLabeledFake ~ C(surveyArm) + trustScore + lIncomeAmount + '
-              'C(employment3) + educYears + marriedI + ageYears + ageYearsSq + genderI', data=dta).fit().summary().tables()
+              'C(employment3) + educYears + marriedI + ageYears + ageYearsSq + genderI', data=dta).fit().summary().tables
+    pd.DataFrame(resultTables[0]).to_excel(writer, sheet_name="numLabeledFake", startrow=1, header=False, index=False)
+    pd.DataFrame(resultTables[1]).to_excel(writer, sheet_name="numLabeledFake", startrow=1 + len(resultTables[0]) + 2, header=False, index=False)
 
-
-
+    writer.save()
+    # workbook.close()
 
     # ##############
-    # Save it
+    # Save the processed data
     # ##############
     dta.to_csv(dataDir + "PROCESSED_" + dataFileName)
 
