@@ -1,0 +1,121 @@
+version: '2'
+services:
+  gophish: 
+    build:
+      context: ./.docker/gophish
+    hostname: gophish
+    container_name: gophishserver
+    expose:
+      - 3333
+      - 643
+    depends_on:
+      - db
+      - mail
+    volumes:
+      - /Users/nahomymoya/Documents/SSScams/sscams-docker/gophish/mailer:/opt/gophish/mailer
+      - /Users/nahomymoya/Documents/SSScams/sscams-docker/gophish/models:/opt/gophish/models
+      - /Users/nahomymoya/Documents/SSScams/sscams-docker/gophish/controllers/api:/opt/gophish/controllers/api
+      - /Users/nahomymoya/Documents/SSScams/sscams-docker/gophish/worker:/opt/gophish/worker
+      - /Users/nahomymoya/Documents/SSScams/sscams-docker/gophish/docker:/opt/gophish/docker
+    ports:
+    - "3333:3333"
+    - "643:443"
+  # gophish: 
+  #   image: gophish/gophish
+  #   hostname: gophish
+  #   container_name: rl.gophish
+  #   ports:
+  #   - "3333:3333"
+  #   - "643:443"
+
+  mail:
+    image: iredmail/mariadb:stable
+    hostname: mail.behavior.com
+    container_name: iredmail
+    domainname: test-mailclient.com
+    restart: always
+    env_file: 
+      - iredmail-docker.conf 
+    ports:
+      - "80:80"
+      - "443:443"
+      - "110:110" 
+      - "995:995"
+      - "243:143"
+      - "993:993"
+      - "25:25" 
+      - "465:465"
+      - "587:587"
+      - "3305:3306"
+    volumes:
+      - /Users/nahomymoya/Documents/SSScams/sscams-docker/data/backup:/var/vmail/backup 
+      - /Users/nahomymoya/Documents/SSScams/sscams-docker/data/mailboxes:/var/vmail/vmail1 
+      - /Users/nahomymoya/Documents/SSScams/sscams-docker/data/mlmmj:/var/vmail/mlmmj 
+      - /Users/nahomymoya/Documents/SSScams/sscams-docker/data/imapsieve_copy:/var/vmail/imapsieve_copy 
+      - /Users/nahomymoya/Documents/SSScams/sscams-docker/data/custom:/opt/iredmail/custom 
+      - /Users/nahomymoya/Documents/SSScams/sscams-docker/data/ssl:/opt/iredmail/ssl 
+      - /Users/nahomymoya/Documents/SSScams/sscams-docker/data/mysql:/var/lib/mysql 
+      - /Users/nahomymoya/Documents/SSScams/sscams-docker/data/clamav:/var/lib/clamav
+      - /Users/nahomymoya/Documents/SSScams/sscams-docker/data/sa_rules:/var/lib/spamassassin 
+      - /Users/nahomymoya/Documents/SSScams/sscams-docker/data/postfix_queue:/var/spool/postfix
+
+     
+  db:
+    image: mysql:5.7
+    hostname: db
+    container_name: rl.db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: rainloop
+      MYSQL_PASSWORD: rainloop
+      MYSQL_DATABASE: rainloop
+    volumes:
+      - mysql:/var/lib/mysql
+      - tmp:/tmp
+  php:
+    build:
+      context: ./.docker/php
+    hostname: php
+    container_name: rl.php
+    expose:
+      - 9000
+    depends_on:
+      - db
+      - mail
+    volumes:
+      - ./:/var/www
+      # - ./build/local/:/var/www
+      - ./.docker/php/rainloop.ini:/usr/local/etc/php/conf.d/rainloop.ini
+      - tmp:/tmp
+
+  nginx:
+    image: nginx:latest
+    hostname: nginx
+    container_name: rl.nginx
+    depends_on:
+      - php
+    ports:
+      - 543:443
+      - 7000:80
+    volumes:
+      - ./:/var/www
+      # - ./build/local/:/var/www
+      - ./.docker/nginx/ssl:/etc/nginx/ssl
+      - ./.docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - tmp:/tmp
+
+volumes:
+  mysql:
+    driver: local
+  maildata:
+    driver: local
+  mailstate:
+    driver: local
+  tmp:
+    driver: local
+
+# networks:
+#   default:
+#     external:
+#       name: mailcowdockerized_mailcow-network 
