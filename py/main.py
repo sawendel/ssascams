@@ -7,7 +7,6 @@ from scipy.stats import ttest_ind
 import xlsxwriter
 import numpy as np
 from statsmodels.formula.api import ols
-
 from swstats import *
 import random
 
@@ -66,11 +65,16 @@ def getPIDs(dataDir, fileNames):
 
 def readdata():
 
+
     dataDir  = "C:/Dev/src/ssascams/data/"
 
     surveyOutputFilesByVersion = {1: "SSA_v1_asFielded_ExtractedMay 15, 2021_clean.csv",
                    3: "SSA_v3_asFielded_ExtractedMay 9, 2021_clean.csv",
                    4: "SSA_v4_asFielded_Part1_ExtractedMay 13, 2021.csv"}
+
+    # ###############
+    # Get the data
+    # ###############
 
     priorPids = None
     if surveyVersion == 1:
@@ -84,7 +88,7 @@ def readdata():
     elif surveyVersion == 4:
         dataFileName_p1 = surveyOutputFilesByVersion[4]
         dataFileName_prolific = "prolific_export_SSA_v4_Wave2NatRep_6099c49373d406738c79f948.csv"
-        dataFileName_p2 = "SSA_v4_Part2_AllQualtrics_May 15, 2021_12.22_Clean.csv"
+        dataFileName_p2 = "SSA_v4_Part2_AllQualtrics_May 23, 2021_15.52_clean.csv"
 
         dta_p1 = pd.read_csv(dataDir + dataFileName_p1)
         dta_profilic = pd.read_csv(dataDir + dataFileName_prolific)
@@ -108,6 +112,10 @@ def readdata():
     # Mark the Various Waves of the Study
     dta['StartDate'] = pd.to_datetime(dta.StartDate)
 
+    # ###############
+    # Tag Waves of Study over time
+    # ###############
+
     dta['Wave'] = None
     if surveyVersion == 3:
         # Small tests to see if it was working
@@ -122,13 +130,17 @@ def readdata():
     elif surveyVersion == 4:
         dta.loc[(dta.StartDate < '5/9/2021 23:59'), 'Wave'] = 1
         dta.loc[(dta.StartDate >= '5/9/2021 23:59'), 'Wave'] = 2
+        dta.loc[(dta.StartDate_end >= '5/20/2021 01:01'), 'Wave'] = 3
     else:
         dta.Wave = 1
 
-    print(dta.Wave.value_counts(dropna=False))
+    # print(dta.Wave.value_counts(dropna=False))
 
 
-    ''' Data Cleaning '''
+    # ###############
+    # Do core data cleaning / filtering
+    # ###############
+
     dta['cleanStatus'] = "Keep"
     dta.loc[(dta['cleanStatus'] == "Keep") & (dta.PID.isin(priorPids)), 'cleanStatus'] = 'PID from prior version'
 
@@ -182,6 +194,10 @@ def readdata():
     dta = dta[dta.cleanStatus == "Keep"].copy()
     # dta = dta[dta.Wave==5].copy()
 
+    # ################
+    # Randomization
+    # ################
+
     createRandomization = False
     if (createRandomization):
         dta['RAND'] = [random.randint(1, 2) for k in dta.index]
@@ -192,77 +208,6 @@ def readdata():
         grouped['Ethnicity (Simplified)'].count()
         grouped['Sex'].mean()
 
-    # Setup Vars for tracking data on the # correct, etc.
-    dta['numCorrect'] = 0
-    dta['numFakeLabeledReal'] = 0 # It is FAKE, and the person thought it was a REAL
-    dta['numRealLabeledFake'] = 0 # It is REAL, and the person thought it was a FAKE
-    dta['numRealLabeledReal'] = 0 # It is REAL, and the person recognized it
-    dta['numFakeLabeledFake'] = 0  # It is a FAKE, and the person recognized it
-
-    dta['numLabeledReal'] = 0
-    dta['numLabeledFake'] = 0
-    dta['numNoAnswer'] = 0
-
-    varsToSummarize = ['numCorrect', 'numFakeLabeledReal', 'numRealLabeledFake',
-                       'numRealLabeledReal', 'numFakeLabeledFake',
-                       'numLabeledReal', 'numLabeledFake',
-                       'numNoAnswer']
-
-    ''' Analzyze the answers'''
-    for testQuestion in testQuestions.keys():
-        # Get the correct answer
-        correctAnswer = testQuestions[testQuestion]
-
-        # Increment each peron's correct count if they go it
-        correctMask = dta[testQuestion] == correctAnswer
-        dta.loc[correctMask, 'numCorrect'] = 1 + dta.loc[correctMask, 'numCorrect']
-
-        # Create a new boolean var indicating, for each question, if they got it right
-        dta['Correct_' + testQuestion] = (dta[testQuestion] == correctAnswer)
-        varsToSummarize = varsToSummarize + ['Correct_' + testQuestion]
-
-        # Dig into the response correct/incorrect to label as true possitive / false positive , etc.
-        if (correctAnswer == "Fake"):
-            dta.loc[(dta[testQuestion] == "Real"), 'numFakeLabeledReal'] = 1 + dta.loc[(dta[testQuestion] == "Real"), 'numFakeLabeledReal']
-            dta.loc[(dta[testQuestion] == "Fake"), 'numFakeLabeledFake'] = 1 + dta.loc[(dta[testQuestion] == "Fake"), 'numFakeLabeledFake']
-        elif (correctAnswer == "Real"):
-            dta.loc[(dta[testQuestion] == "Real"), 'numRealLabeledReal'] = 1 + dta.loc[(dta[testQuestion] == "Real"), 'numRealLabeledReal']
-            dta.loc[(dta[testQuestion] == "Fake"), 'numRealLabeledFake'] = 1 + dta.loc[(dta[testQuestion] == "Fake"), 'numRealLabeledFake']
-        else:
-            raise Exception("Invalid Question Data")
-
-        # Count how many total they marked as 'real' or 'fake'
-        dta.loc[dta[testQuestion] == 'Real', 'numLabeledReal'] = 1 + dta.loc[dta[testQuestion] == 'Real', 'numLabeledReal']
-        dta.loc[dta[testQuestion] == 'Fake', 'numLabeledFake'] = 1 + dta.loc[dta[testQuestion] == 'Fake', 'numLabeledFake']
-        dta.loc[~(dta[testQuestion].isin(['Fake','Real'])), 'numNoAnswer'] = 1 + dta.loc[~(dta[testQuestion].isin(['Fake','Real'])), 'numNoAnswer']
-
-    dta['percentCorrect'] = dta.numCorrect/len(testQuestions) * 100
-
-
-    order_value_control_group = dta.loc[dta.surveyArm == "arm1_control", "numCorrect"]
-    order_value_arm2_group = dta.loc[dta.surveyArm == "arm2_generalinfo", "numCorrect"]
-    order_value_arm3_group = dta.loc[dta.surveyArm == "arm3_tips", "numCorrect"]
-    order_value_arm4_group = dta.loc[dta.surveyArm == "arm4_training", "numCorrect"]
-
-    np.std(dta.percentCorrect)
-    tscore, pval = ttest_ind(order_value_control_group, order_value_arm4_group)
-    # print('t-score:', round(tscore, 3))
-    print('p value, control to arm4:', round(pval, 3))
-
-    tscore, pval = ttest_ind(order_value_control_group, order_value_arm2_group)
-    # print('t-score:', round(tscore, 3))
-    print('p value, control to arm2:', round(pval, 3))
-
-    tscore, pval = ttest_ind(order_value_arm2_group, order_value_arm4_group )
-    # print('t-score:', round(tscore, 3))
-    print('p value, arm2 to arm4:', round(pval, 3))
-
-    grouped = dta[varsToSummarize + ["percentCorrect", "surveyArm", "Wave"]].groupby(["surveyArm", "Wave"])
-    # grouped = dta[varsToSummarize + ["percentCorrect","surveyArm", "Wave"]].groupby(["surveyArm"])
-
-    summaryStats = grouped.agg(["mean", "median"])
-    summaryStats.sort_values(['Wave', 'surveyArm'], inplace=True)
-    summaryStats.to_csv(dataDir + "RESULTS_" + outputFileName + '.csv')
 
     # ##############
     # Demographic processing, etc
@@ -317,16 +262,136 @@ def readdata():
     dta['ageYearsSq'] = dta.ageYears * dta.ageYears
     dta['lIncomeAmount'] = np.log(dta.incomeAmount)
 
+
+    # ##############
+    # Count Correct Answers
+    # ##############
+
+    # Setup Vars for tracking data on the # correct, etc.
+    dta['numCorrect'] = 0
+    dta['numFakeLabeledReal'] = 0 # It is FAKE, and the person thought it was a REAL
+    dta['numRealLabeledFake'] = 0 # It is REAL, and the person thought it was a FAKE
+    dta['numRealLabeledReal'] = 0 # It is REAL, and the person recognized it
+    dta['numFakeLabeledFake'] = 0  # It is a FAKE, and the person recognized it
+
+    dta['numLabeledReal'] = 0
+    dta['numLabeledFake'] = 0
+    dta['numNoAnswer'] = 0
+
+    scoringVars = ['numCorrect', 'numFakeLabeledReal', 'numRealLabeledFake',
+                       'numRealLabeledReal', 'numFakeLabeledFake',
+                       'numLabeledReal', 'numLabeledFake',
+                       'numNoAnswer']
+    ''' Analyze the answers'''
+    writer = pd.ExcelWriter(dataDir + 'RESULTS_' + outputFileName + '.xlsx', engine='xlsxwriter')
+
+    for testQuestion in testQuestions.keys():
+        # Get the correct answer
+        correctAnswer = testQuestions[testQuestion]
+
+        # Increment each peron's correct count if they go it
+        correctMask = dta[testQuestion] == correctAnswer
+        dta.loc[correctMask, 'numCorrect'] = 1 + dta.loc[correctMask, 'numCorrect']
+
+        # Create a new boolean var indicating, for each question, if they got it right
+        dta['Correct_' + testQuestion] = (dta[testQuestion] == correctAnswer)
+        scoringVars = scoringVars + ['Correct_' + testQuestion]
+
+        # Dig into the response correct/incorrect to label as true possitive / false positive , etc.
+        if (correctAnswer == "Fake"):
+            dta.loc[(dta[testQuestion] == "Real"), 'numFakeLabeledReal'] = 1 + dta.loc[(dta[testQuestion] == "Real"), 'numFakeLabeledReal']
+            dta.loc[(dta[testQuestion] == "Fake"), 'numFakeLabeledFake'] = 1 + dta.loc[(dta[testQuestion] == "Fake"), 'numFakeLabeledFake']
+        elif (correctAnswer == "Real"):
+            dta.loc[(dta[testQuestion] == "Real"), 'numRealLabeledReal'] = 1 + dta.loc[(dta[testQuestion] == "Real"), 'numRealLabeledReal']
+            dta.loc[(dta[testQuestion] == "Fake"), 'numRealLabeledFake'] = 1 + dta.loc[(dta[testQuestion] == "Fake"), 'numRealLabeledFake']
+        else:
+            raise Exception("Invalid Question Data")
+
+        # Count how many total they marked as 'real' or 'fake'
+        dta.loc[dta[testQuestion] == 'Real', 'numLabeledReal'] = 1 + dta.loc[dta[testQuestion] == 'Real', 'numLabeledReal']
+        dta.loc[dta[testQuestion] == 'Fake', 'numLabeledFake'] = 1 + dta.loc[dta[testQuestion] == 'Fake', 'numLabeledFake']
+        dta.loc[~(dta[testQuestion].isin(['Fake','Real'])), 'numNoAnswer'] = 1 + dta.loc[~(dta[testQuestion].isin(['Fake','Real'])), 'numNoAnswer']
+
+    dta['percentCorrect'] = dta.numCorrect/len(testQuestions) * 100
+
+
+    # ###############
+    # Export summary stats
+    # ###############
+
+    demographicVars = ['trustScore', 'TotalIncome', 'incomeAmount', 'Race', 'race5', 'employment3', 'educYears', 'Married', 'marriedI',
+                       'Age', 'ageYears', 'Gender', 'genderI']
+    allSummaryVars = ["percentCorrect", "surveyArm", "Wave"] + scoringVars + demographicVars
+
+    summaryStats = dta[allSummaryVars].describe()
+
+    summaryStats.to_excel(writer, sheet_name="summary_FullPop", startrow=0, header=True, index=True)
+
+
+    grouped = dta[allSummaryVars].groupby(["surveyArm", "Wave"])
+    # grouped = dta[varsToSummarize + ["percentCorrect","surveyArm", "Wave"]].groupby(["surveyArm"])
+    # summaryStats = grouped.agg(["mean", "median"])
+    # summaryStats.sort_values(['Wave', 'surveyArm'], inplace=True)
+
+    # descriptiveStats = pd.DataFrame(group.describe().rename(columns={'score': name}).squeeze()
+    #                   for name, group in dta.groupby('surveyArm, Wave'))
+
+    summaryStats = grouped.describe().unstack().transpose().reset_index()
+    summaryStats.rename(columns={'level_0':'VarName', 'level_1':'Metric'}, inplace=True)
+    summaryStats.sort_values(['Wave','VarName', 'Metric'], inplace=True)
+    # grouped.describe().reset_index().pivot(index='name', values='score', columns='level_1')
+
+    summaryStats.to_excel(writer, sheet_name="summary_ByArmAndWave", startrow=0, header=True, index=False)
+
+    # summaryStats.to_csv(dataDir + "RESULTS_" + outputFileName + '.csv')
+
+
+    # ##############
+    # Between Arm T-Tests
+    # ##############
+
+    order_value_control_group = dta.loc[dta.surveyArm == "arm1_control", "numCorrect"]
+    order_value_arm2_group = dta.loc[dta.surveyArm == "arm2_generalinfo", "numCorrect"]
+    order_value_arm3_group = dta.loc[dta.surveyArm == "arm3_tips", "numCorrect"]
+    order_value_arm4_group = dta.loc[dta.surveyArm == "arm4_training", "numCorrect"]
+
+    np.std(dta.percentCorrect)
+    tscore, pval = ttest_ind(order_value_control_group, order_value_arm4_group)
+    # print('t-score:', round(tscore, 3))
+    print('p value, control to arm4 (Interactive):', round(pval, 3))
+
+    tscore, pval = ttest_ind(order_value_control_group, order_value_arm2_group)
+    # print('t-score:', round(tscore, 3))
+    print('p value, control to arm2 (Tips):', round(pval, 3))
+
+    tscore, pval = ttest_ind(order_value_arm2_group, order_value_arm4_group )
+    # print('t-score:', round(tscore, 3))
+    print('p value, arm2 (Tips) to arm4 (Interactive):', round(pval, 3))
+
     # ##############
     # Regressions
     # ##############
 
-    indepVars = ['surveyArm', 'trustScore', 'incomeAmount', 'race5', 'employment3', 'educYears', 'married2', 'ageYears', 'Gender']
+    indepVars = ['surveyArm', 'trustScore', 'incomeAmount', 'race5', 'employment3', 'educYears', 'married2', 'ageYears','Gender']
+
+
+    # Simple Experiment-Only test
+    resultTables = ols('numCorrect ~ C(surveyArm)', data=dta).fit().summary().tables
+    pd.DataFrame(resultTables[0]).to_excel(writer, sheet_name="numCorrect_ByArm", startrow=1, header=False, index=False)
+    pd.DataFrame(resultTables[1]).to_excel(writer, sheet_name="numCorrect_ByArm", startrow=1 + len(resultTables[0]) + 2, header=False, index=False)
+
+    resultTables = ols('numFakeLabeledFake ~ C(surveyArm)', data=dta).fit().summary().tables
+    pd.DataFrame(resultTables[0]).to_excel(writer, sheet_name="numFakeLabeledFake_ByArm", startrow=1, header=False, index=False)
+    pd.DataFrame(resultTables[1]).to_excel(writer, sheet_name="numFakeLabeledFake_ByArm", startrow=1 + len(resultTables[0]) + 2, header=False, index=False)
+
+    resultTables = ols('numRealLabeledReal ~ C(surveyArm)', data=dta).fit().summary().tables
+    pd.DataFrame(resultTables[0]).to_excel(writer, sheet_name="numRealLabeledReal_ByArm", startrow=1, header=False, index=False)
+    pd.DataFrame(resultTables[1]).to_excel(writer, sheet_name="numRealLabeledReal_ByArm", startrow=1 + len(resultTables[0]) + 2, header=False, index=False)
+
 
     # What determines fraud susceptibility (whether people get tricked or not)?
     # Ie, false negatives
 
-    writer = pd.ExcelWriter(dataDir + 'REGRESSION_' + outputFileName + '.xlsx',engine='xlsxwriter')
 
     # First Try
     resultTables = ols('numFakeLabeledReal ~ C(surveyArm) + trustScore + lIncomeAmount + '
@@ -359,13 +424,13 @@ def readdata():
     pd.DataFrame(resultTables[0]).to_excel(writer, sheet_name="numLabeledFake", startrow=1, header=False, index=False)
     pd.DataFrame(resultTables[1]).to_excel(writer, sheet_name="numLabeledFake", startrow=1 + len(resultTables[0]) + 2, header=False, index=False)
 
-    writer.save()
-    # workbook.close()
-
     # ##############
     # Save the processed data
     # ##############
-    dta.to_csv(dataDir + "PROCESSED_" + outputFileName + ".csv")
+    pd.DataFrame(dta).to_excel(writer, sheet_name="theData", startrow=0, header=True, index=False)
+    # dta.to_csv(dataDir + "PROCESSED_" + outputFileName + ".csv")
+    writer.save()
+    # workbook.close()
 
     if (debugging):
         grouped.agg(["count"])
