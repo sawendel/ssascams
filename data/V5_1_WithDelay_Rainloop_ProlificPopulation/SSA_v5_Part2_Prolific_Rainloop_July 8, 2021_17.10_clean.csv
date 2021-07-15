@@ -1,0 +1,166 @@
+StartDate,EndDate,Status,Progress,Duration (in seconds),Finished,RecordedDate,ResponseId,RecipientLastName,RecipientFirstName,RecipientEmail,ExternalReference,DistributionChannel,UserLanguage,Consent,PID,Meta_Browser,Meta_Version,Meta_Operating System,Meta_Resolution,lt_medicare,sms_disability,lt_suspension,sms_redcross,attentionCheck
+6/27/2021 19:31,6/27/2021 20:23,IP Address,31,3097,FALSE,6/28/2021 20:23,R_22trkWXWKfOdDgc,,,,,anonymous,EN,Yes,SteveTest9,Chrome,91.0.4472.124,Windows NT 10.0,1366x768,,,,,
+6/29/2021 8:03,6/29/2021 8:08,IP Address,100,279,TRUE,6/29/2021 8:08,R_2zASPCBSkqULZp6,,,,,anonymous,EN,Yes,5746f1955e549100063b3c45,Chrome,91.0.4472.124,Windows NT 10.0,1366x768,Real,Fake,Fake,Real,7
+6/29/2021 8:03,6/29/2021 8:10,IP Address,100,406,TRUE,6/29/2021 8:10,R_2aVuDqqUpxARWzF,,,,,anonymous,EN,Yes,60d20fa8369ce619a9844bb5,Safari,14.1.1,Macintosh,1280x800,Real,Fake,Fake,Real,7
+6/29/2021 8:04,6/29/2021 8:11,IP Address,100,434,TRUE,6/29/2021 8:11,R_3q9VKvSYsRu1AYc,,,,,anonymous,EN,Yes,60cb3c4b9454f7a196355088,Chrome,91.0.4472.114,Windows NT 10.0,1366x768,Real,Fake,Real,Fake,7
+6/29/2021 8:06,6/29/2021 8:20,IP Address,100,817,TRUE,6/29/2021 8:20,R_T4LgkrVVu3Buby9,,,,,anonymous,EN,Yes,60d10f9d6d57181601bdc4e2,Chrome,91.0.4472.124,Windows NT 6.1,1920x1080,Fake,Fake,Fake,Fake,7
+6/29/2021 8:20,6/29/2021 8:28,IP Address,100,448,TRUE,6/29/2021 8:28,R_2b3i9pbL0W8Wv2G,,,,,anonymous,EN,Yes,60ae732b911084864713db46,Chrome,91.0.4472.114,Macintosh,1280x800,Fake,Fake,Real,Real,7
+6/29/2021 9:25,6/29/2021 9:28,IP Address,100,165,TRUE,6/29/2021 9:28,R_3p4H3OrKl4ami0X,,,,,anonymous,EN,Yes,60d2c0afd79e86e6f5a9ad08,Firefox,89,Windows NT 10.0,1920x1080,Real,Fake,Fake,Real,7
+6/29/2021 10:21,6/29/2021 10:29,IP Address,100,434,TRUE,6/29/2021 10:29,R_8e9WzeCZuzD8klX,,,,,anonymous,EN,Yes,60d36a1e527cbcc95d132d62,Chrome,91.0.4472.114,CrOS x86_64 13904.66.0,1366x768,Real,Fake,Real,Real,7
+6/29/2021 10:25,6/29/2021 10:32,IP Address,100,437,TRUE,6/29/2021 10:32,R_3KGwyhYOETFpt2p,,,,,anonymous,EN,Yes,60d2586287aed6bde9dd876b,Chrome,90.0.4430.212,Macintosh,1440x900,Fake,Fake,Fake,Fake,7
+6/29/2021 10:16,6/29/2021 10:37,IP Address,100,1270,TRUE,6/29/2021 10:37,R_AA4qMmD2fTB6JvX,,,,,anonymous,EN,Yes,60d29dcc8ee32f63b359d02d,Chrome,91.0.4472.114,CrOS x86_64 13904.66.0,1366x768,Real,Fake,Fake,Fake,7
+6/29/2021 16:24,6/29/2021 16:31,IP Address,100,412,TRUE,6/29/2021 16:31,R_2rG76Fco81Bg7Mh,,,,,anonymous,EN,Yes,60d239e0b03a18ed7a0e337d,Chrome,90.0.4430.93,Macintosh,1920x1080,Fake,Fake,Fake,Fake,7
+6/29/2021 16:53,6/29/2021 16:57,IP Address,100,258,TRUE,6/29/2021 16:57,R_3D6XqTD37NxllOG,,,,,anonymous,EN,Yes,5fe9065cb82e4635d7090e72,Chrome,91.0.4472.114,Macintosh,1440x900,Fake,Fake,Fake,Real,7
+6/29/2021 16:40,6/29/2021 17:16,IP Address,100,2154,TRUE,6/29/2021 17:16,R_273cRJagJBEq2Fm,,,,,anonymous,EN,Yes,60cfa6420ffb2b8717adae78,Chrome,91.0.4472.120,Android 5.0.2,1280x800,Fake,Real,Fake,Real,7
+6/29/2021 20:58,6/29/2021 21:06,IP Address,100,438,TRUE,6/29/2021 21:06,R_Q4STraToofmzETn,,,,,anonymous,EN,Yes,60d0962bdb2435c09644e57c,Chrome,89.0.4389.114,Windows NT 6.3,1366x768,Fake,Fake,Fake,Real,7
+6/29/2021 7:45,6/29/2021 7:48,IP Address,92,140,FALSE,6/30/2021 7:48,R_20VxqB57rIFfEB7,,,,,anonymous,EN,Yes,SteveTest9,Chrome,91.0.4472.124,Windows NT 10.0,1366x768,Real,Fake,Real,Real,7
+6/30/2021 8:31,6/30/2021 8:45,IP Address,100,823,TRUE,6/30/2021 8:45,R_zdmYs69ipWeFWVz,,,,,anonymous,EN,Yes,6005d52707eaeb8b7bc97c4c,Chrome,91.0.4472.124,Windows NT 10.0,1920x1080,Real,Fake,Fake,Fake,7
+6/30/2021 8:32,6/30/2021 9:36,IP Address,100,3857,TRUE,6/30/2021 9:36,R_3UT4Pcd4BzVfbSV,,,,,anonymous,EN,Yes,5ab7e3951667e40001d7cee8,Chrome,91.0.4472.124,Windows NT 10.0,1920x1080,Real,Fake,Fake,Fake,7
+6/29/2021 12:22,6/29/2021 12:43,IP Address,31,1260,FALSE,6/30/2021 12:43,R_2Cdgs62JCgoJvDJ,,,,,anonymous,EN,Yes,60d25587663e249006d9da85,Chrome,91.0.4472.124,Windows NT 10.0,1366x768,,,,,
+6/29/2021 14:19,6/29/2021 14:22,IP Address,31,185,FALSE,6/30/2021 14:22,R_2Cm6CaofDzGgggI,,,,,anonymous,EN,Yes,60d3789eaea26baa8ff53bb8,Chrome,91.0.4472.114,Windows NT 6.1,1440x900,,,,,
+6/29/2021 18:34,6/29/2021 18:34,IP Address,31,23,FALSE,6/30/2021 18:34,R_BzdsAZuODiY5eJX,,,,,anonymous,EN,Yes,56f299dded0cf6000b9108cd,Chrome,91.0.4472.114,Linux x86_64,1366x768,,,,,
+6/30/2021 19:27,6/30/2021 19:31,IP Address,100,250,TRUE,6/30/2021 19:31,R_3HOibufZ531YEGl,,,,,anonymous,EN,Yes,5ba0795124593f000174f263,Chrome,91.0.4472.124,Windows NT 10.0,1536x864,Real,Fake,Fake,Fake,7
+6/30/2021 20:09,6/30/2021 20:17,IP Address,100,495,TRUE,6/30/2021 20:17,R_2b1SnPAgDy87MVL,,,,,anonymous,EN,Yes,60d39bc8af5e01b7ab0e1ed5,Chrome,91.0.4472.120,Android 10,412x869,Real,Fake,Fake,Real,7
+6/30/2021 20:07,6/30/2021 20:21,IP Address,100,880,TRUE,6/30/2021 20:21,R_1dKOR9iH0qUfQ9T,,,,,anonymous,EN,Yes,60d0ca50fd6a083deda031b5,Chrome,91.0.4472.124,Windows NT 10.0,1366x768,Fake,Fake,Real,Real,7
+6/29/2021 20:07,6/29/2021 20:21,IP Address,31,854,FALSE,6/30/2021 20:21,R_2rPJDXGHpYrf8SA,,,,,anonymous,EN,Yes,60cec4a17308cc774876c1cd,Chrome,91.0.4472.114,Windows NT 10.0,1366x768,,,,,
+6/30/2021 20:17,6/30/2021 20:22,IP Address,100,316,TRUE,6/30/2021 20:22,R_3Gf9OXzg7uSLMY3,,,,,anonymous,EN,Yes,60d3740f31606cb50e49f00c,Chrome,91.0.4472.120,Android 10,360x740,Fake,Fake,Fake,Real,7
+6/30/2021 20:17,6/30/2021 20:25,IP Address,100,464,TRUE,6/30/2021 20:25,R_3Mthleq6eR2Bute,,,,,anonymous,EN,Yes,568eca7be3ef9e000ca208fc,Firefox,89,Windows NT 10.0,1200x1920,Real,Fake,Fake,Fake,7
+6/29/2021 20:21,6/29/2021 20:26,IP Address,38,274,FALSE,6/30/2021 20:26,R_T4QVpeHWQ90WGE9,,,,,anonymous,EN,Yes,60cec4a17308cc774876c1cd,Chrome,91.0.4472.114,Windows NT 10.0,1366x768,,,,,
+6/29/2021 20:26,6/29/2021 20:31,Spam,31,299,FALSE,6/30/2021 20:31,R_2xXIutuPDdYgaJj,,,,,anonymous,EN,Yes,60cec4a17308cc774876c1cd,Chrome,91.0.4472.114,Windows NT 10.0,1366x768,,,,,
+6/29/2021 20:29,6/29/2021 20:32,IP Address,31,173,FALSE,6/30/2021 20:32,R_ZjA8JLgHFRLTzr3,,,,,anonymous,EN,Yes,https://uwmadison.co1.qualtrics.com/jfe/form/SV_e9VyfRwDm658JVQ,Chrome,91.0.4472.114,Windows NT 10.0,1366x768,,,,,
+6/30/2021 20:28,6/30/2021 20:33,IP Address,100,299,TRUE,6/30/2021 20:33,R_210YAV52HwwHehP,,,,,anonymous,EN,Yes,5aef97b09516fe00010959f4,Chrome,91.0.4472.114,Windows NT 6.3,1366x768,Fake,Fake,Real,Fake,7
+6/30/2021 20:23,6/30/2021 20:35,IP Address,100,770,TRUE,6/30/2021 20:35,R_1d0P3iWOyoXZrCO,,,,,anonymous,EN,Yes,60d6b75e7816b323b8ea20d2,Chrome,87.0.4280.141,Android 8.1.0,501x1044,Fake,Fake,Real,Fake,7
+6/30/2021 20:34,6/30/2021 20:45,IP Address,100,653,TRUE,6/30/2021 20:45,R_xixL0usQ3M6a6Dn,,,,,anonymous,EN,Yes,60c3dd053c6f4136639213f9,Chrome,90.0.4430.212,Windows NT 10.0,1366x768,Fake,Fake,Fake,Real,7
+6/30/2021 20:39,6/30/2021 20:49,IP Address,100,597,TRUE,6/30/2021 20:49,R_3ex0olzjNye1EDI,,,,,anonymous,EN,Yes,60ce4d729c9270e9f0f171b3,Firefox,89,Windows NT 10.0,1536x864,Real,Fake,Fake,Fake,7
+6/29/2021 20:40,6/29/2021 20:55,Spam,31,924,FALSE,6/30/2021 20:55,R_9yomDMI3uliZXZD,,,,,anonymous,EN,Yes,60cec4a17308cc774876c1cd,Chrome,91.0.4472.114,Windows NT 10.0,1366x768,,,,,
+6/30/2021 20:57,6/30/2021 21:01,IP Address,100,247,TRUE,6/30/2021 21:01,R_1CvZb57f7QxY7Wj,,,,,anonymous,EN,Yes,60d2763e3eeee3edd02d9127,Chrome,88.0.4324.152,Android 9,360x760,Real,Fake,Fake,Fake,7
+6/30/2021 21:10,6/30/2021 21:35,IP Address,100,1478,TRUE,6/30/2021 21:35,R_TcQ4xZtnp1Qhy2l,,,,,anonymous,EN,Yes,60c387ed61b37cd0404d3c72,Chrome,91.0.4472.124,Windows NT 10.0,1600x900,Real,Fake,Fake,Real,7
+6/30/2021 21:32,6/30/2021 21:36,IP Address,100,236,TRUE,6/30/2021 21:36,R_1Kd6jEMjF4m8Z93,,,,,anonymous,EN,Yes,60d6b3920dd0087a3eb1023c,Chrome,62.0.3202.9,Windows NT 10.0,412x846,Real,Fake,Fake,Fake,7
+6/30/2021 21:59,6/30/2021 22:12,IP Address,100,781,TRUE,6/30/2021 22:12,R_OHVwovkYhtGpg2Z,,,,,anonymous,EN,Yes,5fc6b87519cc4b03d0973605,Chrome,91.0.4472.124,Windows NT 10.0,1280x800,Real,Fake,Fake,Real,7
+6/30/2021 22:26,6/30/2021 22:34,IP Address,100,473,TRUE,6/30/2021 22:34,R_2ANL7zTcJ9J6qje,,,,,anonymous,EN,Yes,60d6bd31760e072b980885a5,Chrome,88.0.4324.152,Android 10,491x1064,Real,Fake,Real,Fake,7
+6/30/2021 22:46,6/30/2021 22:55,IP Address,100,541,TRUE,6/30/2021 22:55,R_1OvGSUJ3jNKEStp,,,,,anonymous,EN,Yes,60d33219f5347623d0a57640,Firefox,89,Windows NT 10.0,1366x768,Fake,Fake,Fake,Real,7
+6/30/2021 22:56,6/30/2021 23:07,IP Address,100,702,TRUE,6/30/2021 23:07,R_1FESS3xPuXFTQab,,,,,anonymous,EN,Yes,5e8e5540e2ac91100d13533d,Chrome,91.0.4472.114,Windows NT 10.0,1280x720,Real,Fake,Fake,Real,7
+6/30/2021 23:17,6/30/2021 23:21,IP Address,100,256,TRUE,6/30/2021 23:21,R_pfVJ0iH8i8yDMlP,,,,,anonymous,EN,Yes,60d594ddca1986ab52cc3b0e,Chrome,86.0.4240.185,Linux x86_64,360x640,Real,Fake,Fake,Fake,7
+6/30/2021 23:19,6/30/2021 23:29,IP Address,100,590,TRUE,6/30/2021 23:29,R_3CUAdOgiAg0goEm,,,,,anonymous,EN,Yes,60d2b326161a622cd363268a,Chrome,91.0.4472.101,Windows NT 10.0,1280x720,Real,Fake,Real,Real,7
+6/30/2021 23:25,6/30/2021 23:33,IP Address,100,501,TRUE,6/30/2021 23:33,R_eScjCZi7IlZJDY5,,,,,anonymous,EN,Yes,60ce74465695fa5af74635d3,Chrome,91.0.4472.114,Windows NT 10.0,1366x768,Real,Real,Real,Fake,7
+7/1/2021 0:28,7/1/2021 0:34,IP Address,100,345,TRUE,7/1/2021 0:34,R_dprGkyYgV0ip7vX,,,,,anonymous,EN,Yes,60aa78f4177a78901440fc65,Chrome,91.0.4472.120,Android 10,534x854,Real,Fake,Fake,Real,7
+7/1/2021 0:34,7/1/2021 0:54,IP Address,100,1198,TRUE,7/1/2021 0:54,R_2YRFW4VlmuJaCxL,,,,,anonymous,EN,Yes,60d0cf021fc4a8af9bb375dc,Firefox,89,Windows NT 10.0,1468x860,Real,Fake,Real,Fake,7
+7/1/2021 0:43,7/1/2021 0:58,IP Address,100,903,TRUE,7/1/2021 0:58,R_2X0DJq5RGM3a8WT,,,,,anonymous,EN,Yes,60c5c050916185dbaafe82be,Chrome,91.0.4472.124,Windows NT 6.1,1280x800,Fake,Real,Real,Real,7
+7/1/2021 1:10,7/1/2021 1:15,IP Address,100,279,TRUE,7/1/2021 1:15,R_2BzGMusiLaLUGvn,,,,,anonymous,EN,Yes,60c5c5a0bb9ce47e955a8766,Chrome,91.0.4472.124,Windows NT 6.1,1280x800,Fake,Real,Fake,Real,7
+7/1/2021 1:16,7/1/2021 1:32,IP Address,100,925,TRUE,7/1/2021 1:32,R_3EQHVClIr8gO8ak,,,,,anonymous,EN,Yes,60d045650b0a7c6b984ec2d0,Chrome,89.0.4371.0,Windows NT 10.0,1600x900,Real,Fake,Fake,Fake,7
+7/1/2021 1:42,7/1/2021 1:50,IP Address,100,521,TRUE,7/1/2021 1:50,R_2cCxeHvQw1QJpV7,,,,,anonymous,EN,Yes,60d37da1eee68bf51c8b0d99,Firefox,78,Windows NT 10.0,450x600,Fake,Fake,Fake,Real,7
+7/1/2021 1:58,7/1/2021 2:04,IP Address,100,365,TRUE,7/1/2021 2:04,R_3MbAJkasviDZoHn,,,,,anonymous,EN,Yes,60d4fd686f7ddcf87847fb1a,Firefox,89,Windows NT 10.0,1280x1024,Fake,Real,Fake,Real,7
+7/1/2021 2:31,7/1/2021 2:41,IP Address,100,610,TRUE,7/1/2021 2:41,R_1DMWYYN1Io6gHqS,,,,,anonymous,EN,Yes,60d267529b055a5e3aeb2c5f,Chrome,88.0.4324.152,Android 10,360x820,Real,Real,Fake,Real,7
+7/1/2021 3:03,7/1/2021 3:09,IP Address,100,343,TRUE,7/1/2021 3:09,R_2wQX2thqwJuUUec,,,,,anonymous,EN,Yes,60d048d11a913c5150e7a71b,Chrome,88.0.4324.152,Linux x86_64,360x720,Real,Fake,Fake,Fake,7
+7/1/2021 3:09,7/1/2021 3:16,IP Address,100,421,TRUE,7/1/2021 3:16,R_1GxGiwCDHTIgpUz,,,,,anonymous,EN,Yes,5967862f965b0b000108cf31,Chrome,91.0.4472.124,Windows NT 10.0,1600x900,Real,Fake,Fake,Real,7
+7/1/2021 3:26,7/1/2021 3:34,IP Address,100,452,TRUE,7/1/2021 3:34,R_1GB6xWwmy5FxVAm,,,,,anonymous,EN,Yes,60d634772dd57989852baff9,Chrome,91.0.4472.114,Windows NT 10.0,1561x879,Fake,Fake,Fake,Real,7
+7/1/2021 4:57,7/1/2021 5:06,IP Address,100,579,TRUE,7/1/2021 5:06,R_1jkpQQlkcyOE7d7,,,,,anonymous,EN,Yes,60d6562174087c2eccf2357f,Chrome,91.0.4472.114,Windows NT 10.0,1536x864,Real,Fake,Fake,Fake,7
+7/1/2021 5:09,7/1/2021 5:14,IP Address,100,288,TRUE,7/1/2021 5:14,R_28XT5DbQSVhYoW5,,,,,anonymous,EN,Yes,60cadfbea36d98848a1426ba,Firefox,89,Windows NT 10.0,1366x768,Fake,Fake,Fake,Fake,7
+7/1/2021 5:15,7/1/2021 5:21,IP Address,100,382,TRUE,7/1/2021 5:21,R_3qeRZ0TIq8pdKiZ,,,,,anonymous,EN,Yes,5b1f2b115e45c000012aa30c,Safari,14.1.1,Macintosh,768x1024,Real,Fake,Fake,Real,7
+7/1/2021 6:50,7/1/2021 6:57,IP Address,100,414,TRUE,7/1/2021 6:57,R_1dyGFUuCsWUKmxK,,,,,anonymous,EN,Yes,5b4d39f2d4c93b00019c8217,Chrome,90.0.4430.210,Android 9,1280x800,Fake,Fake,Fake,Real,7
+7/1/2021 6:53,7/1/2021 7:00,IP Address,100,403,TRUE,7/1/2021 7:00,R_AMpG9I7VYPBsqLn,,,,,anonymous,EN,Yes,60d5e3e57d6c03483c8bb2ec,Chrome,91.0.4472.124,Windows NT 10.0,1920x1080,Real,Fake,Fake,Real,7
+7/1/2021 6:56,7/1/2021 7:12,IP Address,100,983,TRUE,7/1/2021 7:12,R_UfGJ0du14pkX42t,,,,,anonymous,EN,Yes,59ba2a6e6495ef00019fbd70,Chrome,91.0.4472.124,Windows NT 10.0,1280x720,Real,Fake,Fake,Fake,7
+7/1/2021 8:04,7/1/2021 8:10,IP Address,100,412,TRUE,7/1/2021 8:10,R_2zuvEr9mW6zbc6w,,,,,anonymous,EN,Yes,60c81a232837d9f7d4a641bf,Safari,14.1,Macintosh,1440x900,Real,Fake,Fake,Fake,7
+7/1/2021 8:14,7/1/2021 8:18,IP Address,100,197,TRUE,7/1/2021 8:18,R_byMwvnZCKah2aJz,,,,,anonymous,EN,Yes,60d131aaeb98fdd9a8567d2f,Chrome,91.0.4472.114,Windows NT 10.0,1366x768,Real,Fake,Real,Fake,7
+7/1/2021 8:26,7/1/2021 8:33,IP Address,100,435,TRUE,7/1/2021 8:33,R_10rejkUzgRUny2j,,,,,anonymous,EN,Yes,60be61cacf973a6755f57b29,Chrome,91.0.4472.106,Macintosh,1440x900,Real,Fake,Fake,Real,7
+7/1/2021 9:57,7/1/2021 10:00,IP Address,100,208,TRUE,7/1/2021 10:00,R_2wiCAQU1Nfd1J6g,,,,,anonymous,EN,Yes,5f1ab9a207a946000a34f34b,Chrome,91.0.4472.114,Windows NT 10.0,1920x1080,Fake,Fake,Fake,Fake,7
+7/1/2021 9:59,7/1/2021 10:11,IP Address,100,707,TRUE,7/1/2021 10:11,R_2WZ64IMRpZVlMWt,,,,,anonymous,EN,Yes,5dde8961a4aa26f2f73d785b,Chrome,91.0.4472.114,Windows NT 10.0,1536x864,Fake,Fake,Fake,Fake,7
+7/1/2021 10:36,7/1/2021 10:40,IP Address,100,207,TRUE,7/1/2021 10:40,R_3Kx4Yfa6qRV1cXU,,,,,anonymous,EN,Yes,60d753b2c874004dc6fdb6fc,Chrome,90.0.4430.212,Windows NT 10.0,1707x1067,Real,Fake,Fake,Real,7
+7/1/2021 11:11,7/1/2021 11:21,IP Address,100,550,TRUE,7/1/2021 11:21,R_1FeWfUq9JVDEKhh,,,,,anonymous,EN,Yes,5fdfddcead8fba8c7e5dd479,Chrome,91.0.4472.124,Windows NT 10.0,1920x1080,Fake,Fake,Real,Real,7
+7/1/2021 12:13,7/1/2021 12:18,IP Address,100,299,TRUE,7/1/2021 12:18,R_1lfrYnzRuNG3eB8,,,,,anonymous,EN,Yes,5fff0eb8fa9eac64dfee12f0,Chrome,91.0.4472.114,Macintosh,1792x1120,Real,Fake,Real,Fake,7
+7/1/2021 12:33,7/1/2021 12:49,IP Address,100,957,TRUE,7/1/2021 12:49,R_2S2GdtBsayUwEIa,,,,,anonymous,EN,Yes,60d4d77da13bc15e94700490,Chrome,91.0.4472.114,Windows NT 10.0,1536x864,Real,Fake,Fake,Fake,7
+7/1/2021 17:40,7/1/2021 17:48,IP Address,100,471,TRUE,7/1/2021 17:48,R_2s0yoS6fnIhoWns,,,,,anonymous,EN,Yes,60d7ffc194d4e42232c97ee9,Edge,84.0.522.40,Windows NT 10.0,1920x1080,Real,Fake,Fake,Fake,7
+7/1/2021 18:24,7/1/2021 18:31,IP Address,100,388,TRUE,7/1/2021 18:31,R_25FbuqaL7Ax3sVZ,,,,,anonymous,EN,Yes,5eea404ec3494f10be3ff5a8,Chrome,91.0.4472.114,Macintosh,1440x900,Real,Fake,Fake,Fake,7
+7/1/2021 18:47,7/1/2021 18:53,IP Address,100,360,TRUE,7/1/2021 18:53,R_3nNa036p4aUwmMg,,,,,anonymous,EN,Yes,5c55c0e354f9d30001db6d22,Chrome iPad,91.0.4472.80,iPad,810x1080,Real,Fake,Fake,Fake,7
+7/1/2021 18:54,7/1/2021 19:03,IP Address,100,548,TRUE,7/1/2021 19:03,R_OHGCUgKTBV3PYSR,,,,,anonymous,EN,Yes,5f68cc35f5d6dd0443562571,Chrome,91.0.4472.124,Windows NT 10.0,1280x720,Fake,Fake,Fake,Fake,7
+7/1/2021 18:59,7/1/2021 19:05,IP Address,100,351,TRUE,7/1/2021 19:05,R_2YtZIH0j9g1MBuj,,,,,anonymous,EN,Yes,5b774f493c1375000197ad11,Chrome,91.0.4472.120,Android 11,360x760,Fake,Real,Real,Fake,7
+7/1/2021 20:10,7/1/2021 20:15,IP Address,100,317,TRUE,7/1/2021 20:15,R_2bUVPc9GF0iuNJ8,,,,,anonymous,EN,Yes,5f1ca7c9d3db3c11895ba1fa,Chrome,91.0.4472.114,CrOS x86_64 13904.66.0,1517x853,Real,Fake,Fake,Fake,7
+7/1/2021 20:08,7/1/2021 20:26,IP Address,100,1093,TRUE,7/1/2021 20:26,R_2pQZMVdTtIFJ0EH,,,,,anonymous,EN,Yes,60d6afdb2f647262643f02d4,Chrome,88.0.4324.152,Linux x86_64,360x750,Real,Fake,Fake,Fake,7
+6/30/2021 20:36,6/30/2021 20:44,IP Address,31,465,FALSE,7/1/2021 20:44,R_xhFWA4dQJQLfhgl,,,,,anonymous,EN,Yes,5ac6ed43a3ba7a0001b4ba1c,Chrome,91.0.4472.124,Windows NT 6.1,1152x864,,,,,
+7/1/2021 20:53,7/1/2021 20:57,IP Address,100,231,TRUE,7/1/2021 20:57,R_2q3npJVCqjrk5Yk,,,,,anonymous,EN,Yes,5589b65afdf99b118adfa595,Chrome,91.0.4472.124,Windows NT 6.1,1920x1080,Real,Fake,Fake,Fake,7
+6/30/2021 21:12,6/30/2021 21:32,IP Address,54,1188,FALSE,7/1/2021 21:32,R_1d4WorPWDeyhrR6,,,,,anonymous,EN,Yes,60d6b3920dd0087a3eb1023c,Chrome,62.0.3202.9,Windows NT 10.0,412x846,,,,,
+6/30/2021 21:34,6/30/2021 21:37,IP Address,38,178,FALSE,7/1/2021 21:37,R_CZEY0U0YJAqwCqJ,,,,,anonymous,EN,Yes,5b118915e9270900013c298c,Chrome,91.0.4472.124,Windows NT 10.0,1280x720,,,,,
+7/1/2021 21:48,7/1/2021 21:57,IP Address,100,499,TRUE,7/1/2021 21:57,R_2Y3A9WQGPns93wU,,,,,anonymous,EN,Yes,57db16a1a4e40600014e9040,Chrome iPad,91.0.4472.80,iPad,768x1024,Real,Fake,Fake,Real,7
+6/30/2021 22:25,6/30/2021 22:26,IP Address,31,69,FALSE,7/1/2021 22:26,R_vJj2IdB0MZHJa2B,,,,,anonymous,EN,Yes,60d6bd31760e072b980885a5,Chrome,77.0.3865.90,Windows NT 10.0,491x1064,,,,,
+6/30/2021 23:13,6/30/2021 23:15,IP Address,38,119,FALSE,7/1/2021 23:15,R_3Mh9S9DW1JITZTI,,,,,anonymous,EN,Yes,60d594ddca1986ab52cc3b0e,Chrome,86.0.4240.185,Linux x86_64,360x640,,,,,
+6/30/2021 23:53,6/30/2021 23:53,IP Address,31,24,FALSE,7/1/2021 23:53,R_12tErFLHifkIrdc,,,,,anonymous,EN,Yes,60d24361cbe78b0487606b7b,Chrome,88.0.4324.152,Linux x86_64,360x720,,,,,
+7/1/2021 23:34,7/1/2021 23:54,IP Address,100,1188,TRUE,7/1/2021 23:54,R_2CfbNIkgk2qPJA7,,,,,anonymous,EN,Yes,60d24258d3e6fc56fe4b8e76,Chrome,91.0.4472.124,Windows NT 10.0,1366x768,Real,Fake,Fake,Fake,7
+7/1/2021 0:13,7/1/2021 0:13,IP Address,31,35,FALSE,7/2/2021 0:13,R_Uo5NeeNqfwGj0vD,,,,,anonymous,EN,Yes,60aa78f4177a78901440fc65,Chrome,91.0.4472.120,Android 10,534x854,,,,,
+7/2/2021 0:12,7/2/2021 0:19,IP Address,100,417,TRUE,7/2/2021 0:19,R_2zTmp7Eg36k10N4,,,,,anonymous,EN,Yes,60b3e7156c6b8b6e642942e1,Firefox,89,Windows NT 10.0,1366x768,Real,Real,Real,Fake,7
+7/1/2021 23:55,7/2/2021 0:20,IP Address,100,1497,TRUE,7/2/2021 0:20,R_3WrLUyTdxWabJwR,,,,,anonymous,EN,Yes,60c998ac5ae9910f04e38767,Chrome,91.0.4472.124,Windows NT 10.0,1366x768,Real,Fake,Real,Real,7
+7/1/2021 23:47,7/2/2021 0:20,IP Address,100,1934,TRUE,7/2/2021 0:20,R_24gU4OaAyJoOhGN,,,,,anonymous,EN,Yes,60ca367de0f332a7abd5771e,Chrome,91.0.4472.124,Windows NT 10.0,1366x768,Real,Fake,Real,Real,7
+7/2/2021 0:09,7/2/2021 0:20,IP Address,100,668,TRUE,7/2/2021 0:20,R_Uh9nQGef7ByV5yF,,,,,anonymous,EN,Yes,60ca81cf57e2df99deee472c,Firefox,89,Windows NT 10.0,1366x768,Fake,Real,Fake,Fake,7
+7/1/2021 0:21,7/1/2021 0:21,Spam,31,11,FALSE,7/2/2021 0:21,R_DGFuStNLMjKqR5T,,,,,anonymous,EN,Yes,60aa78f4177a78901440fc65,Chrome,91.0.4472.120,Android 10,534x854,,,,,
+7/1/2021 0:23,7/1/2021 0:25,IP Address,31,102,FALSE,7/2/2021 0:25,R_3PTgTAVB7sy3mVs,,,,,anonymous,EN,Yes,60ccb4245c75122401713ad6,Chrome,88.0.4324.152,Linux x86_64,320x640,,,,,
+7/1/2021 0:13,7/1/2021 0:29,IP Address,92,975,FALSE,7/2/2021 0:29,R_wL8PD3ZjpqnccQp,,,,,anonymous,EN,Yes,60d392923fe4216c9d27779d,Chrome,88.0.4324.182,Linux,360x800,Real,Fake,Fake,Fake,7
+7/1/2021 0:38,7/1/2021 0:39,IP Address,92,107,FALSE,7/2/2021 0:39,R_1K1LMsSoCT12Vwo,,,,,anonymous,EN,Yes,60bef860da6deaacc4656861,Chrome,90.0.4430.216,Linux,393x873,Real,Fake,Fake,Fake,7
+7/1/2021 1:35,7/1/2021 1:48,IP Address,92,779,FALSE,7/2/2021 1:48,R_3MmQxbateirUZdL,,,,,anonymous,EN,Yes,60d31959d5455b09ec614cef,Chrome,91.0.4472.124,Windows NT 10.0,1366x768,Fake,Fake,Real,Real,7
+7/1/2021 2:00,7/1/2021 2:01,IP Address,31,57,FALSE,7/2/2021 2:01,R_3MzBfsyrxztx3Sk,,,,,anonymous,EN,Yes,60d31959d5455b09ec614cef,Chrome,91.0.4472.124,Windows NT 10.0,1366x768,,,,,
+7/2/2021 3:34,7/2/2021 3:47,IP Address,100,778,TRUE,7/2/2021 3:47,R_zeweGpf1CXJGDrH,,,,,anonymous,EN,Yes,60d6817f8e56be12139c0136,Safari iPhone,14.1,iPhone,414x896,Fake,Fake,Real,Real,7
+7/2/2021 4:29,7/2/2021 4:32,IP Address,100,197,TRUE,7/2/2021 4:32,R_3GprZf1xsYAeZgj,,,,,anonymous,EN,Yes,60cde662c44c5642de426613,Chrome,91.0.4472.124,Windows NT 10.0,1366x768,Real,Real,Real,Real,7
+7/1/2021 5:10,7/1/2021 5:15,IP Address,31,276,FALSE,7/2/2021 5:15,R_DvsuPy8GTQV3Okp,,,,,anonymous,EN,Yes,5b1f2b115e45c000012aa30c,Chrome,91.0.4472.114,CrOS x86_64 13904.66.0,1366x768,,,,,
+7/2/2021 8:36,7/2/2021 8:47,IP Address,100,699,TRUE,7/2/2021 8:47,R_1oAtKEYNbVKIAo1,,,,,anonymous,EN,Yes,5dc36b196c76b327ca120b23,Chrome,91.0.4472.114,Windows NT 10.0,1536x864,Fake,Fake,Fake,Fake,7
+7/2/2021 9:02,7/2/2021 9:06,IP Address,100,282,TRUE,7/2/2021 9:06,R_vYA5yK8hnVrsmSl,,,,,anonymous,EN,Yes,60d7d5dc074e8bc367732eb6,Chrome,88.0.4324.186,CrOS x86_64 13597.94.0,1366x768,Fake,Fake,Fake,Fake,7
+7/2/2021 9:42,7/2/2021 9:47,IP Address,100,323,TRUE,7/2/2021 9:47,R_Rf1X5j6ylP376TL,,,,,anonymous,EN,Yes,60d79078ae2f81125c7eebe7,Chrome,91.0.4472.124,Windows NT 10.0,1366x768,Real,Fake,Fake,Real,7
+7/1/2021 9:39,7/1/2021 9:50,IP Address,31,650,FALSE,7/2/2021 9:50,R_Rf3G6J3AFcaFF2V,,,,,anonymous,EN,Yes,60bbba1662529ae59d1c55cf,Chrome,91.0.4472.124,Windows NT 10.0,1680x1050,,,,,
+7/1/2021 10:31,7/1/2021 10:36,IP Address,31,323,FALSE,7/2/2021 10:36,R_3DuakRhZ2HMFQv5,,,,,anonymous,EN,Yes,60d753b2c874004dc6fdb6fc,Chrome,90.0.4430.212,Windows NT 10.0,1707x1067,,,,,
+7/2/2021 10:55,7/2/2021 11:02,IP Address,100,433,TRUE,7/2/2021 11:02,R_1GOoNoGBJNv4bTA,,,,,anonymous,EN,Yes,5ef578711f51161d8f046c8d,Chrome,91.0.4472.114,Macintosh,1280x800,Fake,Fake,Real,Fake,7
+7/2/2021 11:26,7/2/2021 11:38,IP Address,100,739,TRUE,7/2/2021 11:38,R_DRXgXyHQs98QdDb,,,,,anonymous,EN,Yes,60d4ce7e7a264bfaef83db2e,Chrome,91.0.4472.114,CrOS x86_64 13904.66.0,1200x800,Fake,Fake,Fake,Fake,7
+7/2/2021 13:37,7/2/2021 13:53,IP Address,100,973,TRUE,7/2/2021 13:53,R_1dax0GFdnoYWzHd,,,,,anonymous,EN,Yes,60c47cee447c214c12409f7a,Chrome,91.0.4472.106,Windows NT 10.0,1536x864,Fake,Fake,Fake,Fake,7
+7/1/2021 14:00,7/1/2021 14:14,IP Address,92,826,FALSE,7/2/2021 14:14,R_1QKoQNFG0I9Pqxz,,,,,anonymous,EN,Yes,60ce7b2f8fb53a2ea1d6da31,Chrome,91.0.4472.106,Windows NT 6.1,1280x800,Fake,Fake,Fake,Real,7
+7/2/2021 16:49,7/2/2021 17:02,IP Address,100,785,TRUE,7/2/2021 17:02,R_cxe20xKh3Cg3E1H,,,,,anonymous,EN,Yes,60d7de8c5f5bcb8332d5e1a0,Chrome,91.0.4472.124,Windows NT 10.0,2560x1440,Real,Fake,Fake,Fake,7
+7/2/2021 17:18,7/2/2021 17:27,IP Address,100,505,TRUE,7/2/2021 17:27,R_1fdbP5lXtPEMqym,,,,,anonymous,EN,Yes,5c047357d30e3200016dd9fa,Chrome,91.0.4472.106,Windows NT 10.0,1920x1080,Real,Real,Fake,Fake,7
+7/2/2021 17:24,7/2/2021 17:30,IP Address,100,344,TRUE,7/2/2021 17:30,R_3fVFLgqgOUuevaF,,,,,anonymous,EN,Yes,60ca149b0d1101d5661ed118,Chrome,91.0.4472.114,Macintosh,1280x800,Fake,Real,Fake,Fake,7
+7/2/2021 17:57,7/2/2021 18:03,IP Address,100,381,TRUE,7/2/2021 18:03,R_2780PeApAXDg8wO,,,,,anonymous,EN,Yes,60d13c261171b69977e81f9b,Chrome,91.0.4472.114,Macintosh,1440x900,Real,Fake,Fake,Fake,7
+7/1/2021 19:48,7/1/2021 19:49,IP Address,31,40,FALSE,7/2/2021 19:49,R_Tbhs7MRPb7J96mt,,,,,anonymous,EN,Yes,Steve89,Chrome,91.0.4472.124,Windows NT 10.0,1366x768,,,,,
+7/1/2021 19:49,7/1/2021 20:11,IP Address,31,1306,FALSE,7/2/2021 20:11,R_pRuhFBYwVztv4jf,,,,,anonymous,EN,Yes,Steve81,Chrome,91.0.4472.124,Windows NT 10.0,1366x768,,,,,
+7/2/2021 20:04,7/2/2021 20:11,IP Address,100,441,TRUE,7/2/2021 20:11,R_RUZzzx9f3scqHp7,,,,,anonymous,EN,Yes,558980cdfdf99b7ae47f5a75,Chrome,91.0.4472.124,Windows NT 10.0,2560x1440,Fake,Fake,Real,Real,7
+7/2/2021 20:28,7/2/2021 20:34,IP Address,100,368,TRUE,7/2/2021 20:34,R_D0HhRUiBwoL4FLr,,,,,anonymous,EN,Yes,5f4a187b40b01f589fe766eb,Chrome,91.0.4472.124,Windows NT 10.0,1536x864,Fake,Fake,Real,Real,7
+7/2/2021 21:47,7/2/2021 21:58,IP Address,100,659,TRUE,7/2/2021 21:58,R_1K8gz06nzkfu828,,,,,anonymous,EN,Yes,60d097182810e834e27124dd,Chrome,89.0.4389.90,Windows NT 10.0,1280x720,Fake,Fake,Fake,Real,7
+7/1/2021 23:47,7/1/2021 23:55,IP Address,38,425,FALSE,7/2/2021 23:55,R_1dt9xOxIio3J8Pu,,,,,anonymous,EN,Yes,60c998ac5ae9910f04e38767,Chrome,91.0.4472.124,Windows NT 10.0,1366x768,,,,,
+7/2/2021 0:09,7/2/2021 0:12,IP Address,38,199,FALSE,7/3/2021 0:12,R_31KitYUsK2GtHbL,,,,,anonymous,EN,Yes,60b3e7156c6b8b6e642942e1,Firefox,89,Windows NT 10.0,1366x768,,,,,
+7/1/2021 19:49,7/2/2021 7:16,IP Address,31,41188,FALSE,7/3/2021 7:16,R_3noN0BENoxPtw76,,,,,anonymous,EN,Yes,Steve82,Edge,91.0.864.59,Windows NT 10.0,1366x768,,,,,
+7/3/2021 10:30,7/3/2021 10:33,IP Address,100,210,TRUE,7/3/2021 10:33,R_333FMe9TJqsVrPu,,,,,anonymous,EN,Yes,60c969c12749ced10866921d,Edge,91.0.864.59,Windows NT 10.0,1366x768,Real,Fake,Fake,Fake,7
+7/3/2021 11:58,7/3/2021 12:03,IP Address,100,334,TRUE,7/3/2021 12:03,R_1IyL4iPqxlhAtXD,,,,,anonymous,EN,Yes,600cc5ed47b7d84103754576,Chrome,91.0.4472.124,Windows NT 10.0,1920x1080,Real,Fake,Fake,Fake,7
+7/3/2021 12:42,7/3/2021 12:51,IP Address,100,522,TRUE,7/3/2021 12:51,R_3h0HkDuGeQ3LoZz,,,,,anonymous,EN,Yes,5f4f778a54658b022d7dd2f4,Safari iPhone,14.1.1,iPhone,414x896,Real,Fake,Fake,Real,7
+7/3/2021 13:18,7/3/2021 13:20,IP Address,100,125,TRUE,7/3/2021 13:20,R_3pgmBhnGD17NHKS,,,,,anonymous,EN,Yes,5a5da588f6c51700019527c4,Chrome,91.0.4472.124,Windows NT 10.0,1280x720,Real,Fake,Fake,Fake,7
+7/3/2021 14:44,7/3/2021 14:59,IP Address,100,895,TRUE,7/3/2021 14:59,R_RqWl2fTL5BxlDq1,,,,,anonymous,EN,Yes,5bda531987e0030001d6120a,Chrome,91.0.4472.114,Windows NT 10.0,1536x864,Fake,Fake,Fake,Fake,7
+7/3/2021 15:57,7/3/2021 16:07,IP Address,100,605,TRUE,7/3/2021 16:07,R_3Hw6oX8bf56u6sG,,,,,anonymous,EN,Yes,55dbd6a850a1f7001090d7c3,Chrome,91.0.4472.81,CrOS aarch64 13904.41.0,1366x768,Real,Fake,Real,Fake,7
+7/2/2021 16:25,7/2/2021 16:26,IP Address,92,88,FALSE,7/3/2021 16:26,R_2uCfLq9ISBPkoSC,,,,,anonymous,EN,Yes,60cf3544022c2a456917157d,Chrome,91.0.4472.124,Windows NT 10.0,1366x768,Fake,Real,Real,Fake,7
+7/3/2021 18:19,7/3/2021 18:24,IP Address,100,309,TRUE,7/3/2021 18:24,R_7ZLAjRwT6Tb1Dxf,,,,,anonymous,EN,Yes,60a325e8635aef48f32a81d1,Edge,91.0.864.64,Windows NT 10.0,2560x1440,Fake,Fake,Fake,Real,7
+7/2/2021 16:28,7/2/2021 18:42,IP Address,31,8080,FALSE,7/3/2021 18:42,R_BKzCzUjk3mlX7Vf,,,,,anonymous,EN,Yes,5be33a3fdd850e0001d2c600,Chrome,91.0.4472.114,Windows NT 10.0,1600x900,,,,,
+7/3/2021 19:53,7/3/2021 20:02,IP Address,100,556,TRUE,7/3/2021 20:02,R_26i1oQf97xkBkvo,,,,,anonymous,EN,Yes,5f55525794f94791963129cc,Safari iPhone,14.1.1,iPhone,414x896,Fake,Fake,Real,Real,7
+7/4/2021 3:19,7/4/2021 3:27,IP Address,100,459,TRUE,7/4/2021 3:27,R_3puxNDALTIpp3A0,,,,,anonymous,EN,Yes,60d268d777ce136a2c184d33@email.prolific.co,Chrome,90.0.4430.66,Android 10,360x800,Fake,Fake,Real,Real,7
+7/3/2021 6:45,7/3/2021 6:45,IP Address,31,30,FALSE,7/4/2021 6:45,R_4Hs4xEXuDeJUiJP,,,,,anonymous,EN,Yes,60935e181d125baf801d03ff,Safari,14.1.1,Macintosh,768x1024,,,,,
+7/3/2021 7:13,7/3/2021 7:13,IP Address,31,15,FALSE,7/4/2021 7:13,R_x4xS6IdbDQQYVa1,,,,,anonymous,EN,Yes,60cd566fc6317ffe655a366d,Safari iPhone,14.0.3,iPhone,375x667,,,,,
+7/3/2021 8:27,7/3/2021 8:36,IP Address,54,565,FALSE,7/4/2021 8:36,R_2wtVC9WoHCEq54s,,,,,anonymous,EN,Yes,60d273e0837882205f7c4809,Chrome,91.0.4472.124,Windows NT 6.1,1366x768,,,,,
+7/3/2021 10:23,7/3/2021 10:30,IP Address,38,399,FALSE,7/4/2021 10:30,R_3ESuU4vQ8WRETkH,,,,,anonymous,EN,Yes,60c969c12749ced10866921d,Edge,91.0.864.59,Windows NT 10.0,1366x768,,,,,
+7/4/2021 10:59,7/4/2021 11:08,IP Address,100,526,TRUE,7/4/2021 11:08,R_3k81I5wjYM6FMOq,,,,,anonymous,EN,Yes,5a89c5100f1bce0001224361,Chrome,91.0.4472.124,Windows NT 10.0,1600x900,Real,Fake,Fake,Fake,7
+7/4/2021 11:25,7/4/2021 11:32,IP Address,100,433,TRUE,7/4/2021 11:32,R_1ddjFnRShPoUf84,,,,,anonymous,EN,Yes,5a1396fa844c7a00015e57d9,Safari,14.0.3,Macintosh,1280x800,Fake,Fake,Real,Real,7
+7/4/2021 12:14,7/4/2021 12:15,IP Address,100,89,TRUE,7/4/2021 12:15,R_uxmyemwS59ZnI2d,,,,,anonymous,EN,Yes,5a2047dc772bc40001ba082f,Safari,12.1.2,Macintosh,2560x1440,Real,Fake,Fake,Real,7
+7/4/2021 12:38,7/4/2021 12:43,IP Address,100,338,TRUE,7/4/2021 12:43,R_3gNqi71LRsVHzd9,,,,,anonymous,EN,Yes,5d38c604b3126d0001fbed6e,Chrome,91.0.4472.124,Windows NT 10.0,1536x864,Real,Fake,Fake,Fake,7
+7/4/2021 13:08,7/4/2021 13:14,IP Address,100,330,TRUE,7/4/2021 13:14,R_1jAMevaJnSe5IbS,,,,,anonymous,EN,Yes,60b8417fbc31f4937bc90c06,Chrome iPad,91.0.4472.80,iPad,810x1080,Fake,Fake,Fake,Real,7
+7/4/2021 13:51,7/4/2021 13:56,IP Address,100,289,TRUE,7/4/2021 13:56,R_29nWdmKzGUMYFWN,,,,,anonymous,EN,Yes,5d1c006ac2696c0019647572,Chrome,91.0.4472.124,Windows NT 10.0,1920x1080,Real,Fake,Fake,Fake,7
+7/4/2021 15:19,7/4/2021 15:43,IP Address,100,1452,TRUE,7/4/2021 15:43,R_ZCqgdvxa4Wb8b4t,,,,,anonymous,EN,Yes,5e039eccdc8535e95ebc60aa,Chrome,91.0.4472.124,Windows NT 10.0,1368x912,Fake,Fake,Fake,Real,7
+7/4/2021 18:45,7/4/2021 18:51,IP Address,100,322,TRUE,7/4/2021 18:51,R_SH0MGFKkfwNU11v,,,,,anonymous,EN,Yes,5de433926a2a0801c28903be,Chrome,91.0.4472.114,Macintosh,2560x1440,Real,Fake,Fake,Real,7
+7/3/2021 19:52,7/3/2021 19:52,IP Address,31,16,FALSE,7/4/2021 19:52,R_vwv9SX7IwdXIOwV,,,,,anonymous,EN,Yes,5f55525794f94791963129cc,Safari iPhone,14.1.1,iPhone,414x896,,,,,
+7/4/2021 22:04,7/4/2021 22:25,IP Address,100,1262,TRUE,7/4/2021 22:25,R_1gb6nYMJYokUQVG,,,,,anonymous,EN,Yes,5a70abe2efd3a70001210578,Chrome,91.0.4472.120,Android 9,962x601,Fake,Fake,Fake,Fake,7
+7/5/2021 6:53,7/5/2021 7:05,IP Address,100,694,TRUE,7/5/2021 7:05,R_p6lO4OcRxOvSlTb,,,,,anonymous,EN,Yes,60d23853a2b88ce7476f9287,Chrome,91.0.4472.124,Windows NT 10.0,1536x864,Fake,Fake,Fake,Real,7
+7/5/2021 8:26,7/5/2021 8:31,IP Address,100,282,TRUE,7/5/2021 8:31,R_diOayKLdTnJgmGZ,,,,,anonymous,EN,Yes,5e83ff4ae833ed162d4b2fe0,Chrome,90.0.4430.212,Windows NT 10.0,1536x864,Real,Fake,Fake,Fake,7
+7/4/2021 11:17,7/4/2021 11:19,IP Address,31,145,FALSE,7/5/2021 11:19,R_1daDRowJK0d0QcL,,,,,anonymous,EN,Yes,60d74a6521e8199fec263ed7,Firefox,87,Windows NT 10.0,1366x768,,,,,
+7/4/2021 12:05,7/4/2021 12:14,IP Address,54,510,FALSE,7/5/2021 12:14,R_2rioNzD0MudSr38,,,,,anonymous,EN,Yes,5a2047dc772bc40001ba082f,Safari,12.1.2,Macintosh,2560x1440,,,,,
+7/5/2021 12:21,7/5/2021 12:27,IP Address,100,349,TRUE,7/5/2021 12:27,R_73z33ZZxf98HYxX,,,,,anonymous,EN,Yes,60d3736964ea8092eba95633,Chrome,91.0.4472.106,Windows NT 10.0,1366x768,Real,Fake,Fake,Fake,7
+7/5/2021 12:35,7/5/2021 12:44,IP Address,100,494,TRUE,7/5/2021 12:44,R_2tg7W83zxZczh7H,,,,,anonymous,EN,Yes,5733c6c2edc1fe117456c016,Safari,13.1.2,Macintosh,1440x900,Fake,Fake,Real,Fake,7
+7/5/2021 14:04,7/5/2021 14:06,IP Address,100,150,TRUE,7/5/2021 14:06,R_URYqEzDAPPSH1sZ,,,,,anonymous,EN,Yes,5d3758292faa0d0016797c0f,Chrome,91.0.4472.124,Windows NT 10.0,1280x720,Real,Fake,Fake,Real,7
+7/5/2021 15:18,7/5/2021 15:28,IP Address,100,571,TRUE,7/5/2021 15:28,R_1NkNp0ibqEFyS30,,,,,anonymous,EN,Yes,57d967335e1b5f0001d2d2a1,Safari,13.1.3,Macintosh,1280x800,Real,Fake,Real,Fake,7
+7/5/2021 18:04,7/5/2021 18:14,IP Address,100,603,TRUE,7/5/2021 18:14,R_31S429BkzNmZtT2,,,,,anonymous,EN,Yes,55b6c858fdf99b437183f996,Chrome,91.0.4472.114,Macintosh,1920x1080,Real,Fake,Fake,Fake,7
+7/6/2021 6:36,7/6/2021 6:58,IP Address,100,1341,TRUE,7/6/2021 6:58,R_3qpvTNRGaYILdKn,,,,,anonymous,EN,Yes,5d8ea1335c4d710019150d76,Chrome,91.0.4472.124,Windows NT 10.0,1920x1080,Real,Fake,Fake,Fake,7
+7/6/2021 7:16,7/6/2021 7:24,IP Address,100,464,TRUE,7/6/2021 7:24,R_1QfuiyBUboSeJR1,,,,,anonymous,EN,Yes,60c54f176335311a2d957f62,Chrome,91.0.4472.114,Macintosh,1920x1080,Real,Fake,Fake,Real,7
+7/6/2021 12:54,7/6/2021 13:05,IP Address,100,652,TRUE,7/6/2021 13:05,R_3lKalTewGQwEwfM,,,,,anonymous,EN,Yes,5591a1e4fdf99b4fdf6157a3,Chrome,91.0.4472.124,Windows NT 10.0,1366x768,Fake,Fake,Fake,Real,7
+7/6/2021 14:16,7/6/2021 14:22,IP Address,100,341,TRUE,7/6/2021 14:22,R_2mi6jLFhNtBOCoF,,,,,anonymous,EN,Yes,60d7199f88ea85b1e5790d58,Chrome,76.0.3809.136,CrOS x86_64 12239.92.0,1366x768,Real,Fake,Fake,Fake,7
+7/6/2021 6:47,7/6/2021 6:51,IP Address,31,240,FALSE,7/7/2021 6:51,R_3fJ2EKYHPH8twdd,,,,,anonymous,EN,Yes,60d7c9f8946ccb83c7722b33,Chrome,91.0.4472.124,Windows NT 10.0,2560x1440,,,,,
+7/7/2021 9:06,7/7/2021 9:16,IP Address,100,622,TRUE,7/7/2021 9:16,R_2R3LMi2aHs8gU2r,,,,,anonymous,EN,Yes,60a1cc39a4f7231276a90b00,Chrome,91.0.4472.124,Windows NT 10.0,1500x1000,Fake,Fake,Fake,Fake,7
+7/7/2021 18:19,7/7/2021 18:33,IP Address,100,851,TRUE,7/7/2021 18:33,R_3n5SUL56ZnuXf8r,,,,,anonymous,EN,Yes,56d7403f04c67d000c7b2d2a,Chrome,91.0.4472.124,Windows NT 6.3,1600x900,Real,Fake,Fake,Real,7
+7/7/2021 19:28,7/7/2021 19:36,IP Address,100,462,TRUE,7/7/2021 19:36,R_1CkXxqSIvhgVRJJ,,,,,anonymous,EN,Yes,60d0930e6eff260f21c164ba,Chrome,90.0.4430.93,Windows NT 10.0,1536x864,Fake,Fake,Real,Fake,7
+7/7/2021 21:52,7/7/2021 22:00,IP Address,100,491,TRUE,7/7/2021 22:00,R_83b7jfs3Vtz1FqV,,,,,anonymous,EN,Yes,5e589bf82e08c90a78a29bbe,Safari,14.1.1,Macintosh,1440x900,Fake,Fake,Real,Real,7
+7/8/2021 6:29,7/8/2021 6:37,IP Address,100,492,TRUE,7/8/2021 6:37,R_39ODBd5nCxblTjj,,,,,anonymous,EN,Yes,60c6763c59d54c30ff0479e6,Safari iPhone,14.1.1,iPhone,428x926,Fake,Fake,Real,Real,7
