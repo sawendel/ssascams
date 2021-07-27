@@ -53,7 +53,8 @@ def processRainloopData(dataDir, dataFileName_p1, dataFileName_p2, surveyVersion
     # Subset events to the ones for this purpose
     # events = events.loc[events.RESEARCH_NAME_clean.isin(dynamoResearchNames)].copy()
 
-    emailIdMapping = {"ssaInfo-1": 'ImportantInformation',
+TODO -- check that ALL messages have at least a few correct answers
+        emailIdMapping = {"ssaInfo-1": 'ImportantInformation',
                       "AmazonPay-1": 'AmazonPayment',
                       "AmazonMask-1": 'AmazonDelay',
                       "Redcross-1": 'RedCross',
@@ -184,9 +185,9 @@ def readData(surveyVersion):
         dataFileName_p1 = surveyOutputFilesByVersion['5P']
         # dataFileName_prolific = "prolific_export_SSA_v4_Wave2NatRep_6099c49373d406738c79f948.csv"
 
-        if False:
+        if True:
             dataFileName_p2 = "V5_1_WithDelay_Rainloop_ProlificPopulation/SSA_v5_Part2_Prolific_Rainloop_July 8, 2021_17.10_clean.csv"
-            dataFileName_p2wave3 = "V5_1_WithDelay_Rainloop_ProlificPopulation/SSA_v5_Part2_Wave3_Rainloop_Prolific_July 14, 2021_16.22_clean.csv"
+            dataFileName_p2wave3 = "V5_1_WithDelay_Rainloop_ProlificPopulation/SSA_v5_Part2_Wave3_Rainloop_Prolific_July 17, 2021_14.03_clean.csv"
 
             dataFileName_p2_1 = pd.read_csv(dataDir + dataFileName_p2, dtype={'pid': str})
             dataFileName_p2_2 = pd.read_csv(dataDir + dataFileName_p2wave3, dtype={'pid': str})
@@ -240,14 +241,27 @@ def readData(surveyVersion):
         dta.loc[(dta.StartDate >= '5/9/2021 23:59'), 'Wave'] = 2
         dta.loc[(dta.StartDate_p2 >= '5/20/2021 01:01'), 'Wave'] = 3
     elif surveyVersion == '5P': # Prolific
-        dta.loc[(dta.StartDate < '6/25/2021 01:01'), 'Wave'] = 1
-        dta.loc[(dta.StartDate >= '6/25/2021 01:01'), 'Wave'] = 2
+        dta.loc[(dta.StartDate_p2 >= '7/14/2021 01:01'), 'Wave'] = 3
+        dta.loc[(dta.StartDate_p2 <= '7/14/2021 01:01'), 'Wave'] = 2
+        dta.loc[(dta.StartDate_p2 < '6/30/2021 01:01'), 'Wave'] = 1
     elif surveyVersion == '5D': # Dynata
         dta['Wave'] = 1
     else:
         dta.Wave = 1
 
     # print(dta.Wave.value_counts(dropna=False))
+
+    dta.rename(columns={'Previous Fraud':'previousFraud',    # From V5
+                        'Previously_Targeted':'previousFraud', 'Lost_Money':'lose_money', # From v4
+                        'Duration (in seconds)':'duration_p1',
+                        'Duration (in seconds)_p2':'duration_p2'}, inplace=True)
+
+    dta['previousFraudYN'] = ~dta.previousFraud.isna()
+    dta['lose_moneyYN'] = dta.lose_money == "Yes"
+    dta['duration_p1_Quantile'] = pd.qcut(dta.duration_p1, q=5, labels=False)
+    dta['duration_p2_Quantile'] = pd.qcut(dta.duration_p2, q=5, labels=False)
+
+    dta['daysFromTrainingToTest'] = (dta['StartDate_p2'].astype('datetime64') - dta['StartDate'].astype('datetime64')).dt.days
 
     return (dta, priorPids)
 
@@ -268,7 +282,8 @@ def cleanData(dta, priorPids, surveyVersion, testQuestions):
         dta.loc[(dta['cleanStatus'] == "Keep") & (dta['Progress_p2'].isna()), 'cleanStatus'] = 'No Second Round'
         dta.loc[(dta['cleanStatus'] == "Keep") & (dta['Progress_p2'] <= 95), 'cleanStatus'] = 'Incomplete Round 2'
     elif surveyVersion == '5P' or surveyVersion == '5D':
-        dta.loc[(dta['cleanStatus'] == "Keep") & (dta['Duration (in seconds)'] < 60*2), 'cleanStatus'] = 'Too Fast'
+        dta.loc[(dta['cleanStatus'] == "Keep") & (dta['duration_p1'] < 60*2), 'cleanStatus'] = 'Too Fast'
+        dta.loc[(dta['cleanStatus'] == "Keep") & (dta['Progress_p2'].isna()), 'cleanStatus'] = 'No Second Round'
         dta.loc[(dta['cleanStatus'] == "Keep") & (dta['Progress_p2'] <= 95), 'cleanStatus'] = 'Incomplete Round 2'
         dta.loc[(dta['cleanStatus'] == "Keep") & (dta['Consent_p2'] == 'No'), 'cleanStatus'] = 'No Consent Round 2'
 
@@ -297,11 +312,11 @@ def cleanData(dta, priorPids, surveyVersion, testQuestions):
     if (debugging):
         dta.cleanStatus.value_counts(dropna=False)
 
-        dta['Duration (in seconds)'].describe()
-        dta.loc[dta.surveyArm == "arm1_control", 'Duration (in seconds)'].describe()
-        dta.loc[dta.surveyArm == "arm2_generalinfo", 'Duration (in seconds)'].describe()
-        dta.loc[dta.surveyArm == "arm3_tips", 'Duration (in seconds)'].describe()
-        dta.loc[dta.surveyArm == "arm4_training", 'Duration (in seconds)'].describe()
+        dta['duration_p1'].describe()
+        dta.loc[dta.surveyArm == "arm1_control", 'duration_p1'].describe()
+        dta.loc[dta.surveyArm == "arm2_generalinfo", 'duration_p1'].describe()
+        dta.loc[dta.surveyArm == "arm3_tips", 'duration_p1'].describe()
+        dta.loc[dta.surveyArm == "arm4_training", 'duration_p1'].describe()
 
         dta.numReal.value_counts(dropna=False)
         dta.loc[(dta['cleanStatus'] == "Keep") & (dta.numReal == len(testQuestions.keys())), 'cleanStatus'] = 'Straightline_Real'
@@ -353,9 +368,12 @@ def processDemographics(dta):
                         "African American or African (Non-Hispanic)":'B',
                                                "Asian American or Asian":'A',
                                                "Native American, Native Hawaiian or Pacific Islander":'O',
-
                                         "White or Caucasian (Non-Hispanic),Hispanic": 'H',
                                         "White or Caucasian (Non-Hispanic),Native American, Native Hawaiian or Pacific Islander": 'O',
+                                        'White or Caucasian (Non-Hispanic),African American or African (Non-Hispanic)':'B',
+                                        'White or Caucasian (Non-Hispanic),African American or African (Non-Hispanic),Native American, Native Hawaiian or Pacific Islander':'O',
+                                        'Asian American or Asian,Hispanic':'O',
+                                        'Asian American or Asian,African American or African (Non-Hispanic)':'O',
                                         "White or Caucasian (Non-Hispanic),Asian American or Asian":'A',
                         "I prefer not to say":'O'})
     dta['employment3'] = dta['Employment'].replace({"Employed, working 1-29 hours per week": 'U',

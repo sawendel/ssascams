@@ -26,7 +26,6 @@ c) Log into GoPhish, click on your group, and ensure that the sample users were 
 d) Log into RainLoop 
 
 
-
 4) Provide the survey to participants
 a) Send them to first wave of the survey - covering the training process.
 b) Check that the 
