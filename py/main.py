@@ -36,12 +36,13 @@ def doIt(surveyVersion):
     if (surveyVersion in ['5D', '5P']):
         scoringVars = scoringVars + ['NumHeadersOpened']
 
-    analyzeResults(dta, outputFileName = surveyVersion, scoringVars = scoringVars, surveyVersion = surveyVersion)
+    analyzeResults(dta, outputFileName = surveyVersion, scoringVars = scoringVars, surveyVersion = surveyVersion,
+                   primaryOnly= True)
 
 
 
-# Press the green button in the gutter to run the script.
+# Default "Main"
 if __name__ == '__main__':
-    doIt("4")
+    doIt("6")
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

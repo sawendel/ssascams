@@ -33,7 +33,7 @@ def processRainloopData(dataDir, dataFileName_p1, dataFileName_p2, surveyVersion
     # new_str = re.sub('[^\x00-\x7F]+', ' ', string)
     # open(dataDir + "SSA_v5_emails_ascii.json", 'w').write(new_str)
 
-    emails = pd.read_json(dataDir + "V5_Shared/SSA_v5_emails.json", orient='records')
+    emails = pd.read_json(dataDir + "Shared/emails.json", orient='records')
     for field in ['USER_ID', 'EMAIL', 'GOPHISH_GROUP_NAME', 'RESEARCHER_NAME', 'INTERVENTION_ID', 'RESEARCH_NAME','LOGIN_LINK', 'FIRST_NAME']:
         emails[field + '_clean'] = emails[field].apply(
             lambda x: "" if ((x is np.NaN) or (x == "")) else (x.get('S') if isinstance(x, dict) else str(x)))
@@ -44,7 +44,7 @@ def processRainloopData(dataDir, dataFileName_p1, dataFileName_p2, surveyVersion
     dta = dta.merge(emails, left_on="PID", right_on="USER_ID_clean", how="left", suffixes=["", "_emails"])
     dta['NoMatchingDynamoEmail'] = dta.USER_ID.isna()
 
-    events = pd.read_json(dataDir + "V5_Shared/SSA_v5_User_Events.json", orient='records')
+    events = pd.read_json(dataDir + "Shared/User_Events.json", orient='records')
     for field in ['EVENT', 'MODE', 'USER_ID', 'EMAIL_ID', 'RESEARCH_NAME', 'POSTTIME', 'USERID_MAILID',
                   'RESEARCHER_NAME', 'INTERVENTION_ID']:
         events[field + '_clean'] = events[field].apply(
@@ -53,8 +53,8 @@ def processRainloopData(dataDir, dataFileName_p1, dataFileName_p2, surveyVersion
     # Subset events to the ones for this purpose
     # events = events.loc[events.RESEARCH_NAME_clean.isin(dynamoResearchNames)].copy()
 
-TODO -- check that ALL messages have at least a few correct answers
-        emailIdMapping = {"ssaInfo-1": 'ImportantInformation',
+    ## TODO -- check that ALL messages have at least a few correct answers
+    emailIdMapping = {"ssaInfo-1": 'ImportantInformation',
                       "AmazonPay-1": 'AmazonPayment',
                       "AmazonMask-1": 'AmazonDelay',
                       "Redcross-1": 'RedCross',
@@ -158,7 +158,9 @@ def readData(surveyVersion):
                    '3': "V3_ImmediateTest_AllQualtrics_ProlificPopulation/SSA_v3_asFielded_ExtractedMay 9, 2021_clean.csv",
                    '4': "V4_WithDelay_AllQualtrics_ProlificPopulation/SSA_v4_asFielded_Part1_ExtractedMay 13, 2021.csv",
                   '5P': "V5_1_WithDelay_Rainloop_ProlificPopulation/SSA_v5_Part1_Prolific_July 8, 2021_17.29_clean.csv",
-                  '5D': "V5_2_WithDelay_Rainloop_DynataPopulation/SSA_v5_Part1_Dynata_June 28, 2021_18.36_clean.csv"}
+                  '5D': "V5_2_WithDelay_Rainloop_DynataPopulation/SSA_v5_Part1_Dynata_June 28, 2021_18.36_clean.csv",
+                  '6': "v6/SSA_v6_Part1_Prolific_August 16, 2021_20.15_clean.csv"}
+
 
     # ###############
     # Get the data
@@ -208,6 +210,12 @@ def readData(surveyVersion):
 
         (dta, priorPids) = processRainloopData(dataDir, dataFileName_p1, dataFileName_p2, surveyVersion,  surveyOutputFilesByVersion, dynamoResearchNames)
 
+    elif surveyVersion == '6':
+        dataFileName_p1 = surveyOutputFilesByVersion['6']
+        dataFileName_p2 = "v6/SSA_v6_Part2_Rainloop_Prolific_August 22, 2021_06.41_clean.csv"
+        dynamoResearchNames = ["SSA Fraud v6 Prolific"]
+
+        (dta, priorPids) = processRainloopData(dataDir, dataFileName_p1, dataFileName_p2, surveyVersion,  surveyOutputFilesByVersion, dynamoResearchNames)
 
     outputFileName = "SSA_v" + str(surveyVersion)
 
@@ -216,6 +224,14 @@ def readData(surveyVersion):
 
     # Some early data had this arm mislabeled
     dta.surveyArm.replace({"notSet": "arm4_training"}, inplace=True)
+
+    # I changed the names in v6, to be clearer. Update the rest to follow
+    dta.surveyArm.replace({
+        "arm2_generalinfo": "arm2_written_techniques",
+        "arm3_tips": "arm3_existingssa",
+        "arm4_training": "arm4_interactive_training",
+    }, inplace=True)
+
     dta.surveyArm.fillna(value="Unknown", inplace=True)
 
     # Mark the Various Waves of the Study
@@ -226,6 +242,8 @@ def readData(surveyVersion):
     # ###############
 
     dta['Wave'] = None
+    dta['IsPrimaryWave'] = False
+
     if surveyVersion == '3':
         # Small tests to see if it was working
         dta.loc[(dta.StartDate < '2021-05-08 10:00'), 'Wave'] = 1
@@ -236,18 +254,34 @@ def readData(surveyVersion):
         dta.loc[(dta.StartDate >= '2021-05-08 17:00') & (dta.StartDate < '2021-05-08 23:59'), 'Wave'] = 4
         # 5: Mobile Only Version of 1; Has Updated Files meant for Study Version 4
         dta.loc[(dta.StartDate >= '2021-05-09 08:00') & (dta.StartDate < '2021-05-10 10:00'), 'Wave'] = 5
+
+        dta.loc[dta.Wave == 3, "IsPrimaryWave"] = True
+
     elif surveyVersion == '4':
         dta.loc[(dta.StartDate < '5/9/2021 23:59'), 'Wave'] = 1
         dta.loc[(dta.StartDate >= '5/9/2021 23:59'), 'Wave'] = 2
         dta.loc[(dta.StartDate_p2 >= '5/20/2021 01:01'), 'Wave'] = 3
+
+        dta.loc[dta.Wave.isin([2, 3]), "IsPrimaryWave"] = True
+
     elif surveyVersion == '5P': # Prolific
         dta.loc[(dta.StartDate_p2 >= '7/14/2021 01:01'), 'Wave'] = 3
         dta.loc[(dta.StartDate_p2 <= '7/14/2021 01:01'), 'Wave'] = 2
         dta.loc[(dta.StartDate_p2 < '6/30/2021 01:01'), 'Wave'] = 1
+        dta['IsPrimaryWave'] = True
+
     elif surveyVersion == '5D': # Dynata
         dta['Wave'] = 1
+        dta['IsPrimaryWave'] = True
+
+    elif surveyVersion == '6':  # Final Prolific
+        dta['Wave'] = 1
+        dta.loc[(dta.StartDate < '8/1/2021 23:59'), 'Wave'] = 1
+        dta.loc[(dta.StartDate >= '8/1/2021 23:59'), 'Wave'] = 2
+        dta.loc[dta.Wave == 2, "IsPrimaryWave"] = True
     else:
         dta.Wave = 1
+        dta['IsPrimaryWave'] = True
 
     # print(dta.Wave.value_counts(dropna=False))
 
@@ -314,9 +348,9 @@ def cleanData(dta, priorPids, surveyVersion, testQuestions):
 
         dta['duration_p1'].describe()
         dta.loc[dta.surveyArm == "arm1_control", 'duration_p1'].describe()
-        dta.loc[dta.surveyArm == "arm2_generalinfo", 'duration_p1'].describe()
-        dta.loc[dta.surveyArm == "arm3_tips", 'duration_p1'].describe()
-        dta.loc[dta.surveyArm == "arm4_training", 'duration_p1'].describe()
+        dta.loc[dta.surveyArm == "arm2_written_techniques", 'duration_p1'].describe()
+        dta.loc[dta.surveyArm == "arm3_existingssa", 'duration_p1'].describe()
+        dta.loc[dta.surveyArm == "arm4_interactive_training", 'duration_p1'].describe()
 
         dta.numReal.value_counts(dropna=False)
         dta.loc[(dta['cleanStatus'] == "Keep") & (dta.numReal == len(testQuestions.keys())), 'cleanStatus'] = 'Straightline_Real'
