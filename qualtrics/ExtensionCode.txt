@@ -1,0 +1,49 @@
+Qualtrics Extension Code
+
+
+## Code to open up Rainloop interface, with User name and password Prefilled
+<script> 
+Qualtrics.SurveyEngine.addOnload(function()
+{
+/*Place your JavaScript here to run when the page loads*/
+function NewTab() { 
+$myQ2Val = "${q://QID42/ChoiceTextEntryValue}";
+const encodedData = window.btoa($myQ2Val);
+var fullUrl = "http://3.20.89.142:7000?email=" + encodedData + "QGJlaGF2aW9yYWxzdXJ2ZXkuY29t&pass=UGFzc3dvcmQxMjM0Kg==";
+setEmbeddedData ( "rainloopURL", fullUrl )
+window.open(fullUrl , "_blank"); 
+    }
+NewTab();
+});
+</script>
+
+
+
+//ADDING THE SET OVERLAY MESSAGES
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+// var params = window.location.search.substring(1);
+var displayTheOverlays = false;
+if (urlParams.has('showOverlays')) {
+	var theParam = urlParams.get('showOverlays');
+	if (theParam == 'true') {
+		displayTheOverlays = true;
+	}
+}
+
+
+// Fill in the name, if there is a space for it & we have a name to put in
+const nameElement = document.getElementById('nametofill')
+if (nameElement && urlParams.has('name')) {
+	var theNewName = urlParams.get('name');
+	if (theNewName && theNewName.length > 1) {
+		nameElement.textContent = theNewName;
+	}
+}
+
+
+
+
+
+
+
