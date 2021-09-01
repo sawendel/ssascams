@@ -1,65 +1,53 @@
 version: '2'
 services:
-  gophish: 
+  gophish:
     build:
       context: ./.docker/gophish
     hostname: gophish
     container_name: gophishserver
     expose:
       - 3333
-      - 643
+      - 80
     depends_on:
       - db
-      - mail
     volumes:
-      - /Users/nahomymoya/Documents/SSScams/sscams-docker/gophish/mailer:/opt/gophish/mailer
-      - /Users/nahomymoya/Documents/SSScams/sscams-docker/gophish/models:/opt/gophish/models
-      - /Users/nahomymoya/Documents/SSScams/sscams-docker/gophish/controllers/api:/opt/gophish/controllers/api
-      - /Users/nahomymoya/Documents/SSScams/sscams-docker/gophish/worker:/opt/gophish/worker
-      - /Users/nahomymoya/Documents/SSScams/sscams-docker/gophish/docker:/opt/gophish/docker
+     # - ./gophish/mailer:/opt/gophish/mailer
+     # - ./gophish/models:/opt/gophish/models
+     # - ./gophish/controllers/api:/opt/gophish/controllers/api
+     # - ./gophish/worker:/opt/gophish/worker
+     # - ./gophish/docker:/opt/gophish/docker
+      - ./gophish:/opt/gophish
     ports:
-    - "3333:3333"
-    - "643:443"
-  # gophish: 
-  #   image: gophish/gophish
-  #   hostname: gophish
-  #   container_name: rl.gophish
-  #   ports:
-  #   - "3333:3333"
-  #   - "643:443"
-
-  mail:
-    image: iredmail/mariadb:stable
-    hostname: mail.behavior.com
-    container_name: iredmail
-    domainname: test-mailclient.com
-    restart: always
-    env_file: 
-      - iredmail-docker.conf 
-    ports:
-      - "80:80"
-      - "443:443"
-      - "110:110" 
-      - "995:995"
-      - "243:143"
-      - "993:993"
-      - "25:25" 
-      - "465:465"
-      - "587:587"
-      - "3305:3306"
-    volumes:
-      - /Users/nahomymoya/Documents/SSScams/sscams-docker/data/backup:/var/vmail/backup 
-      - /Users/nahomymoya/Documents/SSScams/sscams-docker/data/mailboxes:/var/vmail/vmail1 
-      - /Users/nahomymoya/Documents/SSScams/sscams-docker/data/mlmmj:/var/vmail/mlmmj 
-      - /Users/nahomymoya/Documents/SSScams/sscams-docker/data/imapsieve_copy:/var/vmail/imapsieve_copy 
-      - /Users/nahomymoya/Documents/SSScams/sscams-docker/data/custom:/opt/iredmail/custom 
-      - /Users/nahomymoya/Documents/SSScams/sscams-docker/data/ssl:/opt/iredmail/ssl 
-      - /Users/nahomymoya/Documents/SSScams/sscams-docker/data/mysql:/var/lib/mysql 
-      - /Users/nahomymoya/Documents/SSScams/sscams-docker/data/clamav:/var/lib/clamav
-      - /Users/nahomymoya/Documents/SSScams/sscams-docker/data/sa_rules:/var/lib/spamassassin 
-      - /Users/nahomymoya/Documents/SSScams/sscams-docker/data/postfix_queue:/var/spool/postfix
-
-     
+      - 3333:3333
+ mail:
+   image: iredmail/mariadb:stable
+   hostname: mail.behavior.com
+   container_name: iredmail
+   domainname: test-mailclient.com
+   restart: always
+   env_file:
+     - iredmail-docker.conf
+   ports:
+     - "80:80"
+     - "443:443"
+     - "110:110"
+     - "995:995"
+     - "243:143"
+     - "993:993"
+     - "465:465"
+     - "587:587"
+     - "3306:3306"
+   volumes:
+     - ./data/backup:/var/vmail/backup
+     - ./data/mailboxes:/var/vmail/vmail1
+     - ./data/mlmmj:/var/vmail/mlmmj
+     - ./data/imapsieve_copy:/var/vmail/imapsieve_copy
+     - ./data/custom:/opt/iredmail/custom
+     - ./data/ssl:/opt/iredmail/ssl
+     - ./data/mysql:/var/lib/mysql
+     - ./data/clamav:/var/lib/clamav
+     - ./data/sa_rules:/var/lib/spamassassin
+     - ./data/postfix_queue:/var/spool/postfix
   db:
     image: mysql:5.7
     hostname: db
@@ -82,7 +70,7 @@ services:
       - 9000
     depends_on:
       - db
-      - mail
+     - mail
     volumes:
       - ./:/var/www
       # - ./build/local/:/var/www
@@ -114,8 +102,3 @@ volumes:
     driver: local
   tmp:
     driver: local
-
-# networks:
-#   default:
-#     external:
-#       name: mailcowdockerized_mailcow-network 

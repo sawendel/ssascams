@@ -1,4 +1,3 @@
-use vmail;
 DROP PROCEDURE IF EXISTS sscams_registermailbox;
 DELIMITER $$
 
@@ -104,3 +103,56 @@ CREATE TABLE IF NOT EXISTS `vmail`.`groups_per_campaign` (
 )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1;
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `vmail`.`sscams_groupstosend` (
+  groupname VARCHAR(120) NOT NULL,
+  sendit SMALLINT NOT NULL DEFAULT(0)
+)
+ENGINE = InnoDB;
+
+DROP PROCEDURE IF EXISTS lunchmailgroup;
+
+DELIMITER //
+
+CREATE PROCEDURE lunchmailgroup(pGroupName VARCHAR(120))
+BEGIN 
+	DECLARE groupfound VARCHAR(120);
+    SET groupfound = NULL;
+    
+    START TRANSACTION;
+		SELECT groupname INTO groupfound FROM sscams_groupstosend WHERE groupname = pGroupName;
+		
+		IF ISNULL(groupfound) THEN
+			INSERT INTO sscams_groupstosend (groupname, sendit) VALUES (pGroupName, 1);
+		ELSE
+			UPDATE sscams_groupstosend SET sendit = 1 WHERE groupname = pGroupName;
+		END IF;
+	COMMIT;
+END //
+
+DROP PROCEDURE IF EXISTS checkgroupstosend //
+
+CREATE PROCEDURE checkgroupstosend()
+BEGIN 
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+		DROP TEMPORARY TABLE groupstosend;
+	END;
+    
+	START TRANSACTION;
+		CREATE TEMPORARY TABLE groupstosend
+		SELECT groupname FROM sscams_groupstosend WHERE sendit = 1;
+
+		UPDATE sscams_groupstosend SET sendit = 0 WHERE groupname IN (SELECT groupname FROM groupstosend);
+		
+		SELECT DISTINCT tosend.groupname, camp.campaignid FROM groupstosend tosend 
+        INNER JOIN groups_per_campaign camp ON TRIM(camp.groupname) = TRIM(tosend.groupname);
+		
+	COMMIT;
+END //
+
+DELIMITER ;
