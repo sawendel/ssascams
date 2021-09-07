@@ -225,11 +225,12 @@
 						<div class="subjectParent">
 							<button class="close" data-bind="command: closeMessageCommand" style="margin-top: -2px;">&times;</button>
 							<span class="infoParent g-ui-user-select-none">
-								<i class="icon-info" style="padding-top: 1px;"></i>
+								<!-- <i class="icon-info" style="padding-top: 1px;"></i> -->
+								<p id="viewHeaders" style="display:inline-block; font-size: 14px; border: 1px solid black;padding: 1px 5px; margin-right: 10px;border-radius: 12px;">View Headers</p>
 							</span>
-							<span class="flagParent g-ui-user-select-none">
+							<!-- <span class="flagParent g-ui-user-select-none">
 								<i class="icon-star-empty flagOff" data-bind="css: {'icon-star flagOn': viewIsFlagged, 'icon-star-empty flagOff': !viewIsFlagged()}" style="padding-top: 2px;"></i>
-							</span>
+							</span> -->
 							<b style="color: red; margin-right: 5px" data-bind="visible: viewIsImportant">!</b>
 							<span class="subject" data-bind="text: viewSubject, title: viewSubject, event: { 'dblclick': toggleFullScreen }"></span>
 							<span class="i18n emptySubjectText" data-i18n="MESSAGE/EMPTY_SUBJECT_TEXT" data-bind="event: { 'dblclick': toggleFullScreen }"></span>
