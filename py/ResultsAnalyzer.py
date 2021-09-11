@@ -5,6 +5,7 @@ from swstats import *
 from scipy.stats import ttest_ind
 import xlsxwriter
 from statsmodels.stats.multitest import multipletests
+from statsmodels.stats.proportion import proportions_ztest
 
 debugging = False
 
@@ -20,7 +21,7 @@ def pToSign(pval):
     else:
         return ""
 
-def analyzeExperiment(dta, varName):
+def analyzeExperiment_ContinuousVar(dta, varName):
 
     order_value_control_group = dta.loc[dta.surveyArm == "arm1_control", varName]
     order_value_arm2_group = dta.loc[dta.surveyArm == "arm2_written_techniques", varName]
@@ -86,6 +87,74 @@ def analyzeExperiment(dta, varName):
 
     return results
 
+def analyzeExperiment_BinaryVar(dta, varName):
+
+    order_value_control_group = dta.loc[dta.surveyArm == "arm1_control", varName]
+    order_value_arm2_group = dta.loc[dta.surveyArm == "arm2_written_techniques", varName]
+    order_value_arm3_group = dta.loc[dta.surveyArm == "arm3_existingssa", varName]
+    order_value_arm4_group = dta.loc[dta.surveyArm == "arm4_interactive_training", varName]
+
+    # Arm 1
+    arm1Successes = sum(order_value_control_group.isin([True, 1]))
+    arm1Count = sum(order_value_control_group.isin([True, False, 1, 0]))
+    arm1PercentSuccess = arm1Successes/arm1Count
+    arm1text = "" + "{:.2f}".format(arm1PercentSuccess) + " (" + "{:.0f}".format(arm1Successes) + ")"
+
+    # Effect of Arm 2
+    arm2Successes = sum(order_value_arm2_group.isin([True, 1]))
+    arm2Count = sum(order_value_arm2_group.isin([True, False, 1, 0]))
+    arm2PercentSuccess = arm2Successes/arm2Count
+    zstat, pval2 = proportions_ztest(count=[arm1Successes,arm2Successes], nobs=[arm1Count,arm2Count], alternative='two-sided')
+    arm2sign = pToSign(pval2)
+    arm2text = "" + "{:.2f}".format(arm2PercentSuccess) + " (" + "{:.0f}".format(arm2Successes) + ")" + arm2sign + " p:"  + "{:.3f}".format(pval2)
+
+    # Effect of Arm 3
+    arm3Successes = sum(order_value_arm3_group.isin([True, 1]))
+    arm3Count = sum(order_value_arm3_group.isin([True, False, 1, 0]))
+    arm3PercentSuccess = arm3Successes/arm3Count
+    zstat, pval3 = proportions_ztest(count=[arm1Successes,arm3Successes], nobs=[arm1Count,arm3Count], alternative='two-sided')
+    arm3sign = pToSign(pval3)
+    arm3text = "" + "{:.2f}".format(arm3PercentSuccess) + " (" + "{:.0f}".format(arm3Successes) + ")" + arm3sign + " p:"  + "{:.3f}".format(pval3)
+
+    # Effect of Arm 4
+    arm4Successes = sum(order_value_arm4_group.isin([True, 1]))
+    arm4Count = sum(order_value_arm4_group.isin([True, False, 1, 0]))
+    arm4PercentSuccess = arm4Successes/arm4Count
+    zstat, pval4 = proportions_ztest(count=[arm1Successes,arm4Successes], nobs=[arm1Count,arm4Count], alternative='two-sided')
+    arm4sign = pToSign(pval4)
+    arm4text = "" + "{:.2f}".format(arm4PercentSuccess) + " (" + "{:.0f}".format(arm4Successes) + ")" + arm4sign + " p:"  + "{:.3f}".format(pval4)
+
+    # Correct P-values
+    y = multipletests(pvals=[pval2, pval3, pval4], alpha=0.05, method="holm")
+    # print(len(y[1][np.where(y[1] < 0.05)]))  # y[1] returns corrected P-vals (array)
+    sigWithCorrection = y[1] < 0.05
+    if sigWithCorrection[0]:
+        arm2text = arm2text + ",#"
+    if sigWithCorrection[1]:
+        arm3text = arm3text + ",#"
+    if sigWithCorrection[2]:
+        arm4text = arm4text + ",#"
+
+    # Additional checks
+    zstat, pval2to4 = proportions_ztest(count=[arm2Successes,arm4Successes], nobs=[arm2Count,arm4Count], alternative='two-sided')
+    arm2to4sign = pToSign(pval2to4)
+    arm2to4text = "" + "{:.2f}".format(arm4PercentSuccess - arm2PercentSuccess) + " " + arm2to4sign + " p:" + "{:.3f}".format(pval2to4)
+
+    zstat, pval3to4 = proportions_ztest(count=[arm3Successes,arm4Successes], nobs=[arm3Count,arm4Count], alternative='two-sided')
+    arm3to4sign = pToSign(pval3to4)
+    arm3to4text = "" + "{:.2f}".format(arm4PercentSuccess - arm3PercentSuccess) + " " + arm3to4sign + " p:" + "{:.3f}".format(pval3to4)
+
+    results = {"Outcome": varName,
+         "Arm1": arm1text,
+         "Arm2": arm2text,
+         "Arm3": arm3text,
+         "Arm4": arm4text,
+         "Arm2To4": arm2to4text,
+         "Arm3To4": arm3to4text,
+        }
+
+    return results
+
 def analyzeResults(dta, outputFileName, scoringVars, surveyVersion, primaryOnly=True):
 
     if primaryOnly:
@@ -128,10 +197,11 @@ def analyzeResults(dta, outputFileName, scoringVars, surveyVersion, primaryOnly=
     # ###############
     # RQ1: What is the effect?
     # ###############
-    row1 = analyzeExperiment(dta, "numCorrect")
-    row2 = analyzeExperiment(dta, "numFakeLabeledReal")
-    row3 = analyzeExperiment(dta, "numRealLabeledFake")
-    pd.DataFrame([row1, row2, row3]).to_excel(writer, sheet_name="r1", startrow=1, header=True, index=True)
+    row1 = analyzeExperiment_ContinuousVar(dta, "numCorrect")
+    row2 = analyzeExperiment_ContinuousVar(dta, "numFakeLabeledReal")
+    row3 = analyzeExperiment_ContinuousVar(dta, "numRealLabeledFake")
+    row4 = analyzeExperiment_ContinuousVar(dta, "percentCorrect")
+    pd.DataFrame([row1, row2, row3, row4]).to_excel(writer, sheet_name="r1", startrow=1, header=True, index=True)
 
     ##############
     # RQ1* Robustness check on result: is the experiment randomized correctly?
@@ -145,9 +215,9 @@ def analyzeResults(dta, outputFileName, scoringVars, surveyVersion, primaryOnly=
     # ###############
     # RQ2: Communication Type
     # ###############
-    row1 = analyzeExperiment(dta, "numEmailsCorrect")
-    row2 = analyzeExperiment(dta, "numSMSesCorrect")
-    row3 = analyzeExperiment(dta, "numLettersCorrect")
+    row1 = analyzeExperiment_ContinuousVar(dta, "numEmailsCorrect")
+    row2 = analyzeExperiment_ContinuousVar(dta, "numSMSesCorrect")
+    row3 = analyzeExperiment_ContinuousVar(dta, "numLettersCorrect")
     pd.DataFrame([row1, row2, row3]).to_excel(writer, sheet_name="r2", startrow=1, header=True, index=True)
 
     ##############
@@ -214,6 +284,38 @@ def analyzeResults(dta, outputFileName, scoringVars, surveyVersion, primaryOnly=
                        'C(employment3) + educYears + marriedI + ageYears + ageYearsSq + genderI + lose_moneyYN + duration_p2_Quantile ', data=dta).fit().summary().tables
     pd.DataFrame(resultTables[0]).to_excel(writer, sheet_name="reg_numLabeledFake", startrow=1, header=False, index=False)
     pd.DataFrame(resultTables[1]).to_excel(writer, sheet_name="reg_numLabeledFake", startrow=1 + len(resultTables[0]) + 2, header=False, index=False)
+
+    # ###############
+    # RQ6: Impostor Type
+    # ###############
+    row1 = analyzeExperiment_ContinuousVar(dta, "numCorrect_SSA")
+    row2 = analyzeExperiment_ContinuousVar(dta, "numCorrect_Other")
+    row3 = analyzeExperiment_ContinuousVar(dta, "numEmailsCorrect_SSA")
+    row4 = analyzeExperiment_ContinuousVar(dta, "numEmailsCorrect_Other")
+    pd.DataFrame([row1, row2, row3, row4]).to_excel(writer, sheet_name="r6", startrow=1, header=True, index=True)
+
+    # ###############
+    # RQ7: Likelihood of being tricked
+    # ###############
+    dta['isTrickedByFraud'] = dta.numFakeLabeledReal > 0
+    dta['isTrickedByAnySSAEmail'] = dta.numEmailsCorrect_SSA < max(dta.numEmailsCorrect_SSA)
+    dta['isTrickedByAnyNonSSAEmail'] = dta.numEmailsCorrect_Other < max(dta.numEmailsCorrect_Other)
+
+    row1 = analyzeExperiment_BinaryVar(dta, "isTrickedByFraud")
+    row2 = analyzeExperiment_BinaryVar(dta, "isTrickedByAnySSAEmail")
+    row3 = analyzeExperiment_BinaryVar(dta, "isTrickedByAnyNonSSAEmail")
+    pd.DataFrame([row1, row2, row3]).to_excel(writer, sheet_name="r7", startrow=1, header=True, index=True)
+
+    # ###############
+    # RQ8: Every Email
+    # ###############
+    filter_cols = [col for col in dta.columns if col.startswith('Correct_')]
+    theRows = []
+    for filter_col in filter_cols:
+        arow = analyzeExperiment_BinaryVar(dta, filter_col)
+        theRows = theRows + [arow]
+
+    pd.DataFrame(theRows).to_excel(writer, sheet_name="r8", startrow=1, header=True, index=True)
 
 
     # ##############

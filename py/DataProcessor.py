@@ -113,39 +113,39 @@ def processTwoPartQualtricsTestResults(dataDir, dataFileName_p1, dataFileName_p2
 
 def getTestQuestions(surveyVersion):
     if (surveyVersion == '1' or surveyVersion == '2'):
-        testQuestions = {'ImportantInformation': ('Real', 'Email'),
-                         'AmazonPayment': ('Fake', 'Email'),
-                         'AmazonDelay': ('Real', 'Email'),
-                         'RedCross': ('Fake', 'Email'),
-                         'Disability': ('Fake', 'Email'),
+        testQuestions = {'ImportantInformation': ('Real', 'Email', 'SSA'),
+                         'AmazonPayment': ('Fake', 'Email', 'Amazon'),
+                         'AmazonDelay': ('Real', 'Email', 'Amazon'),
+                         'RedCross': ('Fake', 'Email', 'RedCross'),
+                         'Disability': ('Fake', 'Email', 'Lawyer'),
                          }
     elif surveyVersion == '3':  # There was an unintentional mistake in the SSA_Optout and Replacement Card in v3
-        testQuestions = {'ImportantInformation': ('Real', 'Email'),
-                         'AmazonPayment': ('Fake', 'Email'),
-                         'AmazonDelay': ('Real', 'Email'),
-                         'RedCross': ('Fake', 'Email'),
-                         'Disability': ('Fake', 'Email'),
-                         'ssa_optout': ('Fake', 'Email'),
-                         'replacementCard': ('Fake', 'Email'),
-                         'annualReminderKLEW': ('Fake', 'Email'),
-                         'lt_medicare': ('Real', 'Letter'),
-                         'sms_disability': ('Fake', 'SMS'),
-                         'lt_suspension': ('Fake', 'Letter'),
-                         'sms_redcross': ('Real', 'SMS')
+        testQuestions = {'ImportantInformation': ('Real', 'Email', 'Amazon'),
+                         'AmazonPayment': ('Fake', 'Email', 'Amazon'),
+                         'AmazonDelay': ('Real', 'Email', 'Amazon'),
+                         'RedCross': ('Fake', 'Email', 'RedCross'),
+                         'Disability': ('Fake', 'Email', 'Lawyer'),
+                         'ssa_optout': ('Fake', 'Email', 'SSA'),
+                         'replacementCard': ('Fake', 'Email', 'SSA'),
+                         'annualReminderKLEW': ('Fake', 'Email', 'SSA'),
+                         'lt_medicare': ('Real', 'Letter', 'SSA'),
+                         'sms_disability': ('Fake', 'SMS', 'SSA'),
+                         'lt_suspension': ('Fake', 'Letter', 'SSA'),
+                         'sms_redcross': ('Real', 'SMS', 'RedCross')
                          }
     else:
-        testQuestions = {'ImportantInformation': ('Real', 'Email'),
-                         'AmazonPayment': ('Fake', 'Email'),
-                         'AmazonDelay': ('Real', 'Email'),
-                         'RedCross': ('Fake', 'Email'),
-                         'Disability': ('Fake', 'Email'),
-                         'ssa_optout': ('Fake', 'Email'),
-                         'replacementCard': ('Real', 'Email'),
-                         'annualReminderKLEW': ('Fake', 'Email'),
-                         'lt_medicare': ('Real', 'Letter'),
-                         'sms_disability': ('Fake', 'SMS'),
-                         'lt_suspension': ('Fake', 'Letter'),
-                         'sms_redcross': ('Real', 'SMS')
+        testQuestions = {'ImportantInformation': ('Real', 'Email', 'Amazon'),
+                         'AmazonPayment': ('Fake', 'Email', 'Amazon'),
+                         'AmazonDelay': ('Real', 'Email', 'Amazon'),
+                         'RedCross': ('Fake', 'Email', 'RedCross'),
+                         'Disability': ('Fake', 'Email', 'Lawyer'),
+                         'ssa_optout': ('Fake', 'Email', 'SSA'),
+                         'replacementCard': ('Real', 'Email', 'SSA'),
+                         'annualReminderKLEW': ('Fake', 'Email', 'SSA'),
+                         'lt_medicare': ('Real', 'Letter', 'SSA'),
+                         'sms_disability': ('Fake', 'SMS', 'SSA'),
+                         'lt_suspension': ('Fake', 'Letter', 'SSA'),
+                         'sms_redcross': ('Real', 'SMS', 'RedCross')
                          }
     return testQuestions
 
@@ -212,7 +212,7 @@ def readData(surveyVersion):
 
     elif surveyVersion == '6':
         dataFileName_p1 = surveyOutputFilesByVersion['6']
-        dataFileName_p2 = "v6/SSA_v6_Part2_Rainloop_Prolific_August 22, 2021_06.41_clean.csv"
+        dataFileName_p2 = "v6/SSA_v6_Part2_Rainloop_Prolific_September 8, 2021_19.12_clean.csv"
         dynamoResearchNames = ["SSA Fraud v6 Prolific"]
 
         (dta, priorPids) = processRainloopData(dataDir, dataFileName_p1, dataFileName_p2, surveyVersion,  surveyOutputFilesByVersion, dynamoResearchNames)
@@ -278,7 +278,9 @@ def readData(surveyVersion):
         dta['Wave'] = 1
         dta.loc[(dta.StartDate < '8/1/2021 23:59'), 'Wave'] = 1
         dta.loc[(dta.StartDate >= '8/1/2021 23:59'), 'Wave'] = 2
-        dta.loc[dta.Wave == 2, "IsPrimaryWave"] = True
+        dta.loc[(dta.StartDate_p2 >= '8/31/2021 10:00'), 'Wave'] = 3
+        dta.loc[dta.Wave.isin([2]), "IsPrimaryWave"] = True
+
     else:
         dta.Wave = 1
         dta['IsPrimaryWave'] = True
@@ -461,6 +463,11 @@ def markCorrectAnswers(dta, testQuestions):
     dta['numLettersCorrect'] = 0
     dta['numSMSesCorrect'] = 0
 
+    dta['numCorrect_SSA'] = 0
+    dta['numCorrect_Other'] = 0
+    dta['numEmailsCorrect_SSA'] = 0
+    dta['numEmailsCorrect_Other'] = 0
+
     dta['numLabeledReal'] = 0
     dta['numLabeledFake'] = 0
     dta['numNoAnswer'] = 0
@@ -472,6 +479,7 @@ def markCorrectAnswers(dta, testQuestions):
         # Get the correct answer
         correctAnswer = testQuestions[testQuestion][0]
         messageType = testQuestions[testQuestion][1]
+        messageSender = testQuestions[testQuestion][2]
 
         # Increment each peron's correct count if they go it
         correctMask = dta[testQuestion] == correctAnswer
@@ -483,6 +491,16 @@ def markCorrectAnswers(dta, testQuestions):
             dta.loc[correctMask, 'numLettersCorrect'] = 1 + dta.loc[correctMask, 'numLettersCorrect']
         elif messageType == "SMS":
             dta.loc[correctMask, 'numSMSesCorrect'] = 1 + dta.loc[correctMask, 'numSMSesCorrect']
+
+        if messageSender == "SSA":
+            dta.loc[correctMask, 'numCorrect_SSA'] = 1 + dta.loc[correctMask, 'numCorrect_SSA']
+            if messageType == "Email":
+                dta.loc[correctMask, 'numEmailsCorrect_SSA'] = 1 + dta.loc[correctMask, 'numEmailsCorrect_SSA']
+        else:
+            dta.loc[correctMask, 'numCorrect_Other'] = 1 + dta.loc[correctMask, 'numCorrect_Other']
+            if messageType == "Email":
+                dta.loc[correctMask, 'numEmailsCorrect_Other'] = 1 + dta.loc[correctMask, 'numEmailsCorrect_Other']
+
 
         # Create a new boolean var indicating, for each question, if they got it right
         dta['Correct_' + testQuestion] = (dta[testQuestion] == correctAnswer)
