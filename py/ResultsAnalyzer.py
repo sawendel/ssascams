@@ -170,7 +170,7 @@ def analyzeResults(dta, outputFileName, scoringVars, surveyVersion, primaryOnly=
     # ###############
 
     demographicVars = ['trustScore', 'TotalIncome', 'incomeAmount', 'Race', 'race5', 'employment3', 'educYears', 'Married', 'marriedI', 'Age', 'ageYears', 'Gender', 'genderI']
-    allSummaryVars = ["percentCorrect", "surveyArm", "Wave"] + scoringVars + demographicVars
+    allSummaryVars = ["percentCorrect", "surveyArm", "Wave", "daysFromTrainingToTest"] + scoringVars + demographicVars
 
     summaryStats = dta[allSummaryVars].describe()
 
